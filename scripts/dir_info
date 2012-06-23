@@ -1,0 +1,19 @@
+#!/bin/bash
+
+LEFT=25
+MIDDLE=10
+RIGHT=10
+FORMAT="%${LEFT}s : %${MIDDLE}s : %s \n"
+
+printf "$FORMAT" "directory" "num files" "size"
+printf "$FORMAT" "---------" "---------" "----"
+
+for dir in *
+do
+	if [ -d $dir ]
+	then
+		num_files=$(find $dir -type f | wc -l)
+		dir_size=$(du -sh $dir | awk '{ print $1}')
+		printf "$FORMAT" "$dir" "$num_files" "$dir_size"
+	fi
+done

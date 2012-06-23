@@ -1,0 +1,10 @@
+<!DOCTYPE oxiFeedRequest SYSTEM "commentary.dtd">
+	<oxiFeedRequest version="1.0" timestamp="2011-10-21+12:17">
+	<auth username="esaunder" password="esaunder01"/>
+	<event id="84729">
+		<clock action="start" period="1h">
+			<time>00:00:00</time>
+		</clock>
+	</event>
+</oxiFeedRequest>
+

@@ -1,0 +1,46 @@
+echo -n "Head(h) or Live(l)? "
+read -e source
+if [ "$source" = "h" ] ; then
+	cvs_dir="head"
+elif [ "$source" = "l" ] ; then
+	cvs_dir="live"
+else
+	echo "input fail" ; exit 1
+fi
+
+echo -n "Local shared_tcl? (y) "
+read -e st
+if [ "$st" = "y" ] ; then
+	st_dir="../.."
+else
+	st_dir="/space/shazleto/cvs_src/$cvs_dir"
+fi
+
+echo "..linking conf"
+ln -s /space/shazleto/cvs_src/$cvs_dir/conf
+cd admin
+echo "..linking admin_shazleto.cfg"
+ln -s ~/my_cfg/admin_shazleto.cfg
+echo "..linking admin_base.cfg"
+ln -s ../conf/admin/admin_base.cfg
+echo "..linking admin_mkt_props.cfg"
+ln -s ../conf/admin/admin_mkt_props.cfg
+echo "..linking box_specific"
+ln -s ../conf/admin/box_specific
+echo "..linking html"
+cd html
+echo "..linking office_lib"
+ln -s /space/shazleto/cvs_src/$cvs_dir/office/lib/html office_lib
+echo "..linking ovs"
+ln -s /space/shazleto/cvs_src/$cvs_dir/ovs/admin/html ovs
+echo "..linking tcl"
+cd ../tcl
+echo "..linking office_lib"
+ln -s /space/shazleto/cvs_src/$cvs_dir/office/lib/tcl office_lib
+echo "..linking ovs"
+ln -s /space/shazleto/cvs_src/$cvs_dir/ovs/admin/tcl ovs
+echo "..linking shared_pkg"
+ln -s /space/shazleto/cvs_src/$cvs_dir/shared_pkg
+echo "..linking shared_tcl"
+ln -s $st_dir/shared_tcl
+echo "..done!"
