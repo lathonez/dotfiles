@@ -1,0 +1,50 @@
+echo -n "Links source folder name (in /space/work/cvs_src): "
+read -e source
+cvs_dir=$source
+
+echo -n "Local shared_tcl? (y) "
+read -e st
+if [ "$st" = "y" ] ; then
+	st_dir="../.."
+else
+	st_dir="/space/work/cvs_src/$cvs_dir"
+fi
+
+echo "..linking conf"
+ln -s /space/work/cvs_src/$cvs_dir/conf
+cd cust
+echo "..linking cust_shazleto.cfg"
+ln -s /space/work/my_cfg/cust_shazleto_whd.cfg cust_shazleto.cfg
+echo "..linking cust_base.cfg"
+ln -s ../conf/cust/cust_base.cfg
+echo "..linking cust conf"
+ln -s ../conf/cust conf
+echo "..linking box_specific"
+ln -s conf/box_specific
+echo "..linking html"
+cd html
+echo "..linking cms_lib"
+ln -s /space/work/cvs_src/$cvs_dir/content-mgr/lib/html cms_lib
+echo "..linking cust_static"
+ln -s ../static cust_static
+echo "..linking office_static"
+ln -s /space/work/cvs_src/$cvs_dir/office/lib/static office_static
+echo "..linking tcl"
+cd ../tcl
+echo "..linking cms_lib"
+ln -s /space/work/cvs_src/$cvs_dir/content-mgr/lib/tcl cms_lib
+echo "..linking office_lib"
+ln -s /space/work/cvs_src/$cvs_dir/office/lib/tcl office_lib
+echo "..linking shared_tcl"
+ln -s $st_dir/shared_tcl
+echo "..linking shared_pkg"
+ln -s /space/work/cvs_src/$cvs_dir/shared_pkg
+echo "..linking willhill_shared"
+ln -s /space/work/cvs_src/$cvs_dir/willhill_shared
+	cd ../static
+	echo "..removing images"
+	rm -rf images
+	echo "..linking images"
+	ln -s /space/work/cvs_src/$cvs_dir/cust_images images
+echo "..done!"
+

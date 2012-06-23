@@ -1,0 +1,29 @@
+# office copy
+defscrollback 5000
+vbell off
+startup_message off
+hardstatus alwayslastline "%-Lw%{= BW}%50>%n%f* %t%{-}%+Lw%< %=%D %M %d %c"
+hardstatus string '%{= kK}%-Lw%{= KW}%50>%n%f %t%{= kK}%+Lw%< %{=kG}%-= %d%M %c:%s%{-}'
+sorendition gK
+activity              "activity in %n (%t) [%w:%s]~"
+bell                  "bell     in %n (%t) [%w:%s]~"
+vbell_msg             " *beep* "
+bindkey -k k5 prev
+bindkey -k k6 next
+shelltitle ''
+
+# create sessions and splits and ting
+screen -t window0 ssh -X shazleto@titan
+select window0
+split
+split -v
+focus down
+screen -t window1 ssh -X shazleto@titan
+select window1
+focus down
+screen -t window2 ssh -X shazleto@titan
+select window2
+resize -5n
+focus up
+focus up
+

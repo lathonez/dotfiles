@@ -1,0 +1,71 @@
+#!/opt/tcl8.4/bin/tclsh8.4 
+
+set laser [list 630489 630493]
+set mastercard [list 545043 452509 547300 543700 545460 543460 540459]
+set switch [list 675955 675940 633300 490340 493600 675906]
+set visa [list 426393 454638 454312 540463 430568]
+set delta [list 492181 446200 454435]
+
+set debit [concat $laser $switch $delta]
+set credit [concat $mastercard $visa]
+
+
+proc genmakerandom {type length} {
+    global debit credit laser mastercard switch visa delta
+    set ld [lindex [set $type] [expr "int(rand() * [llength [set $type]])"]]
+
+    for {set i 0} {$i < [expr {$length - 6}]} {incr i} {
+        append ld [expr {int(rand()*10)}]
+    }
+
+    # Fix up the LUHN checksum to make the thing work
+    return [makegood $ld]
+}
+proc makegood {badcard} {
+    set l [luhn $badcard]
+    set lenm1 [expr {[string length $badcard]-1}]
+    set ld [string index $badcard $lenm1]
+    return [string replace $badcard $lenm1 $lenm1 [expr {($ld-$l)%10}]]
+}
+
+proc luhn {card} {
+    set total 0
+    set len [string length $card]
+    set doublepos [expr "$len%2"]
+    for {set i 0} {$i < $len} {incr i} {
+        set n [string index $card $i]
+        if {[expr "$i%2"]==$doublepos} {
+            incr n $n
+        }
+        incr total [digsum $n]
+    }
+    return [expr "$total%10"]
+}
+
+proc digsum {n} {
+    set total 0
+    set len [string length $n]
+    for {set i 0} {$i < $len} {incr i} {
+        incr total [string index $n $i]
+    }
+    return $total
+}
+
+switch -- [lindex $argv 0] {
+    switch {
+        puts [genmakerandom switch 16]
+    }
+        delta {
+                puts [genmakerandom delta 16]
+        }
+        visa {
+                puts [genmakerandom visa 16]
+        }
+        mastercard {
+                puts [genmakerandom mastercard 16]
+        }
+
+    default {
+        puts "Syntax: makecard (switch|delta|visa|mastercard) "
+    }
+}

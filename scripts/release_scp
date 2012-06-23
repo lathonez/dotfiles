@@ -1,0 +1,24 @@
+#!/bin/bash
+echo "|*********** shazRelSCP v.01 ***********|"
+echo -n "Which pre prod (1|2|3)? "
+read -e PP
+#if [ ["$PP" != "1"] && ["$PP" != "2"] && ["$PP" != "3"] ] ; then
+#	echo "input fail" ; exit 1
+#fi
+echo "..copying up to pp${PP}ux*.willhill"
+for i in 201 510 921
+do
+scp -l 4000 R*shazleto*.tar.bz2 openbet@pp${PP}ux${i}.willhill:~/
+done
+
+for i in 101 133 401 911
+do
+scp -l 4000 release/R*WillHill*_*_*/webserver/R*OpenBetStatic.tgz openbet@pp${PP}ux${i}.willhill:/var/www/html/ob
+scp -l 4000 release/R*WillHill*_*_*/conf/apache/*pp${PP}*.cnf openbet@pp${PP}ux${i}.willhill:/etc/httpd/conf.d/orbis
+done
+
+scp -l 4000 release/R*WillHill*_*_*/webserver/R*OpenBetTelebet_v2_static.tgz openbet@pp${PP}ux133.willhill:/var/www/html/ob
+scp -l 4000 release/R*WillHill*_*_*/webserver/R*web_manage.tgz openbet@pp${PP}ux101.willhill:/var/www/html/ob
+
+echo "..finished!"
+
