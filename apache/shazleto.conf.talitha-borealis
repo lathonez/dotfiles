@@ -1,0 +1,93 @@
+<Location /admin>
+SetHandler 	otas-handler
+OTASVrfyWait 	20000
+OTASConnWait    5000
+OTASHost        localhost 20000
+</Location>
+
+<Location /cust>
+SetHandler 	otas-handler
+OTASVrfyWait 	20000
+OTASConnWait    5000
+OTASHost        localhost 20005
+</Location>
+
+<Location /xml>
+SetHandler	otas-handler
+OTASVrfyWait	5000
+OTASConnWait	5000
+OTASHost	    localhost 20010
+</Location>
+
+<Location /pub>
+SetHandler	otas-handler
+OTASVrfyWait	5000
+OTASConnWait	5000
+OTASHost	    localhost 20015
+</Location>
+
+<location /cm>
+sethandler      otas-handler
+otasvrfywait    20000
+otasconnwait    5000
+oTASHost        localhost 20020
+</Location>
+
+<location /hello_world>
+sethandler      otas-handler
+otasvrfywait    20000
+otasconnwait    5000
+oTASHost        localhost 20030
+</Location>
+
+<Location /em_shazleto>
+SetHandler      otas-handler
+OTASVrfyWait    20000
+OTASConnWait    5000
+OTASHost        localhost 35115
+</Location>
+
+<Location /ptp_shazleto>
+SetHandler      otas-handler
+OTASVrfyWait    20000
+OTASConnWait    5000
+OTASHost        localhost 35120
+</Location>
+
+<Location /perfmon_shazleto>
+SetHandler      otas-handler
+OTASVrfyWait    20000
+OTASConnWait    5000
+OTASHost        localhost 35125
+</Location>
+
+<Location /telebet_sh>
+SetHandler      otas-handler
+OTASVrfyWait    5000
+OTASConnWait    5000
+OTASHost        localhost 35130
+</Location>
+
+<Location /oxifeed_sh>
+SetHandler      otas-handler
+OTASVrfyWait    5000
+OTASConnWait    5000
+OTASHost        localhost 35135
+</Location>
+
+<Location /crypto_server_shazleto>
+SetHandler      otas-handler
+OTASVrfyWait    5000
+OTASConnWait    5000
+OTASHost        localhost 35140
+</Location>
+
+
+<Location /crypto_server_ssl_shazleto>
+SetHandler	otas-handler
+OTASVrfyWait	5000
+OTASConnWait	5000
+OTASHost	localhost 35143
+</Location>
+
+
