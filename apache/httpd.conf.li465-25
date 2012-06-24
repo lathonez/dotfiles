@@ -1,0 +1,24 @@
+# this shows the world what version of apache we're running, so turn it off
+ServerSignature Off
+ServerTokens Prod
+
+# run apache as apache, not root, or whatever else it runs as
+User apache
+Group apache
+
+# use this file to control access to specific dirs
+AccessFileName .htaccess
+
+# Make sure no one can read anything apart from what we want them to
+<Directory />
+  Order Deny,Allow
+  Deny from all
+  Options None
+  AllowOverride None
+</Directory>
+<Directory /var/www>
+  Order Allow,Deny
+  Allow from all
+  AllowOverride All
+</Directory>
+
