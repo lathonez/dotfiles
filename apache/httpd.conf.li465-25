@@ -22,3 +22,9 @@ AccessFileName .htaccess
   AllowOverride All
 </Directory>
 
+# proxy passes
+<IfModule mod_proxy.c>
+        ProxyPass          /rtron       http://localhost:34848
+        ProxyPassReverse   /rtron       http://localhost:34848
+</IfModule>
+
