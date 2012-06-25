@@ -26,5 +26,8 @@ AccessFileName .htaccess
 <IfModule mod_proxy.c>
         ProxyPass          /rtron       http://localhost:34848
         ProxyPassReverse   /rtron       http://localhost:34848
+
+	ProxyPass          /cuereview   http://localhost:30000
+        ProxyPassReverse   /cuereview   http://localhost:30000
 </IfModule>
 
