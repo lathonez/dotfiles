@@ -26,8 +26,15 @@ AccessFileName .htaccess
 <IfModule mod_proxy.c>
         ProxyPass          /rtron       http://localhost:34848
         ProxyPassReverse   /rtron       http://localhost:34848
-
-	ProxyPass          /cuereview   http://localhost:30000
-        ProxyPassReverse   /cuereview   http://localhost:30000
 </IfModule>
 
+<IfModule wsgi_module>
+	WSGIScriptAlias /cuereview /var/www/cuereview/app.py
+	Alias /cuereview/static /var/www/cuereview/static/
+	AddType text/html .py
+</IfModule>
+
+<Directory /var/www/cuereview/>
+      Order deny,allow
+      Allow from all
+</Directory>
