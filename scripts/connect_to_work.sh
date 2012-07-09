@@ -37,7 +37,7 @@ function connect {
       -L 3389:rhea.orbis:3389 \
       -L 3390:saturn.orbis:3389 \
       -L 9000:sadr.orbis:9000 \
-      -L 1900:db01.orbis:1900 \
+      -L 9002:db01.orbis:9001 \
       -L 2401:pserver.openbet:2401 \
       -o ServerAliveInterval=60 \
       -o ServerAliveCountMax=2 \
