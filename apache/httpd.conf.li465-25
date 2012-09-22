@@ -38,3 +38,14 @@ AccessFileName .htaccess
       Order deny,allow
       Allow from all
 </Directory>
+
+<IfModule wsgi_module>
+	WSGIScriptAlias /terraria /var/www/terraria/terraria.py
+	Alias /terraria/static /var/www/terraria/static/
+	AddType text/html .py
+</IfModule>
+
+<Directory /var/www/terraria/>
+      Order deny,allow
+      Allow from all
+</Directory>
