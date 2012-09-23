@@ -40,8 +40,8 @@ AccessFileName .htaccess
 </Directory>
 
 <IfModule wsgi_module>
-	WSGIScriptAlias /terraria /var/www/terraria/terraria.py
-	Alias /terraria/static /var/www/terraria/static/
+	WSGIScriptAlias /log /var/www/log/log.py
+	Alias /terraria/static /var/www/log/static/
 	AddType text/html .py
 </IfModule>
 
