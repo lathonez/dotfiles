@@ -2,11 +2,8 @@
 #
 # - view existing rules: iptables -L
 #                        iptables -L -t nat
-#
-# - save rules (so they will be restored when the NIC comes back up:
-#
 
-# delete any existing rules (main table and nat table)
+# delete any existing rules (main, nat and mangle tables)
 iptables -F
 iptables -F -t nat
 iptables -F -t mangle
@@ -18,26 +15,35 @@ iptables -P OUTPUT ACCEPT
 iptables -A INPUT -i lo -j ACCEPT
 iptables -A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
 
-# ssh
-iptables -A INPUT -p tcp -m tcp --dport 22 -j ACCEPT
+# define ports
+SSH=22
+WEB=80
+TERRARIA=5091
+MISC_ONE=7777
+MISC_TWO=5000
+MISC_THREE=3541
+CUSTPROXY=9090
+JABBER=5222
 
-# web
-iptables -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT
+# declare inputs
+iptables -A INPUT -p tcp -m tcp --dport $SSH -j ACCEPT
+iptables -A INPUT -p tcp -m tcp --dport $WEB -j ACCEPT
+iptables -A INPUT -p tcp -m tcp --dport $TERRARIA -j ACCEPT
+iptables -A INPUT -p tcp -m tcp --dport $MISC_ONE -j ACCEPT
+iptables -A INPUT -p tcp -m tcp --dport $MISC_TWO -j ACCEPT
+iptables -A INPUT -p tcp -m tcp --dport $MISC_THREE -j ACCEPT
+iptables -A INPUT -p tcp -m tcp --dport $CUSTPROXY -j ACCEPT
+iptables -A INPUT -p tcp -m tcp --dport $JABBER -j ACCEPT
 
-# terraria?
-iptables -A INPUT -p tcp -m tcp --dport 5091 -j ACCEPT
+# Anything that gets passed the accepts, will get dropped
+# log dropped packets - tail -f /var/log/kern.log
+iptables -A INPUT -m limit --limit 100/min -j LOG --log-prefix "iptables INPUT denied: " --log-level 7
 
-# ?
-iptables -A INPUT -p tcp -m tcp --dport 7777 -j ACCEPT
+# drop everything else
+iptables -A INPUT -j DROP
 
-# ?
-iptables -A INPUT -p tcp -m tcp --dport 5000 -j ACCEPT
-
-# ?
-iptables -A INPUT -p tcp -m tcp --dport 3541 -j ACCEPT
-
-# custproxy
-iptables -A INPUT -p tcp -m tcp --dport 9090 -j ACCEPT
+# save rules so they are restored when the network card comes back up
+sh -c "iptables-save > /etc/iptables.rules"
 
 #
 # PORT FORWARDING EXAMPLE - 9090 to 9091:
@@ -60,11 +66,4 @@ iptables -A INPUT -p tcp -m tcp --dport 9090 -j ACCEPT
 #
 # END PORT FORWARDNG EXAMPLE
 #
-
-# If anything gets this far, it's getting dropped:
-# log dropped packets - tail -f /var/log/kern.log
-iptables -A INPUT -m limit --limit 100/min -j LOG --log-prefix "iptables INPUT denied: " --log-level 7
-
-# drop everything else
-iptables -A INPUT -j DROP
 
