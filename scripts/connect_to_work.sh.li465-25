@@ -83,7 +83,7 @@ function setup_remote_env {
 setup_remote_env
 
 while [ 1 ]; do
-   connect ssh.openbet.com
+   connect vpn.openbet.com
    echo "Disconnected - we are waiting for 1 seconds."
    sleep 1
 done
