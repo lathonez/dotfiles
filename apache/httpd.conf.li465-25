@@ -16,6 +16,7 @@ AccessFileName .htaccess
   Options None
   AllowOverride None
 </Directory>
+
 <Directory /var/www>
   Order Allow,Deny
   Allow from all
@@ -49,3 +50,12 @@ AccessFileName .htaccess
       Order deny,allow
       Allow from all
 </Directory>
+
+# mod_python for elevonRox and json-rpc
+LoadModule python_module /usr/lib/apache2/modules/mod_python.so
+Alias /elevenRox/ /var/www/elevenRox/
+
+<Location /elevenRox/>
+	AddHandler mod_python .py
+	PythonHandler jsonrpc
+</Location>
