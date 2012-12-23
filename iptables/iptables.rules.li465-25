@@ -24,6 +24,7 @@ MISC_TWO=5000
 MISC_THREE=3541
 CUSTPROXY=9090
 JABBER=5222
+JSONRPC=36999
 
 # declare inputs
 iptables -A INPUT -p tcp -m tcp --dport $SSH -j ACCEPT
@@ -34,6 +35,7 @@ iptables -A INPUT -p tcp -m tcp --dport $MISC_TWO -j ACCEPT
 iptables -A INPUT -p tcp -m tcp --dport $MISC_THREE -j ACCEPT
 iptables -A INPUT -p tcp -m tcp --dport $CUSTPROXY -j ACCEPT
 iptables -A INPUT -p tcp -m tcp --dport $JABBER -j ACCEPT
+iptables -A INPUT -p tcp -m tcp --dport $JSONRPC -j ACCEPT
 
 # Anything that gets passed the accepts, will get dropped
 # log dropped packets - tail -f /var/log/kern.log
