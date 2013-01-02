@@ -18,13 +18,18 @@ iptables -A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
 # define ports
 SSH=22
 WEB=80
-TERRARIA=5091
-MISC_ONE=7777
+TERRARIA=7777
+MISC_ONE=5091
 MISC_TWO=5000
 MISC_THREE=3541
 CUSTPROXY=9090
 JABBER=5222
-JSONRPC=36999
+ELEVENROX=36999
+# stuff for samba:
+NETBIOS_NS=137
+NETBIOS_DGM=138
+NETBIOS_SSN=139
+MICROSOFT_DS=445
 
 # declare inputs
 iptables -A INPUT -p tcp -m tcp --dport $SSH -j ACCEPT
@@ -35,7 +40,11 @@ iptables -A INPUT -p tcp -m tcp --dport $MISC_TWO -j ACCEPT
 iptables -A INPUT -p tcp -m tcp --dport $MISC_THREE -j ACCEPT
 iptables -A INPUT -p tcp -m tcp --dport $CUSTPROXY -j ACCEPT
 iptables -A INPUT -p tcp -m tcp --dport $JABBER -j ACCEPT
-iptables -A INPUT -p tcp -m tcp --dport $JSONRPC -j ACCEPT
+iptables -A INPUT -p tcp -m tcp --dport $ELEVENROX -j ACCEPT
+iptables -A INPUT -p tcp -m tcp --dport $NETBIOS_NS -j ACCEPT
+iptables -A INPUT -p tcp -m tcp --dport $NETBIOS_DGM -j ACCEPT
+iptables -A INPUT -p tcp -m tcp --dport $NETBIOS_SSN -j ACCEPT
+iptables -A INPUT -p tcp -m tcp --dport $MICROSOFT_DS -j ACCEPT
 
 # Anything that gets passed the accepts, will get dropped
 # log dropped packets - tail -f /var/log/kern.log
