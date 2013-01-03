@@ -18,6 +18,8 @@ iptables -A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
 # define ports
 SSH=22
 WEB=80
+TERRARIA_DWILLIAM=5555
+TERRARIA_SHAZLETO=6666
 TERRARIA=7777
 MISC_ONE=5091
 MISC_TWO=5000
@@ -28,6 +30,8 @@ JABBER=5222
 # declare inputs
 iptables -A INPUT -p tcp -m tcp --dport $SSH -j ACCEPT
 iptables -A INPUT -p tcp -m tcp --dport $WEB -j ACCEPT
+iptables -A INPUT -p tcp -m tcp --dport $TERRARIA_DWILLIAM -j ACCEPT
+iptables -A INPUT -p tcp -m tcp --dport $TERRARIA_SHAZLETO -j ACCEPT
 iptables -A INPUT -p tcp -m tcp --dport $TERRARIA -j ACCEPT
 #iptables -A INPUT -p tcp -m tcp --dport $MISC_ONE -j ACCEPT
 #iptables -A INPUT -p tcp -m tcp --dport $MISC_TWO -j ACCEPT
