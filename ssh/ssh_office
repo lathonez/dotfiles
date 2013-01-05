@@ -15,13 +15,23 @@ Hostname dev01
 ForwardX11 yes
 
 Host live
-Hostname gibux204.willhill
-User openbet
+Hostname gibux224.willhill
+User shazleto
 ProxyCommand ssh t exec nc %h %p
 
 Host livenon
 Hostname gibux511.willhill
 User shazleto
+ProxyCommand ssh t exec nc %h %p
+
+Host liveon
+Hostname stjux045.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host liveonnon
+Hostname stjux071.willhill
+User openbet
 ProxyCommand ssh t exec nc %h %p
 
 Host pte
@@ -144,6 +154,11 @@ Hostname gibux208.willhill
 User openbet
 ProxyCommand ssh t exec nc %h %p
 
+Host log1
+Hostname gibux209.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
 Host test
 Hostname brsux244.willhill
 User openbet
@@ -156,4 +171,9 @@ ProxyCommand ssh t exec nc %h %p
 Host davonez
 Hostname davonez.zapto.org
 User shazleto
+ProxyCommand ssh t exec nc %h %p
+
+Host bbtstage
+Hostname 192.168.2.21
+user openbet
 ProxyCommand ssh t exec nc %h %p
