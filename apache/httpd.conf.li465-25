@@ -16,16 +16,23 @@ AccessFileName .htaccess
   Options None
   AllowOverride None
 </Directory>
+
 <Directory /var/www>
   Order Allow,Deny
   Allow from all
   AllowOverride All
+  Options Indexes FollowSymLinks
 </Directory>
 
 # proxy passes
 <IfModule mod_proxy.c>
-        ProxyPass          /rtron       http://localhost:34848
-        ProxyPassReverse   /rtron       http://localhost:34848
+	ProxyPass           /rtron    http://localhost:34848
+	ProxyPassReverse    /rtron    http://localhost:34848
+</IfModule>
+
+<IfModule mod_proxy.c>
+	ProxyPass        /elevenRox    http://localhost:36999
+	ProxyPassReverse /elevenRox    http://localhost:36999
 </IfModule>
 
 <IfModule wsgi_module>
@@ -33,8 +40,24 @@ AccessFileName .htaccess
 	Alias /cuereview/static /var/www/cuereview/static/
 	AddType text/html .py
 </IfModule>
-
 <Directory /var/www/cuereview/>
       Order deny,allow
       Allow from all
 </Directory>
+
+<IfModule wsgi_module>
+	WSGIScriptAlias /log /var/www/log/log.py
+	Alias /terraria/static /var/www/log/static/
+	AddType text/html .py
+</IfModule>
+
+<Directory /var/www/terraria/>
+      Order deny,allow
+      Allow from all
+</Directory>
+
+<Directory /var/www/static/elevenRox/>
+      Order deny,allow
+      Allow from all
+</Directory>
+
