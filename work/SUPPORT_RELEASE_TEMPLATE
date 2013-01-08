@@ -1,0 +1,354 @@
+#--------------------------------------------------------------------------------------------------------------------------------------
+# Set up
+# Find & Replace the below as necessary
+#
+# If releasing static, symlinks need setting up as on live inside the static_build directory
+# 	e.g. mkdir static_build; cd static_build; ln -s BUILD/release/T_SUPPORT_BUNDLE_20120516/cust/static cust
+#
+# Release Name          : REL_NAME
+# Apps to bounce (csv)  : BOUNCE_APPS
+# Master Boxes (csv)    : APP_BOXES
+# Web Boxes (csv)       : WEB_BOXES
+# Feed Boxes (csv)      : FEED_BOXES 
+# OB Store Boxes        : OB_BOXES
+# Xlation File          : XL_FILE
+# Data File             : DATA_FILE
+# Tickets (csl - ST|RT) : REL_TICKETS
+#--------------------------------------------------------------------------------------------------------------------------------------
+
+
+#######################################################################################################################################
+#                                                            PRE-IMP
+#######################################################################################################################################
+
+
+#--------------------------------------------------------------------------------------------------------------------------------------
+# Prepare Symlinks - If symlinking any files be sure to use -h with tar (should be default in this script)
+# 
+	# APP
+		cd /space/work/Support/REL_NAME
+		ln -s <PATH_TO_CODE> current
+
+	# CFG - any cfg changes to files that live outside of ~/current/conf on the app box need symlinking as appropraite
+
+	# STATIC (per app that you've got static for)
+	# Note that the path on the webserver is ob/static/cust/js not ob/static/cust/static/js (below for an example from file list)
+	# cust/js/liveserv/event_list.js
+		cd /space/work/Support/REL_NAME
+		mkdir static_build; cd static_build
+		ln -s <PATH_TO_APP_STATIC> <APP> (ln -s cust/static cust)
+
+	# TCL > TBC
+	cat file_list | grep tbc | sed 's/tbc/tcl/g' | awk '{print "cp",$1,$1}' | sed 's/\.tcl/\.tbc/2'
+#--------------------------------------------------------------------------------------------------------------------------------------
+
+
+#--------------------------------------------------------------------------------------------------------------------------------------
+# Create App Tarballs
+
+	cd /space/work/Support/REL_NAME
+
+	cat /space/work/Support/REL_NAME/file_list | xargs tar cjvfh /space/work/Support/REL_NAME/support_REL_NAME.tar.bz2
+
+	tar tjf /space/work/Support/REL_NAME/support_REL_NAME.tar.bz2 | wc -l
+	cat /space/work/Support/REL_NAME/file_list | wc -l
+
+	# verify
+	tar tjf /space/work/Support/REL_NAME/support_REL_NAME.tar.bz2 | xargs head | grep shazleto | wc -l
+#--------------------------------------------------------------------------------------------------------------------------------------
+
+
+#--------------------------------------------------------------------------------------------------------------------------------------
+# Create Web Tarballs
+
+	cd /space/work/Support/REL_NAME/static_build
+
+	cat /space/work/Support/REL_NAME/file_list_static | xargs tar cjvfh /space/work/Support/REL_NAME/support_REL_NAME_static.tar.bz2
+
+	tar tjf /space/work/Support/REL_NAME/support_REL_NAME_static.tar.bz2 | wc -l
+	cat /space/work/Support/REL_NAME/file_list_static | wc -l
+#--------------------------------------------------------------------------------------------------------------------------------------
+
+
+#--------------------------------------------------------------------------------------------------------------------------------------
+# Create Feed Tarballs
+
+	cd /space/work/Support/REL_NAME
+
+	cat /space/work/Support/REL_NAME/file_list_feeds | xargs tar cjvfh /space/work/Support/REL_NAME/support_REL_NAME_feeds.tar.bz2
+
+	tar tjf /space/work/Support/REL_NAME/support_REL_NAME_feeds.tar.bz2 | wc -l
+	cat /space/work/Support/REL_NAME/file_list_feeds | wc -l
+#--------------------------------------------------------------------------------------------------------------------------------------
+
+
+#--------------------------------------------------------------------------------------------------------------------------------------
+# Copy App Tar (OB_BOXES)
+
+	cd /space/work/Support/REL_NAME
+
+	# OFFSHORE
+		scp support_REL_NAME.tar.bz2 shazleto@gibux511.willhill:/tmp
+		ssh shazleto@gibux511.willhill
+		chmod 777 /tmp/support_REL_NAME.tar.bz2
+		sudo su - openbet
+		mkdir /openbet_store/users/shazleto/REL_NAME; cp /tmp/support_REL_NAME.tar.bz2 /openbet_store/users/shazleto/REL_NAME; chmod 644 /openbet_store/users/shazleto/REL_NAME/support_REL_NAME.tar.bz2; exit
+		 rm /tmp/support_REL_NAME.tar.bz2
+
+	# ONSHORE
+		ssh openbet@stjux045.willhill -f 'mkdir -p /openbet_store/users/shazleto/REL_NAME'
+		scp support_REL_NAME.tar.bz2 openbet@stjux045.willhill:/openbet_store/users/shazleto/REL_NAME
+#--------------------------------------------------------------------------------------------------------------------------------------
+
+
+#--------------------------------------------------------------------------------------------------------------------------------------
+# Create App Backup (OB_BOXES)
+
+	# create backup (OB_BOXES)
+		cd ~/current
+		tar tjf /openbet_store/users/shazleto/REL_NAME/support_REL_NAME.tar.bz2 | xargs tar cjvf /openbet_store/users/shazleto/REL_NAME/support_REL_NAME_backup.tar.bz2
+	# verify
+		tar tjf /openbet_store/users/shazleto/REL_NAME/support_REL_NAME.tar.bz2 | wc -l
+		tar tjf /openbet_store/users/shazleto/REL_NAME/support_REL_NAME_backup.tar.bz2 | wc -l
+#--------------------------------------------------------------------------------------------------------------------------------------
+
+
+#--------------------------------------------------------------------------------------------------------------------------------------
+# Copy Web Tar (WEB_BOXES)
+
+	cd /space/work/Support/REL_NAME
+
+		scp support_REL_NAME_static.tar.bz2 shazleto@gibux101.willhill:/tmp
+		ssh shazleto@gibux101.willhill
+		chmod 777 /tmp/support_REL_NAME_static.tar.bz2
+		sudo su - openbet
+		mkdir -p ~/users/shazleto/REL_NAME; cp /tmp/support_REL_NAME_static.tar.bz2 ~/users/shazleto/REL_NAME; chmod 644 ~/users/shazleto/REL_NAME/support_REL_NAME_static.tar.bz2; exit
+		rm /tmp/support_REL_NAME_static.tar.bz2
+#--------------------------------------------------------------------------------------------------------------------------------------
+
+
+#--------------------------------------------------------------------------------------------------------------------------------------
+# Create Web Backup (WEB_BOXES)
+
+	# create backup
+		cd /var/www/html/ob/static
+		tar tjf ~/users/shazleto/REL_NAME/support_REL_NAME_static.tar.bz2 | xargs tar cjvf ~/users/shazleto/REL_NAME/support_REL_NAME_static_backup.tar.bz2		
+	# verify
+		tar tjf ~/users/shazleto/REL_NAME/support_REL_NAME_static.tar.bz2 | wc -l
+		tar tjf ~/users/shazleto/REL_NAME/support_REL_NAME_static_backup.tar.bz2 | wc -l
+#--------------------------------------------------------------------------------------------------------------------------------------
+
+
+#--------------------------------------------------------------------------------------------------------------------------------------
+# Copy Feeds Tar (FEED_BOXES)
+
+	cd /space/work/Support/REL_NAME
+
+		ssh openbet@FEED_BOXES -f 'mkdir -p ~/users/shazleto/REL_NAME'
+		scp support_REL_NAME_feeds.tar.bz2 openbet@FEED_BOXES:~/users/shazleto/REL_NAME
+#--------------------------------------------------------------------------------------------------------------------------------------
+
+
+#--------------------------------------------------------------------------------------------------------------------------------------
+# Create Feeds Backup (FEED_BOXES)
+
+	# create backup
+		cd /opt/openbet
+		tar tjf ~/users/shazleto/REL_NAME/support_REL_NAME_feeds.tar.bz2 | xargs tar cjvf ~/users/shazleto/REL_NAME/support_REL_NAME_feeds_backup.tar.bz2		
+	# verify
+		tar tjf ~/users/shazleto/REL_NAME/support_REL_NAME_feeds.tar.bz2 | wc -l
+		tar tjf ~/users/shazleto/REL_NAME/support_REL_NAME_feeds_backup.tar.bz2 | wc -l
+#--------------------------------------------------------------------------------------------------------------------------------------
+
+#######################################################################################################################################
+#                                                            IMP
+#######################################################################################################################################
+
+
+#--------------------------------------------------------------------------------------------------------------------------------------
+# Apps Down (APP_BOXES)
+
+	# stop all apps
+		ob_manage --> 1 --> 1
+		unload crons --> Y
+
+	# Check DB connections
+		dbaccess sysmsaster -
+		select pid, hostname from syssessions where username = 'openbet';
+#--------------------------------------------------------------------------------------------------------------------------------------
+
+
+#--------------------------------------------------------------------------------------------------------------------------------------
+# Release Web (WEB_BOXES) - This should be done before the App release
+
+	cd /var/www/html/ob/static
+
+	# check presence of backup
+		ls -l ~/users/shazleto/REL_NAME/support_REL_NAME_static_backup.tar.bz2
+	# exctract
+		tar xjvf ~/users/shazleto/REL_NAME/support_REL_NAME_static.tar.bz2
+	# chmod
+		chmod -R 755 *
+	# sync
+		web_manage -> 1
+#--------------------------------------------------------------------------------------------------------------------------------------
+
+
+#--------------------------------------------------------------------------------------------------------------------------------------
+# Release Feeds (FEED_BOXES) - This should be done before the App release
+
+	# check presence of backup
+		ls -l ~/users/shazleto/REL_NAME/support_REL_NAME_feeds_backup.tar.bz2
+	# exctract
+		tar xjvf ~/users/shazleto/REL_NAME/support_REL_NAME_feeds.tar.bz2
+	# kill mqbridge
+		ps -ef | egrep "sis|mq"
+		ps -ef | egrep "sis|mq" | awk '{print $2}' | xargs kill -9
+	# start msqbridge
+		nohup /opt/openbet/feed_handler/adapters/sis_365/java/mqbridge/run_mqbridge.sh >> /opt/openbet/log/feed_handler/mqbridge/nohup.out 2>&1 < /dev/null &
+	# check
+		tail -f /opt/openbet/log/feed_handler/mqbridge/mqLog.log
+#--------------------------------------------------------------------------------------------------------------------------------------
+
+
+#--------------------------------------------------------------------------------------------------------------------------------------
+# Release App (APP_BOXES)
+
+	cd ~/current
+
+	# check presence of backup
+		ls -l /openbet_store/users/shazleto/REL_NAME/support_REL_NAME_backup.tar.bz2
+	# exctract
+		tar xjvf /openbet_store/users/shazleto/REL_NAME/support_REL_NAME.tar.bz2
+	# bump static if necessary
+	# sync
+		ob_manage -> 4
+	# bounce 
+		BOUNCE_APPS
+#--------------------------------------------------------------------------------------------------------------------------------------
+
+
+#--------------------------------------------------------------------------------------------------------------------------------------
+# Run in Stored proc
+
+	cd ~/current
+
+	dbaccess openbet <procname>
+
+#--------------------------------------------------------------------------------------------------------------------------------------
+
+
+#--------------------------------------------------------------------------------------------------------------------------------------
+# Run in Audit
+
+	# GIB:
+
+	cd ~/current/willhill/releases
+
+	tclsh /opt/openbet/current/db/informix/mk-audit.tcl -D openbet -config /opt/openbet/current/willhill/db/AUDIT_OFFSHORE.cfg -update 1 -table tCustomerToken -extmul 1 > 2_audit_out_REL_NAME.GIB.sql
+		grep -i "table" 2_audit_out_REL_NAME.GIB.sql
+
+	nohup dbaccess openbet 2_audit_out_REL_NAME.GIB.sql 2>&1 | tee /openbet_store/users/shazleto/support_REL_NAME/2_audit_out.GIB.sql.log
+		grep -i -B4 "error" /openbet_store/users/shazleto/support_REL_NAME/2_audit_out.GIB.sql.log
+
+	# UK:
+
+	tclsh /opt/openbet/current/db/informix/mk-audit.tcl -D openbet -config /opt/openbet/current/willhill/db/AUDIT_ONSHORE.cfg -update 1 -table tCustomerToken -extmul 1 > 2_audit_out_REL_NAME.UK.sql
+		grep -i "table" 2_audit_out_REL_NAME.UK.sql
+
+	nohup dbaccess openbet 2_audit_out_REL_NAME.UK.sql 2>&1 | tee /openbet_store/users/shazleto/support_REL_NAME/2_audit_out.UK.sql.log
+		grep -i -B4 "error" /openbet_store/users/shazleto/support_REL_NAME/2_audit_out.UK.sql.log
+
+#--------------------------------------------------------------------------------------------------------------------------------------
+
+
+#--------------------------------------------------------------------------------------------------------------------------------------
+# Run in Translations (OB_BOXES)
+
+	cd  ~/current/willhill/releases
+
+	load_xlations.tbc openbet XL_FILE
+
+#--------------------------------------------------------------------------------------------------------------------------------------
+
+
+#--------------------------------------------------------------------------------------------------------------------------------------
+# Run in Data
+
+	cd ~/current/willhill/releases
+
+	# OFFSHORE (gibux511)
+		nohup dbaccess openbet DATA_FILE 2>&1 | tee /openbet_store/users/shazleto/REL_NAME/DATA_FILE_log.log &
+#--------------------------------------------------------------------------------------------------------------------------------------
+
+
+#--------------------------------------------------------------------------------------------------------------------------------------
+# Apps Up (APP_BOXES)
+
+	# Start all Apps
+		ob_manage --> 1 --> 2
+		reload crons --> Y
+
+	# Check all apps
+		ob_manage --> 1 -- > 4
+#--------------------------------------------------------------------------------------------------------------------------------------
+
+
+#######################################################################################################################################
+#                                                            POST-IMP
+#######################################################################################################################################
+
+
+#--------------------------------------------------------------------------------------------------------------------------------------
+# Sanity Check (APP_BOXES)
+
+	# Check all files are synced
+		ob_manage --> 5
+#--------------------------------------------------------------------------------------------------------------------------------------
+
+
+#--------------------------------------------------------------------------------------------------------------------------------------
+# Check Critical Files
+
+	# Run the script
+		LIVE[openbet@gibux513:~]$ /opt/openbet/current/standalone/critical_components_check/process_critical_components.sh italy 0 gibux513 20130107_BUNDLE
+
+	# If it says anything other than (below), go here and see what to do https://wiki.openbet/display/willhill/Support+Ticket+Processes#SupportTicketProcesses-GenerateReleasenoteforcriticalfiles
+		#####  Critical files have not changed. #####
+#--------------------------------------------------------------------------------------------------------------------------------------
+
+
+#--------------------------------------------------------------------------------------------------------------------------------------
+# Template Maintenance
+
+	# Any schema/data changes - including xlations - must be reflected in the template
+		ssh openbet@whtrainapp.willhill
+		dbaccess openbet_template_gib -
+		dbaccess openbet_template_uk -
+#--------------------------------------------------------------------------------------------------------------------------------------
+
+
+#--------------------------------------------------------------------------------------------------------------------------------------
+# Restore Web from Backup (WEB_BOXES)
+
+	# extract
+		cd /var/www/html/ob/static
+		tar xjvf /opt/openbet/users/shazleto/REL_NAME/support_REL_NAME_static_backup.tar.bz2
+	# chmod
+		chmod -R 755 *
+	# sync
+		web_manage -> 1
+#--------------------------------------------------------------------------------------------------------------------------------------
+
+
+#--------------------------------------------------------------------------------------------------------------------------------------
+# Restore App from Backup (APP_BOXES)
+
+	cd ~/current
+	tar xjvf /openbet_store/users/shazleto/REL_NAME/support_REL_NAME_backup.tar.bz2
+
+	# sync
+		ob_manage -> 4
+	# bounce
+		BOUNCE_APPS
+#--------------------------------------------------------------------------------------------------------------------------------------
