@@ -110,7 +110,6 @@ setup_aliases ()
 	alias tailn='tail -n 450'
 
 	alias wrap="rlwrap"
-	alias tclsh="rlwrap tclsh"
 
 	alias gzx='gunzip -c'
 	alias links='find . -type l -exec ls -l --color=auto {} \;'
@@ -119,7 +118,7 @@ setup_aliases ()
 	alias db='rlwrap dbaccess $DB -'
 	alias ssh='ssh -X'
 
-	alias appserv='appserv84'
+	alias appserv='ot_appserv'
 	alias grace="sudo apache2ctl graceful"
 	alias asproc='ps -ef | grep shazleto | grep [a]ppserv'
 
@@ -168,11 +167,8 @@ setup_variables ()
 	APPSERV=/prj/openbet/bin/appserv:/prj/openbet/appserv/FREEZES/CURRENT/bin/${arch}
 	APPSERV=$APPSERV:/opt/appserv/current/bin
 
-	TCL=/opt/tcl8.4
-	TCLLIBPATH=/usr/lib/tcl8.4
-	LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/bin:/usr/lib:/usr/include:/shared/prj/openbet/appserv/FREEZES/CURRENT/lib/ix86_64:/shared/prj/openbet/lib/${arch}:/opt/appserv-8.4/lib/ix86/:/shared/prj/openbet/lib/ix86:/opt/ChartDirector/lib:$TCL/lib:/space/opt/glc/lib64:/space/opt/glc/lib32:/opt/appserv/current/lib
-	PATH=/opt/tcl8.4/bin/:/local/Scripts:/shared/prj/telebet/tcl84_unix/bin:/usr/bin:/local/bin:$PATH:$TCL/bin:/space/opt/glc/bin
-	export TCLLIBPATH="/local/tcl84/lib/itcl3.2 /local/tcl84/lib/itk3.2 /local/tcl84/lib/iwidgets /local/tcl84/lib/Tktable2.8 /local/tbcload1.3 /opt/tcl8.4/lib/tbcload1.4 /opt/ActiveTcl-8.4/lib/tcl8.4/tbcload1.6.1 "
+	TCL=/opt/tcl8.5
+	PATH=/opt/tcl8.5/bin/:/local/Scripts:/usr/bin:/local/bin
 
 	export JAVA=/usr/lib/jdk-1.1
 
@@ -181,7 +177,7 @@ setup_variables ()
 	INFORMIXDIR=/opt/informix
 
 	LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$APPSERV:$OPENBET:$TCL:$TCL/lib
-	LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$INFORMIXDIR/lib:$INFORMIXDIR/lib/esql:/shared/prj/telebet/tcl84_unix/lib
+	LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$INFORMIXDIR/lib:$INFORMIXDIR/lib/esql
 
 	# deployment
 	DEPLOYMENT=/prj/deployment/latest
