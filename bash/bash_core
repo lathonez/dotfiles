@@ -165,7 +165,7 @@ setup_variables ()
 
 	OPENBET=/prj/openbet/bin:/prj/deployment/bin:/lib:/prj/orbis/lib/${arch}
 	APPSERV=/prj/openbet/bin/appserv:/prj/openbet/appserv/FREEZES/CURRENT/bin/${arch}
-	APPSERV=$APPSERV:/opt/appserv/current/bin
+	APPSERV=$APPSERV:/opt/appserv/current/bin:/opt/appserv/current/lib
 
 	TCL=/opt/tcl8.5
 	PATH=/opt/tcl8.5/bin/:/local/Scripts:/usr/bin:/local/bin
