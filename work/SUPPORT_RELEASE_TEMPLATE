@@ -9,7 +9,7 @@
 # Apps to bounce (csv)  : BOUNCE_APPS
 # Master Boxes (csv)    : APP_BOXES
 # Web Boxes (csv)       : WEB_BOXES
-# Feed Boxes (csv)      : FEED_BOXES 
+# Feed Boxes (csv)      : FEED_BOXES
 # OB Store Boxes        : OB_BOXES
 # Xlation File          : XL_FILE
 # Data File             : DATA_FILE
@@ -158,6 +158,14 @@
 	# verify
 		tar tjf ~/users/shazleto/REL_NAME/support_REL_NAME_feeds.tar.bz2 | wc -l
 		tar tjf ~/users/shazleto/REL_NAME/support_REL_NAME_feeds_backup.tar.bz2 | wc -l
+#--------------------------------------------------------------------------------------------------------------------------------------
+
+
+#--------------------------------------------------------------------------------------------------------------------------------------
+# Add entry into Openbet release calendar (09;00 - 10:00) for each of these tickets:
+
+	# tickets:
+		REL_TICKETS
 #--------------------------------------------------------------------------------------------------------------------------------------
 
 #######################################################################################################################################
