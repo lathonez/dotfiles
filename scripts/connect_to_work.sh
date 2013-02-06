@@ -9,6 +9,14 @@ MAILHOST=mail.openbet
 # Change this if your local user is not the same as OpenBet user.
 CONNECTUSER=shazleto
 
+#
+# DB01 Tunnel :
+#
+# 35149:titan.orbis:9002 is to tunnel to db01. This requires another tunnel set up on titan as follows:
+#
+# ssh -L 10.194.0.41:35149:127.0.0.1:35148 localhost
+# ssh -L 127.0.0.1:35148:10.194.0.141:1900 localhost
+#
 function connect {
    CONNECTHOST=$1
    echo "attempting to connect to $CONNECTUSER@$CONNECTHOST..."
@@ -37,7 +45,6 @@ function connect {
       -L 3389:rhea.orbis:3389 \
       -L 3390:saturn.orbis:3389 \
       -L 9000:sadr.orbis:9000 \
-      -L 9002:db01.orbis:9001 \
       -L 2401:pserver.openbet:2401 \
       -o ServerAliveInterval=60 \
       -o ServerAliveCountMax=2 \
@@ -71,6 +78,11 @@ function setup_remote_env {
 	rm config
 	ln -s ~/shaz_utils/ssh/ssh_remote config
 
+	#sort sqlhosts
+	#echo 'linking sql hosts'
+	#cd /opt/informix/etc
+	#rm sqlhosts
+	#ln -s ~/shaz_utils/informix/sqlhosts.remote sqlhosts
 }
 
 # we are away from the office so setup the remote environment as a matter of course

@@ -29,6 +29,12 @@ function office_env {
 	cd ~/.ssh
 	rm config
 	ln -s ~/shaz_utils/ssh/ssh_office config
+
+	#sort sqlhosts
+	#echo 'linking sql hosts'
+	#cd /opt/informix/etc
+	#rm sqlhosts
+	#ln -s ~/shaz_utils/informix/sqlhosts.office sqlhosts
 }
 
 office_env
