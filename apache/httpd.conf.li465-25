@@ -24,6 +24,9 @@ AccessFileName .htaccess
   Options Indexes FollowSymLinks
 </Directory>
 
+#Alias /terraria/david /var/www/terraria/david.txt
+#Alias /terraria/steve /var/www/terraria/steve.txt
+
 # proxy passes
 <IfModule mod_proxy.c>
 	ProxyPass           /rtron    http://localhost:34848
@@ -51,13 +54,9 @@ AccessFileName .htaccess
 	AddType text/html .py
 </IfModule>
 
-<Directory /var/www/terraria/>
-      Order deny,allow
-      Allow from all
-</Directory>
-
 <Directory /var/www/static/elevenRox/>
       Order deny,allow
       Allow from all
 </Directory>
+
 
