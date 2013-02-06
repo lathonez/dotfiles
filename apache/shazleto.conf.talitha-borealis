@@ -40,6 +40,20 @@ otasconnwait    5000
 oTASHost        localhost 20030
 </Location>
 
+<location /dbSync>
+sethandler      otas-handler
+otasvrfywait    20000
+otasconnwait    5000
+oTASHost        localhost 20035
+</Location>
+
+<location /bet_delay>
+sethandler      otas-handler
+otasvrfywait    20000
+otasconnwait    5000
+oTASHost        localhost 20040
+</Location>
+
 <Location /em_shazleto>
 SetHandler      otas-handler
 OTASVrfyWait    20000
@@ -81,7 +95,6 @@ OTASVrfyWait    5000
 OTASConnWait    5000
 OTASHost        localhost 35140
 </Location>
-
 
 <Location /crypto_server_ssl_shazleto>
 SetHandler	otas-handler
