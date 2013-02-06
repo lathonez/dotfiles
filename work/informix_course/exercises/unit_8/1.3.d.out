@@ -1,0 +1,24 @@
+
+IBM Informix Dynamic Server Version 11.50.UC6     -- On-Line -- Up 2 days 04:10:36 -- 143772 Kbytes
+
+Dbspaces
+address  number   flags      fchunk   nchunks  pgsize   flags    owner    name
+4ae6b808 1        0x60001    1        1        2048     N  B     informix rootdbs
+4af4fd18 2        0x60001    2        1        2048     N  B     informix dbspace1
+4af4fe78 3        0x60001    3        1        2048     N  B     informix dbspace2
+4ae6bb88 4        0x60001    4        1        2048     N  B     informix dbspace3
+ 4 active, 2047 maximum
+
+Chunks
+address  chunk/dbs     offset     size       free       bpages     flags pathname
+4ae6b968 1      1      0          50000      23038                 PO-B- /home/informix/local/local_root
+4ae6bce8 2      2      0          50000      49755                 PO-B- /home/informix/local/chunk1
+4af3c430 3      3      0          50000      49755                 PO-B- /home/informix/local/chunk2
+4af3c608 4      4      0          50000      49896                 PO-B- /home/informix/local/chunk3
+ 4 active, 32766 maximum
+
+NOTE: The values in the "size" and "free" columns for DBspace chunks are
+      displayed in terms of "pgsize" of the DBspace to which they belong.
+
+Expanded chunk capacity mode: always
+

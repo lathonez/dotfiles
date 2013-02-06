@@ -1,0 +1,37 @@
+
+IBM Informix Dynamic Server Version 11.50.UC6     -- On-Line -- Up 2 days 04:10:29 -- 143772 Kbytes
+
+Threads:
+ tid     tcb      rstcb    prty status                vp-class       name
+ 2       4b56a138 0        1    IO Idle                 3lio*        lio vp 0
+ 3       4b57f1d0 0        1    IO Idle                 4pio*        pio vp 0
+ 4       4b5941d0 0        1    IO Idle                 5aio*        aio vp 0
+ 5       4b5a91d0 0        1    IO Idle                 6msc*        msc vp 0
+ 6       4b5d61d0 0        1    IO Idle                 7fifo*       fifo vp 0
+ 7       4b5eb1d0 0        1    IO Idle                 8aio*        aio vp 1
+ 8       4b600390 4af0c018 3    sleeping secs: 1        1cpu         main_loop()
+ 9       4b57f880 0        1    running                 9soc*        soctcppoll
+ 10      4b6b5c80 0        2    sleeping forever        1cpu*        soctcplst
+ 11      4b57fc00 4af0c620 1    sleeping secs: 1        1cpu         flush_sub(0)
+ 12      4b57fdc0 4af0cc28 1    sleeping secs: 1        1cpu         flush_sub(1)
+ 13      4b594390 4af0d230 1    sleeping secs: 1        1cpu         flush_sub(2)
+ 14      4b594500 4af0d838 1    sleeping secs: 1        1cpu         flush_sub(3)
+ 15      4b5946c0 4af0de40 1    sleeping secs: 1        1cpu         flush_sub(4)
+ 16      4b594880 4af0e448 1    sleeping secs: 1        1cpu         flush_sub(5)
+ 17      4b594a40 4af0ea50 1    sleeping secs: 1        1cpu         flush_sub(6)
+ 18      4b594c00 4af0f058 1    sleeping secs: 1        1cpu         flush_sub(7)
+ 19      4b5d6400 0        1    IO Idle                10aio*        aio vp 2
+ 20      4b81f1d0 0        1    IO Idle                11aio*        aio vp 3
+ 21      4b834470 4af0f660 2    sleeping secs: 1        1cpu         aslogflush
+ 22      4b834d30 4af0fc68 1    sleeping secs: 91       1cpu         btscanner_0
+ 38      4bae96d8 4af10e80 3    sleeping secs: 1        1cpu*        onmode_mon
+ 39      4bae9898 4af10878 3    sleeping secs: 1        1cpu         periodic
+ 47      4b81fbf0 4af11488 1    sleeping secs: 69       1cpu*        dbScheduler
+ 48      4bbb35c8 4af11a90 1    sleeping forever        1cpu         dbWorker1
+ 49      4bc65398 4af12098 1    sleeping forever        1cpu         dbWorker2
+ 64      4c267168 4af156e0 1    cond wait  bp_cond      1cpu         bf_priosweep()
+ 141     4bae93b8 0        1    IO Idle                12aio*        aio vp 4
+ 259     4bec5198 0        1    IO Idle                13aio*        aio vp 5
+ 260     4c3595b8 0        1    IO Idle                14aio*        aio vp 6
+
+

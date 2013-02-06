@@ -1,0 +1,20 @@
+ix@ids1150srvr:~/exercises/unit_8> oncheck -pe | grep -A40 "Report: dbspace3" | grep customer4
+ stores_demo:'informix'.customer4                                   104       32
+ stores_demo:'informix'.customer4                                   175       16
+ stores_demo:'informix'.customer4                                   203       16
+ stores_demo:'informix'.customer4                                   239       16
+ stores_demo:'informix'.customer4                                   271       16
+ stores_demo:'informix'.customer4                                   291       16
+informix@ids1150srvr:~/exercises/unit_8> oncheck -pe | grep -A40 "Report: dbspace2" | grep customer4
+ stores_demo:'informix'.customer4                                   245      112
+ stores_demo:'informix'.customer4                                   104       32
+ stores_demo:'informix'.customer4                                   175       16
+ stores_demo:'informix'.customer4                                   203       16
+ stores_demo:'informix'.customer4                                   239       16
+informix@ids1150srvr:~/exercises/unit_8> oncheck -pe | grep -A40 "Report: dbspace1" | grep customer4
+ stores_demo:'informix'.customer4                                   245       32
+ stores_demo:'informix'.customer4                                   297       32
+ stores_demo:'informix'.customer4                                   337       16
+ stores_demo:'informix'.customer4                                   361       32
+ stores_demo:'informix'.customer4                                   245      112
+

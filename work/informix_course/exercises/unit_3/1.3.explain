@@ -1,0 +1,60 @@
+
+QUERY: (OPTIMIZATION TIMESTAMP: 02-04-2013 16:15:20)
+------
+select manu_code, manu_name
+	from manufact
+	where manu_code in (select manu_code from items where order_num > 1020)
+
+Estimated Cost: 2
+Estimated # of Rows Returned: 1
+
+  1) informix.manufact: INDEX PATH
+
+    (1) Index Name: informix. 103_7
+        Index Keys: manu_code   (Serial, fragments: ALL)
+        Lower Index Filter: informix.manufact.manu_code = ANY <subquery> 
+
+    Subquery:
+    ---------
+    Estimated Cost: 1
+    Estimated # of Rows Returned: 7
+
+      1) informix.items: INDEX PATH
+
+        (1) Index Name: informix. 105_11
+            Index Keys: order_num   (Serial, fragments: ALL)
+            Lower Index Filter: informix.items.order_num > 1020 
+
+
+
+Query statistics:
+-----------------
+
+  Table map :
+  ----------------------------
+  Internal name     Table name
+  ----------------------------
+  t1                manufact
+
+  type     table  rows_prod  est_rows  rows_scan  time       est_cost
+  -------------------------------------------------------------------
+  scan     t1     6          1         6          00:00.00   3       
+
+
+Subquery statistics:
+--------------------
+
+  Table map :
+  ----------------------------
+  Internal name     Table name
+  ----------------------------
+  t1                items
+
+  type     table  rows_prod  est_rows  rows_scan  time       est_cost
+  -------------------------------------------------------------------
+  scan     t1     13         7         13         00:00.00   1       
+
+  type     rows_sort  est_rows  rows_cons  time
+  -------------------------------------------------
+  sort     6          7         13         00:00.00
+

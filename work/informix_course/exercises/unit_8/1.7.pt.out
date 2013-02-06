@@ -1,0 +1,188 @@
+
+
+TBLspace Report for stores_demo:informix.customer4
+
+		  Table fragment partition dbspace1 in DBspace dbspace1
+
+    Physical Address               2:6
+    Creation date                  02/06/2013 15:16:13
+    TBLspace Flags                 801        Page Locking
+                                              TBLspace use 4 bit bit-maps
+    Maximum row size               134       
+    Number of special columns      0         
+    Number of keys                 0         
+    Number of extents              4         
+    Current serial value           4613      
+    Current SERIAL8 value          1         
+    Current BIGSERIAL value        1         
+    Current REFID value            1         
+    Pagesize (k)                   2         
+    First extent size              32        
+    Next extent size               16        
+    Number of pages allocated      112       
+    Number of pages used           111       
+    Number of data pages           110       
+    Number of rows                 1537      
+    Partition partnum              2097155   
+    Partition lockid               2097155   
+
+    Extents                       
+         Logical Page     Physical Page        Size Physical Pages
+                    0             2:245          32         32
+                   32             2:297          32         32
+                   64             2:337          16         16
+                   80             2:361          32         32
+
+		  Table fragment partition dbspace2 in DBspace dbspace2
+
+    Physical Address               3:6
+    Creation date                  02/06/2013 15:16:13
+    TBLspace Flags                 801        Page Locking
+                                              TBLspace use 4 bit bit-maps
+    Maximum row size               134       
+    Number of special columns      0         
+    Number of keys                 0         
+    Number of extents              1         
+    Current serial value           1         
+    Current SERIAL8 value          1         
+    Current BIGSERIAL value        1         
+    Current REFID value            1         
+    Pagesize (k)                   2         
+    First extent size              32        
+    Next extent size               16        
+    Number of pages allocated      112       
+    Number of pages used           111       
+    Number of data pages           110       
+    Number of rows                 1538      
+    Partition partnum              3145731   
+    Partition lockid               2097155   
+
+    Extents                       
+         Logical Page     Physical Page        Size Physical Pages
+                    0             3:245         112        112
+
+		  Table fragment partition dbspace3 in DBspace dbspace3
+
+    Physical Address               4:8
+    Creation date                  02/06/2013 15:16:13
+    TBLspace Flags                 801        Page Locking
+                                              TBLspace use 4 bit bit-maps
+    Maximum row size               134       
+    Number of special columns      0         
+    Number of keys                 0         
+    Number of extents              6         
+    Current serial value           1         
+    Current SERIAL8 value          1         
+    Current BIGSERIAL value        1         
+    Current REFID value            1         
+    Pagesize (k)                   2         
+    First extent size              32        
+    Next extent size               16        
+    Number of pages allocated      112       
+    Number of pages used           111       
+    Number of data pages           110       
+    Number of rows                 1537      
+    Partition partnum              4194309   
+    Partition lockid               2097155   
+
+    Extents                       
+         Logical Page     Physical Page        Size Physical Pages
+                    0             4:104          32         32
+                   32             4:175          16         16
+                   48             4:203          16         16
+                   64             4:239          16         16
+                   80             4:271          16         16
+                   96             4:291          16         16
+
+		  Index  119_36 fragment partition rootdbs in DBspace rootdbs
+
+    Physical Address               1:24845
+    Creation date                  02/06/2013 15:16:13
+    TBLspace Flags                 801        Page Locking
+                                              TBLspace use 4 bit bit-maps
+    Maximum row size               134       
+    Number of special columns      0         
+    Number of keys                 1         
+    Number of extents              1         
+    Current serial value           1         
+    Current SERIAL8 value          1         
+    Current BIGSERIAL value        1         
+    Current REFID value            1         
+    Pagesize (k)                   2         
+    First extent size              4         
+    Next extent size               4         
+    Number of pages allocated      44        
+    Number of pages used           42        
+    Number of data pages           0         
+    Number of rows                 0         
+    Partition partnum              1049008   
+    Partition lockid               2097155   
+
+    Extents                       
+         Logical Page     Physical Page        Size Physical Pages
+                    0           1:26972          44         44
+
+		  Index name4_ix fragment partition dbspace3 in DBspace dbspace3
+
+    Physical Address               4:9
+    Creation date                  02/06/2013 15:24:00
+    TBLspace Flags                 801        Page Locking
+                                              TBLspace use 4 bit bit-maps
+    Maximum row size               134       
+    Number of special columns      0         
+    Number of keys                 1         
+    Number of extents              6         
+    Current serial value           1         
+    Current SERIAL8 value          1         
+    Current BIGSERIAL value        1         
+    Current REFID value            1         
+    Pagesize (k)                   2         
+    First extent size              7         
+    Next extent size               4         
+    Number of pages allocated      107       
+    Number of pages used           106       
+    Number of data pages           0         
+    Number of rows                 0         
+    Partition partnum              4194310   
+    Partition lockid               2097155   
+
+    Extents                       
+         Logical Page     Physical Page        Size Physical Pages
+                    0             4:136          39         39
+                   39             4:191          12         12
+                   51             4:219          20         20
+                   71             4:255          16         16
+                   87             4:287           4          4
+                   91             4:307          16         16
+
+		  Index zip4_ix fragment partition dbspace1 in DBspace dbspace1
+
+    Physical Address               2:7
+    Creation date                  02/06/2013 15:24:00
+    TBLspace Flags                 801        Page Locking
+                                              TBLspace use 4 bit bit-maps
+    Maximum row size               134       
+    Number of special columns      0         
+    Number of keys                 1         
+    Number of extents              4         
+    Current serial value           1         
+    Current SERIAL8 value          1         
+    Current BIGSERIAL value        1         
+    Current REFID value            1         
+    Pagesize (k)                   2         
+    First extent size              4         
+    Next extent size               4         
+    Number of pages allocated      40        
+    Number of pages used           38        
+    Number of data pages           0         
+    Number of rows                 0         
+    Partition partnum              2097156   
+    Partition lockid               2097155   
+
+    Extents                       
+         Logical Page     Physical Page        Size Physical Pages
+                    0             2:277          20         20
+                   20             2:329           8          8
+                   28             2:353           8          8
+                   36             2:393           4          4
+

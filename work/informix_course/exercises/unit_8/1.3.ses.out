@@ -1,0 +1,12 @@
+
+IBM Informix Dynamic Server Version 11.50.UC6     -- On-Line -- Up 2 days 04:10:44 -- 143772 Kbytes
+
+session                                      #RSAM    total      used       dynamic 
+id       user     tty      pid      hostname threads  memory     memory     explain 
+182      informix -        0        -        0        12288      8712       off 
+20       informix -        0        -        1        425984     335800     off 
+19       informix -        0        -        1        409600     334840     off 
+18       informix -        0        -        1        385024     303584     off 
+3        informix -        0        -        0        12288      9952       off 
+2        informix -        0        -        0        12288      8712       off 
+

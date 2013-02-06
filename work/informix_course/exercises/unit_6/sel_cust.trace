@@ -1,0 +1,270 @@
+trace on
+
+trace expression :debugging sel_cust: 
+
+start select cursor.
+select fname, lname
+  from customer
+select cursor iteration.
+select cursor returns Ludwig          , Pauli           
+expression:v_lname
+evaluates to Pauli           
+expression:v_fname
+evaluates to Ludwig          
+procedure sel_cust returns Ludwig          , Pauli           
+
+iteration of cursory procedure sel_cust
+select cursor iteration.
+select cursor returns Carole          , Sadler          
+expression:v_lname
+evaluates to Sadler          
+expression:v_fname
+evaluates to Carole          
+procedure sel_cust returns Carole          , Sadler          
+
+iteration of cursory procedure sel_cust
+select cursor iteration.
+select cursor returns Philip          , Currie          
+expression:v_lname
+evaluates to Currie          
+expression:v_fname
+evaluates to Philip          
+procedure sel_cust returns Philip          , Currie          
+
+iteration of cursory procedure sel_cust
+select cursor iteration.
+select cursor returns Anthony         , Higgins         
+expression:v_lname
+evaluates to Higgins         
+expression:v_fname
+evaluates to Anthony         
+procedure sel_cust returns Anthony         , Higgins         
+
+iteration of cursory procedure sel_cust
+select cursor iteration.
+select cursor returns Raymond         , Vector          
+expression:v_lname
+evaluates to Vector          
+expression:v_fname
+evaluates to Raymond         
+procedure sel_cust returns Raymond         , Vector          
+
+iteration of cursory procedure sel_cust
+select cursor iteration.
+select cursor returns George          , Watson          
+expression:v_lname
+evaluates to Watson          
+expression:v_fname
+evaluates to George          
+procedure sel_cust returns George          , Watson          
+
+iteration of cursory procedure sel_cust
+select cursor iteration.
+select cursor returns Charles         , Ream            
+expression:v_lname
+evaluates to Ream            
+expression:v_fname
+evaluates to Charles         
+procedure sel_cust returns Charles         , Ream            
+
+iteration of cursory procedure sel_cust
+select cursor iteration.
+select cursor returns Donald          , Quinn           
+expression:v_lname
+evaluates to Quinn           
+expression:v_fname
+evaluates to Donald          
+procedure sel_cust returns Donald          , Quinn           
+
+iteration of cursory procedure sel_cust
+select cursor iteration.
+select cursor returns Jane            , Miller          
+expression:v_lname
+evaluates to Miller          
+expression:v_fname
+evaluates to Jane            
+procedure sel_cust returns Jane            , Miller          
+
+iteration of cursory procedure sel_cust
+select cursor iteration.
+select cursor returns Roy             , Jaeger          
+expression:v_lname
+evaluates to Jaeger          
+expression:v_fname
+evaluates to Roy             
+procedure sel_cust returns Roy             , Jaeger          
+
+iteration of cursory procedure sel_cust
+select cursor iteration.
+select cursor returns Frances         , Keyes           
+expression:v_lname
+evaluates to Keyes           
+expression:v_fname
+evaluates to Frances         
+procedure sel_cust returns Frances         , Keyes           
+
+iteration of cursory procedure sel_cust
+select cursor iteration.
+select cursor returns Margaret        , Lawson          
+expression:v_lname
+evaluates to Lawson          
+expression:v_fname
+evaluates to Margaret        
+procedure sel_cust returns Margaret        , Lawson          
+
+iteration of cursory procedure sel_cust
+select cursor iteration.
+select cursor returns Lana            , Beatty          
+expression:v_lname
+evaluates to Beatty          
+expression:v_fname
+evaluates to Lana            
+procedure sel_cust returns Lana            , Beatty          
+
+iteration of cursory procedure sel_cust
+select cursor iteration.
+select cursor returns Frank           , Albertson       
+expression:v_lname
+evaluates to Albertson       
+expression:v_fname
+evaluates to Frank           
+procedure sel_cust returns Frank           , Albertson       
+
+iteration of cursory procedure sel_cust
+select cursor iteration.
+select cursor returns Alfred          , Grant           
+expression:v_lname
+evaluates to Grant           
+expression:v_fname
+evaluates to Alfred          
+procedure sel_cust returns Alfred          , Grant           
+
+iteration of cursory procedure sel_cust
+select cursor iteration.
+select cursor returns Jean            , Parmelee        
+expression:v_lname
+evaluates to Parmelee        
+expression:v_fname
+evaluates to Jean            
+procedure sel_cust returns Jean            , Parmelee        
+
+iteration of cursory procedure sel_cust
+select cursor iteration.
+select cursor returns Arnold          , Sipes           
+expression:v_lname
+evaluates to Sipes           
+expression:v_fname
+evaluates to Arnold          
+procedure sel_cust returns Arnold          , Sipes           
+
+iteration of cursory procedure sel_cust
+select cursor iteration.
+select cursor returns Dick            , Baxter          
+expression:v_lname
+evaluates to Baxter          
+expression:v_fname
+evaluates to Dick            
+procedure sel_cust returns Dick            , Baxter          
+
+iteration of cursory procedure sel_cust
+select cursor iteration.
+select cursor returns Bob             , Shorter         
+expression:v_lname
+evaluates to Shorter         
+expression:v_fname
+evaluates to Bob             
+procedure sel_cust returns Bob             , Shorter         
+
+iteration of cursory procedure sel_cust
+select cursor iteration.
+select cursor returns Fred            , Jewell          
+expression:v_lname
+evaluates to Jewell          
+expression:v_fname
+evaluates to Fred            
+procedure sel_cust returns Fred            , Jewell          
+
+iteration of cursory procedure sel_cust
+select cursor iteration.
+select cursor returns Jason           , Wallack         
+expression:v_lname
+evaluates to Wallack         
+expression:v_fname
+evaluates to Jason           
+procedure sel_cust returns Jason           , Wallack         
+
+iteration of cursory procedure sel_cust
+select cursor iteration.
+select cursor returns Cathy           , O'Brian         
+expression:v_lname
+evaluates to O'Brian         
+expression:v_fname
+evaluates to Cathy           
+procedure sel_cust returns Cathy           , O'Brian         
+
+iteration of cursory procedure sel_cust
+select cursor iteration.
+select cursor returns Marvin          , Hanlon          
+expression:v_lname
+evaluates to Hanlon          
+expression:v_fname
+evaluates to Marvin          
+procedure sel_cust returns Marvin          , Hanlon          
+
+iteration of cursory procedure sel_cust
+select cursor iteration.
+select cursor returns Chris           , Putnum          
+expression:v_lname
+evaluates to Putnum          
+expression:v_fname
+evaluates to Chris           
+procedure sel_cust returns Chris           , Putnum          
+
+iteration of cursory procedure sel_cust
+select cursor iteration.
+select cursor returns James           , Henry           
+expression:v_lname
+evaluates to Henry           
+expression:v_fname
+evaluates to James           
+procedure sel_cust returns James           , Henry           
+
+iteration of cursory procedure sel_cust
+select cursor iteration.
+select cursor returns Eileen          , Neelie          
+expression:v_lname
+evaluates to Neelie          
+expression:v_fname
+evaluates to Eileen          
+procedure sel_cust returns Eileen          , Neelie          
+
+iteration of cursory procedure sel_cust
+select cursor iteration.
+select cursor returns Kim             , Satifer         
+expression:v_lname
+evaluates to Satifer         
+expression:v_fname
+evaluates to Kim             
+procedure sel_cust returns Kim             , Satifer         
+
+iteration of cursory procedure sel_cust
+select cursor iteration.
+select cursor returns Frank           , Lessor          
+expression:v_lname
+evaluates to Lessor          
+expression:v_fname
+evaluates to Frank           
+procedure sel_cust returns Frank           , Lessor          
+
+iteration of cursory procedure sel_cust
+select cursor iteration.
+end cursor
+expression:(dbinfo-sqlca.sqlerrd2 )
+evaluates to 28 
+let v_rows = 28 
+expression:(|| (|| "processed ", v_rows), " rows")
+evaluates to processed 28 rows 
+trace expression :processed 28 rows 
+
+trace off
+

@@ -1,0 +1,15 @@
+
+
+Locks
+address  wtlist   owner    lklist   type     tblsnum  rowid    key#/bsiz
+4419923c 0        4af11488   0        HDR+S    100002   204         0      
+4419929c 0        4af11a90   0            S    100002   204         0      
+441992fc 0        4af12098   0            S    100002   204         0      
+4419935c 0        4af126a0   4419959c HDR+X    10018a   100         1      
+4419959c 0        4af126a0   4419a4fc HDR+X    100189   300         0      
+4419983c 0        4af126a0   0        HDR+S    100002   205         0      
+4419a4fc 0        4af126a0   4419983c HDR+IX   100189   0           0     
+4419abbc 0        4af12ca8   0        HDR+S    100002   201         0      
+4419acdc 0        4af126a0   4419935c HDR+X    1001a0   100         1      
+ 9 active, 20000 total, 16384 hash buckets, 0 lock table overflows
+

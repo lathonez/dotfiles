@@ -1,0 +1,48 @@
+--------------------------------------------
+locks for session 1- id informix
+--------------------------------------------
+locks for session 0- id informix
+--------------------------------------------
+locks for session 0- id informix
+--------------------------------------------
+locks for session 0- id informix
+--------------------------------------------
+locks for session 0- id informix
+--------------------------------------------
+locks for session 0- id informix
+--------------------------------------------
+locks for session 0- id informix
+--------------------------------------------
+locks for session 0- id informix
+--------------------------------------------
+locks for session 0- id informix
+--------------------------------------------
+locks for session 5- id informix
+--------------------------------------------
+locks for session 6- id informix
+--------------------------------------------
+locks for session 118- id informix
+  table 10018a - row 100 - type HDR+X
+  table 100002 - row 205 - type S
+--------------------------------------------
+locks for session 10- id informix
+--------------------------------------------
+locks for session 9- id informix
+--------------------------------------------
+locks for session 18- id informix
+  table 100002 - row 204 - type HDR+S
+--------------------------------------------
+locks for session 19- id informix
+  table 100002 - row 204 - type S
+--------------------------------------------
+locks for session 20- id informix
+  table 100002 - row 204 - type S
+--------------------------------------------
+locks for session 117- id informix
+  table 10018a - row 100 - type HDR+X
+  table 100189 - row 300 - type HDR+X
+  table 100002 - row 205 - type HDR+S
+  table 100189 - row 0 - type HDR+IX
+  table 1001a0 - row 100 - type HDR+X
+--------------------------------------------
+locks for session 23- id informix
