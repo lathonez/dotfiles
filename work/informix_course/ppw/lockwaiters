@@ -1,0 +1,17 @@
+dbaccess sysmaster - <<! 
+select e.sid as owner_sid,
+       e.username as owner,
+       hex(c.partnum) as partnum,
+       hex(c.rowidr) as rowid,
+       a.sid as waiter_sid,
+       a.username as waiter
+from sysscblst a, sysrstcb b, syslcktab c, systxptab d, sysrstcb e
+where
+   a.address=b.scb
+   and b.lkwait=c.address
+   and c.owner=d.address
+   and d.owner=e.address
+   and bitval(b.flags, '0x80000')=1 --primary thread
+   and bitval(b.flags, '0x4')=1 --waiting on lock
+order by 2,3,4
+!
