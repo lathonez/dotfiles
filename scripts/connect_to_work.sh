@@ -30,7 +30,7 @@ function connect {
       -L 389:ldap.openbet:389 \
       -L 636:ldap.openbet:636 \
       -L 8080:custproxy.orbis:8080 \
-      -L 5222:jabber.openbet.openbet.com:5222 \
+      -L 5222:jabber.openbet.com:5222 \
       -L 110:$MAILHOST:110 \
       -L 143:$MAILHOST:143 \
       -L 993:$MAILHOST:993 \
