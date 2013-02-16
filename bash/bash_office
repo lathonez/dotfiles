@@ -4,3 +4,4 @@
 
 alias rhea='rdesktop -g 1280x1024 -a 24 -D rhea -d orbis'
 alias whd='rlwrap dbaccess willhill_dev@db01_1170 -'
+alias whdold='rlwrap dbaccess willhill_dev@db01_1170 -'
