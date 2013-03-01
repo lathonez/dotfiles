@@ -11,7 +11,6 @@ CONNECTUSER=shazleto
 
 function connect {
 
-
    CONNECTHOST=$1
    echo "attempting to connect to $CONNECTUSER@$CONNECTHOST..."
    ssh $CONNECTUSER@$CONNECTHOST -nNC \
@@ -82,8 +81,6 @@ function setup_remote_env {
 # obviously we only need to do this once..
 setup_remote_env
 
-while [ 1 ]; do
-   connect vpn.openbet.com
-   echo "Disconnected - we are waiting for 1 seconds."
-   sleep 1
-done
+connect ssh.openbet.com
+echo "Disconnected"
+exit
