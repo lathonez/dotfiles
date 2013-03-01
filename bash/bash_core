@@ -6,11 +6,9 @@ setup_servers ()
 {
 	if [[ ${HOSTNAME} == "talitha-borealis" ]]; then
 		SERVER="local"
-		export DB="dev@_11"
 	else
 		# probably on a dev server
 		SERVER="dev"
-		export DB="willhill_dev@sadr_10"
 	fi
 }
 
@@ -98,7 +96,7 @@ setup_colors ()
 setup_aliases ()
 {
 	# Personal
-	alias g='grep -Erns --color=always'
+	alias grep='grep --color=always'
 	alias tclsh="rlwrap tclsh"
 	alias ls='ls -1 -X --group-directories-first --color=auto'
 	alias ll='ls -lh'
@@ -115,7 +113,6 @@ setup_aliases ()
 	alias links='find . -type l -exec ls -l --color=auto {} \;'
 	alias findn='find . -name'
 	alias findr='find . -regex'
-	alias db='rlwrap dbaccess $DB -'
 	alias ssh='ssh -X'
 
 	alias appserv='ot_appserv'
@@ -130,7 +127,8 @@ setup_aliases ()
 		alias dhome='cd /shared/home/shazleto'
 		alias dcvs='dhome; cd cvs_src'
 		alias hdprim='xrandr --output HDMI1 --primary'
-		alias work='sudo ~/scripts/connect_to_work.sh'
+		alias work='sudo ~/scripts/connect_to_work.sh;'
+		alias killwork="ps -ef | egrep \"[s]sh.*openbet.com\" | awk '"'{print $2}'"' | xargs sudo kill -9"
 
 	fi
 	if [[ $SERVER == "dev" ]]; then
@@ -156,6 +154,28 @@ setup_aliases ()
 
 	# mount dumptrack
 	alias cloud='mount  https://dav.dumptruck.goldenfrog.com/r/giganews.com'
+
+	# dbaccess
+	alias whd='rlwrap dbaccess willhill_dev@db01_1170 -'
+	alias whdold='rlwrap dbaccess willhill_dev@db01_1150 -'
+}
+
+
+bash_prompt_command () {
+    # How many characters of the $PWD should be kept
+    local pwdmaxlen=25
+    # Indicate that there has been dir truncation
+    local trunc_symbol=".."
+    local dir=${PWD##*/}
+    pwdmaxlen=$(( ( pwdmaxlen < ${#dir} ) ? ${#dir} : pwdmaxlen ))
+    NEW_PWD=${PWD/#$HOME/\~}
+    local pwdoffset=$(( ${#NEW_PWD} - pwdmaxlen ))
+    if [ ${pwdoffset} -gt "0" ]
+    then
+        NEW_PWD=${NEW_PWD:$pwdoffset:$pwdmaxlen}
+        NEW_PWD=${trunc_symbol}/${NEW_PWD#*/}
+		PWD=${NEW_PWD}
+    fi
 }
 
 
@@ -190,24 +210,11 @@ setup_variables ()
 
 	export INFORMIXDIR INFORMIXSERVER PATH LD_LIBRARY_PATH TCL DEPLOYMENT OPENBET APPSERV CVSROOT
 	export TERM=xterm
+	export PROMPT_COMMAND=bash_prompt_command
+
+	export PS1=':\[\033[m\]\[\033[01;35;1m\]\w\[\033[m\]\[\033[01;33m\]$\[\033[m\] '
 }
 
-
-bash_prompt_command () {
-    # How many characters of the $PWD should be kept
-    local pwdmaxlen=25
-    # Indicate that there has been dir truncation
-    local trunc_symbol=".."
-    local dir=${PWD##*/}
-    pwdmaxlen=$(( ( pwdmaxlen < ${#dir} ) ? ${#dir} : pwdmaxlen ))
-    NEW_PWD=${PWD/#$HOME/\~}
-    local pwdoffset=$(( ${#NEW_PWD} - pwdmaxlen ))
-    if [ ${pwdoffset} -gt "0" ]
-    then
-        NEW_PWD=${NEW_PWD:$pwdoffset:$pwdmaxlen}
-        NEW_PWD=${trunc_symbol}/${NEW_PWD#*/}
-    fi
-}
 
 setup_servers
 setup_system
@@ -215,3 +222,4 @@ setup_colors
 setup_variables
 setup_aliases
 
+cd /space/work
