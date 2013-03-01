@@ -1,0 +1,31 @@
+# This isn't really a script but it does show you how to get
+# the mx5000 keyb and mx1000 mouse up and running on 12.04
+
+# First do the keyboard
+
+# 1 - press the red button on the back so it's in connecting mode
+#     if you want to check whether or not the system can see it:     
+
+	hcitool scan
+
+# That should show you the MACs of any connected devices
+
+# 2 - Pair the keyboard with these:
+
+	sudo bluez-simple-agent hci0 00:07:61:39:95:42
+
+# That ask you to enter a pin, enter something. Shortly after you'll be asked to enter it on the keyboard
+
+	sudo bluez-test-device-trusted 00:07:61:39:95:42 yes
+	sudo bluez-test-input connect 00:07:61:39:95:42
+
+# Now you should have keyb
+
+# Now it's mouse time
+
+	sudo bluez-simple-agent hci0 00:07:61:39:B6:53
+
+# Enter 0000 for the PIN
+
+	sudo bluez-test-device trusted 00:07:61:39:B6:53 yes
+	sudo bluez-test-input connect 00:07:61:39:B6:53
