@@ -24,4 +24,5 @@ _11     onsoctcp        127.0.0.1       9001
 
 # dev
 db01_1150    onsoctcp        db01.orbis      db01_1150
+db01_1170    onsoctcp        db01.orbis      db01_1170
 
