@@ -4,7 +4,7 @@
 
 setup_servers ()
 {
-	if [[ ${HOSTNAME} == "talitha-borealis" ]]; then
+	if [[ ${HOSTNAME} == "talitha-borealis" || ${HOSTNAME} == "ninehundred" ]]; then
 		SERVER="local"
 	else
 		# probably on a dev server
