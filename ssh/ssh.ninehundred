@@ -3,24 +3,28 @@ Port 10023
 Hostname localhost
 User shazleto
 ForwardX11 yes
+IdentityFile /home/lathonez/.ssh/id_rsa.talitha-borealis
 
 Host t
 Port 10024
 Hostname localhost
 User shazleto
 ForwardX11 yes
+IdentityFile /home/lathonez/.ssh/id_rsa.talitha-borealis
 
 Host p
 Port 10022
 Hostname localhost
 User shazleto
 ForwardX11 yes
+IdentityFile /home/lathonez/.ssh/id_rsa.talitha-borealis
 
 Host d
 Port 10025
 Hostname localhost
 User shazleto
 ForwardX11 yes
+IdentityFile /home/lathonez/.ssh/id_rsa.talitha-borealis
 
 Host live
 Hostname gibux224.willhill
