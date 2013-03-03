@@ -1,0 +1,37 @@
+urxvt*saveLines:               10000
+urxvt*font:                   xft:DejaVu Sans Mono:pixelsize=9
+urxvt*scrollstyle:             plain
+urxvt*scrollBar_right:         true
+urxvt*scrollTtyKeypress:       true
+urxvt*foreground:              white
+urxvt*background:              black
+urxvt*termName:                urxvt
+urxvt*color4:   #FF5500
+urxvt*color12:  #FF5500
+
+! alternative configs
+
+!urxvt*shading:                 100
+!urxvt*fading:                  30
+!urxvt*scrollBar:               true
+!urxvt*borderLess:              true
+!urxvt*externalBorder:          0
+!urxvt*internalBorder:          2
+!
+!urxvt.foreground: yellow
+!urxvt.depth: 32
+!urxvt*background: rgba:0000/0000/0000/cccc
+!urxvt.fading: 70
+!urxvt.fadeColor: [0]black
+!urxvt.saveLines:32767
+!urxvt.scrollBar: false
+!
+!urxvt*geometry:                80x20
+!urxvt*font:                     xft:Terminus:size=9
+!urxvt*font:                    xft:Bitstream Vera Sans Mono:pixelsize=9
+!urxvt*font:                   xft:Bitstream Vera Sans mono:size=9:antialias=true:pixelsize=9
+
+!urxvt*reverseVideo:            false
+!urxvt*tintColor:               black
+!urxvt*inheritPixmap:           true
+
