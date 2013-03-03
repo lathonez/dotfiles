@@ -1,0 +1,156 @@
+Host r
+Port 10023
+Hostname localhost
+User shazleto
+ForwardX11 yes
+
+Host t
+Port 10024
+Hostname localhost
+User shazleto
+ForwardX11 yes
+
+Host p
+Port 10022
+Hostname localhost
+User shazleto
+ForwardX11 yes
+
+Host d
+Port 10025
+Hostname localhost
+User shazleto
+ForwardX11 yes
+
+Host live
+Hostname gibux224.willhill
+User shazleto
+ProxyCommand ssh t exec nc %h %p
+
+Host livenon
+Hostname gibux511.willhill
+User shazleto
+ProxyCommand ssh t exec nc %h %p
+
+Host pte
+Hostname canux224.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host ptenon
+Hostname canux561.willhill
+User shazleto
+ProxyCommand ssh t exec nc %h %p
+
+Host stage
+Hostname whstgapp.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host test
+Hostname brsux244.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host stagew
+Hostname whstgweb.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host testw
+Hostname brsux243.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host pp1
+Hostname pp1ux201.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host pp1non
+Hostname pp1ux510.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host pp1on
+Hostname pp1ux921.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host pp1cust
+Hostname pp1ux101.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host pp1proxy
+Hostname pp1ux131.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host pp1bo
+Hostname pp1ux133.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host pp1nonweb
+Hostname pp1ux401.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host pp1feed
+Hostname pp1ux409.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host pp1feed1
+Hostname pp1ux410.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host pp2
+Hostname pp2ux201.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host pp2non
+Hostname pp2ux510.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host pp2on
+Hostname pp2ux921.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host pp3
+Hostname pp3ux201.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host pp3non
+Hostname pp3ux510.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host pp3on
+Hostname pp3ux921.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host log
+Hostname gibux208.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host log1
+Hostname gibux209.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host *.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host davonez
+Hostname davonez.zapto.org
+User shazleto
