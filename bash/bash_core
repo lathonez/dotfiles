@@ -4,8 +4,10 @@
 
 setup_servers ()
 {
-	if [[ ${HOSTNAME} == "talitha-borealis" || ${HOSTNAME} == "ninehundred" ]]; then
-		SERVER="local"
+	if [ ${HOSTNAME} == "talitha-borealis" ]; then
+		SERVER="laptop"
+	elif [ ${HOSTNAME} == "ninehundred" ]; then
+		SERVER="desktop"
 	else
 		# probably on a dev server
 		SERVER="dev"
@@ -122,15 +124,20 @@ setup_aliases ()
 	# appserv commands, prob put these in a script for better and stuff
 	alias admin='appserv admin_shazleto.cfg'
 	alias cust='appserv cust_shazleto.cfg'
-			
-	if [[ $SERVER == "local" ]]; then
-		alias dhome='cd /shared/home/shazleto'
-		alias dcvs='dhome; cd cvs_src'
-		alias hdprim='xrandr --output HDMI1 --primary'
-		alias work='sudo ~/scripts/connect_to_work.sh;'
-		alias killwork="ps -ef | egrep \"[s]sh.*openbet.com\" | awk '"'{print $2}'"' | xargs sudo kill -9"
 
+	# box_specific
+	if [[ $SERVER == "laptop" ]]; then
+		alias work='~/shaz_utils/scripts/connect_to_work.sh -ed shazleto ssh.openbet.com'
+		alias hdprim='xrandr --output HDMI1 --primary'
+		alias killwork="ps -ef | egrep \"[s]sh.*openbet.com\" | awk '"'{print $2}'"' | xargs sudo kill -9"
 	fi
+
+	if [[ $SERVER == "desktop" ]]; then
+		alias work='~/shaz_utils/scripts/connect_to_work.sh -d shazleto ssh.openbet.com'
+		alias hdprim='xrandr --output HDMI1 --primary'
+		alias killwork="ps -ef | egrep \"[s]sh.*openbet.com\" | awk '"'{print $2}'"' | xargs sudo kill -9"
+	fi
+
 	if [[ $SERVER == "dev" ]]; then
 		alias xx='exit 10'
 		alias space='cd /space/shazleto'

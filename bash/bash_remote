@@ -1,5 +1,0 @@
-# stuff here is only fo when we out of the office
-#
-. ~/shaz_utils/bash/bash_core
-
-alias rhea='rdesktop -g 1024x768 -a 24 -D localhost -d orbis'
