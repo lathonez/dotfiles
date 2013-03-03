@@ -4,8 +4,8 @@
 #
 # Generic script to connect to OpenBet network using SSH.
 
-CONNECTUSER=shazleto
-CONNETHOST=ssh.openbet.com
+user=""
+host=""
 
 # Stuff for the DB01 tunnel
 # /etc/services
@@ -15,16 +15,51 @@ db01_1170_port=1902
 # effectively which dev server to tunnel through
 tunnel_port=10023
 
-# we need to specify which key we're using as going back from root
-key_file=/home/shazleto/.ssh/id_rsa
+# will we tunnel into the database server?
+do_tunnel_db=0
+
+# will we set up the remote environment?
+do_setup_env=0
+
+print_usage()  {
+	echo " "
+	echo "Usage: $0 [-ed] [username] [hostname]"
+	echo "  -e : setup the remote environment (swap hosts, ssh config etc)"
+	echo "  -d : tunnel into the database server"
+	echo " "
+}
+
+while getopts ":de" o;
+do
+	case $o in
+		d)  do_tunnel_db=1;;
+		e)  do_setup_env=1;;
+		\?)
+			print_usage;
+			exit 1;;
+	esac
+done
+
+# get the username and host from after input args
+eval "user=\$$OPTIND"
+eval "host=\$$(expr $OPTIND + 1)"
+
+#sanity
+if [ "$user" = "" -o "$host" = "" ]
+then
+	print_usage;
+	exit;
+fi
 
 #
 # connect to the VPN
 #
 function connect {
-   CONNECTHOST=$1
-   echo "attempting to connect to $CONNECTUSER@$CONNECTHOST..."
-   ssh $CONNECTUSER@$CONNECTHOST -nfC \
+
+   echo "attempting to connect to $user@$host.."
+
+   # need sudo for the reserved ports
+   sudo ssh $user@$host -nfC \
       -L 10022:pluto.orbis:22 \
       -L 10023:rosalind.orbis:22 \
       -L 10024:titan.orbis:22 \
@@ -51,7 +86,7 @@ function connect {
 #
 # Set up the laptop for working out of the office
 #
-function setup_remote_env {
+function setup_env {
 
 	# sortout hosts file
 	echo 'linking hosts'
@@ -59,30 +94,11 @@ function setup_remote_env {
 	rm current
 	ln -s hosts_remote current
 
-	# sort bash
-	echo 'linking bashrc'
-	cd
-	rm .bashrc
-	ln -s shaz_utils/bash/bash_remote .bashrc
-	source ~/.bashrc
-
-	#sort screen
-	#echo 'linking screen'
-	#cd ~
-	#rm .screenrc
-	#ln -s scripts/screen/screen_remote .screenrc
-
 	#sort ssh_config
 	echo 'linking ssh config'
 	cd ~/.ssh
 	rm config
 	ln -s ~/shaz_utils/ssh/ssh_remote config
-
-	#sort sqlhosts
-	#echo 'linking sql hosts'
-	#cd /opt/informix/etc
-	#rm sqlhosts
-	#ln -s ~/shaz_utils/informix/sqlhosts.remote sqlhosts
 }
 
 
@@ -97,13 +113,20 @@ function tunnel_db {
 	# -C: compression
 
 	echo 'tunnelling to database server'
-	ssh -i $key_file -p $tunnel_port $CONNECTUSER@localhost -f -nNC -L $db01_1150_port:db01:$db01_1150_port	
-	ssh -i $key_file -p $tunnel_port $CONNECTUSER@localhost -f -nNC -L $db01_1170_port:db01:$db01_1170_port
+	ssh -p $tunnel_port $user@localhost -f -nNC -L $db01_1150_port:db01:$db01_1150_port	
+	ssh -p $tunnel_port $user@localhost -f -nNC -L $db01_1170_port:db01:$db01_1170_port
 }
 
-# we are away from the office so setup the remote environment as a matter of course
-# obviously we only need to do this once..
-setup_remote_env
+if [ "$do_setup_env" = "1" ]
+then
+	setup_env;
+fi
+
+# tunnel
 connect ssh.openbet.com
-tunnel_db
+
+if [ "$do_tunnel_db" = "1" ]
+then
+	tunnel_db;
+fi
 
