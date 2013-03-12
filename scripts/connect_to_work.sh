@@ -12,8 +12,8 @@ host=""
 db01_1150_port=1900
 db01_1170_port=1902
 
-# effectively which dev server to tunnel through
-tunnel_port=10023
+# tunnel through ros
+tunnel_host="r"
 
 # will we tunnel into the database server?
 do_tunnel_db=0
@@ -56,31 +56,31 @@ fi
 #
 function connect {
 
-   echo "attempting to connect to $user@$host.."
+	echo "attempting to connect to $user@$host.."
 
-   # need sudo for the reserved ports
-   sudo ssh $user@$host -nfC \
-      -L 10022:pluto.orbis:22 \
-      -L 10023:rosalind.orbis:22 \
-      -L 10024:titan.orbis:22 \
-      -L 10025:dev01.orbis:22 \
-      -L 25:smtp.orbis:25 \
-      -L 465:smtp.orbis:465 \
-      -L 389:ldap.openbet:389 \
-      -L 636:ldap.openbet:636 \
-      -L 8080:custproxy.orbis:8080 \
-      -L 5222:jabber.openbet.openbet.com:5222 \
-      -L 138:shared.orbis:138 \
-      -L 139:shared.orbis:139 \
-      -L 445:shared.orbis:445 \
-      -L 8139:shared.orbis:8139 \
-      -L 8445:shared.orbis:8445 \
-      -L 3389:rhea.orbis:3389 \
-      -L 3390:saturn.orbis:3389 \
-      -L 2401:pserver.openbet:2401 \
-      -o ServerAliveInterval=60 \
-      -o ServerAliveCountMax=2 \
-      keepalive
+	# need sudo for the reserved ports
+	sudo ssh $user@$host -nfC \
+		-L 10022:pluto.orbis:22 \
+		-L 10023:rosalind.orbis:22 \
+		-L 10024:titan.orbis:22 \
+		-L 10025:dev01.orbis:22 \
+		-L 25:smtp.orbis:25 \
+		-L 465:smtp.orbis:465 \
+		-L 389:ldap.openbet:389 \
+		-L 636:ldap.openbet:636 \
+		-L 8080:custproxy.orbis:8080 \
+		-L 5222:jabber.openbet.openbet.com:5222 \
+		-L 138:shared.orbis:138 \
+		-L 139:shared.orbis:139 \
+		-L 445:shared.orbis:445 \
+		-L 8139:shared.orbis:8139 \
+		-L 8445:shared.orbis:8445 \
+		-L 3389:rhea.orbis:3389 \
+		-L 3390:saturn.orbis:3389 \
+		-L 2401:pserver.openbet:2401 \
+		-o ServerAliveInterval=60 \
+		-o ServerAliveCountMax=2 \
+		keepalive
 }
 
 #
@@ -113,8 +113,8 @@ function tunnel_db {
 	# -C: compression
 
 	echo 'tunnelling to database server'
-	ssh -p $tunnel_port $user@localhost -f -nNC -L $db01_1150_port:db01:$db01_1150_port	
-	ssh -p $tunnel_port $user@localhost -f -nNC -L $db01_1170_port:db01:$db01_1170_port
+	ssh $user@$tunnel_host -f -nNC -L $db01_1150_port:db01:$db01_1150_port
+	ssh $user@$tunnel_host -f -nNC -L $db01_1170_port:db01:$db01_1170_port
 }
 
 if [ "$do_setup_env" = "1" ]
