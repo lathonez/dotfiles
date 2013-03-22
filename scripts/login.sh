@@ -11,30 +11,11 @@ function office_env {
 	rm current
 	ln -s hosts_office current
 
-	# sort bash
-	echo 'linking bashrc'
-	cd ~
-	rm .bashrc
-	ln -s shaz_utils/bash/bash_office .bashrc
-	source ~/.bashrc
-
-	#sort screen
-	#echo 'linking screen'
-	#cd ~
-	#rm .screenrc
-	#ln -s scripts/screen/screen_office .screenrc
-
 	#sort ssh
 	echo 'linking ssh'
 	cd ~/.ssh
 	rm config
 	ln -s ~/shaz_utils/ssh/ssh_office config
-
-	#sort sqlhosts
-	#echo 'linking sql hosts'
-	#cd /opt/informix/etc
-	#rm sqlhosts
-	#ln -s ~/shaz_utils/informix/sqlhosts.office sqlhosts
 }
 
 office_env
