@@ -6,11 +6,17 @@ setup_servers ()
 {
 	if [ ${HOSTNAME} == "talitha-borealis" ]; then
 		SERVER="laptop"
+		ALIAS="lap"
 	elif [ ${HOSTNAME} == "ninehundred" ]; then
 		SERVER="desktop"
+		ALIAS="900"
+	elif [ ${HOSTNAME} == "li465-25" ]; then
+		SERVER="davonez"
+		ALIAS="dav"
 	else
 		# probably on a dev server
 		SERVER="dev"
+		ALIAS="dev"
 	fi
 }
 
@@ -164,7 +170,7 @@ setup_aliases ()
 	alias sysrep='ssh newtest -nNC -L 10289:localhost:10289 -o ServerAliveInterval=60 -o ServerAliveCountMax=2 keepalive'
 
 	# mount dumptrack
-	alias cloud='mount  https://dav.dumptruck.goldenfrog.com/r/giganews.com'
+	alias cloud='mount https://dav.dumptruck.goldenfrog.com/r/giganews.com'
 
 	# dbaccess
 	alias whd='rlwrap dbaccess willhill_dev@db01_1170 -'
@@ -173,18 +179,19 @@ setup_aliases ()
 
 
 bash_prompt_command () {
-    # How many characters of the $PWD should be kept
-    local pwdmaxlen=25
-    # Indicate that there has been dir truncation
-    local trunc_symbol=".."
-    local dir=${PWD##*/}
-    pwdmaxlen=$(( ( pwdmaxlen < ${#dir} ) ? ${#dir} : pwdmaxlen ))
-    NEW_PWD=${PWD/#$HOME/\~}
-    local pwdoffset=$(( ${#NEW_PWD} - pwdmaxlen ))
-    if [ ${pwdoffset} -gt "0" ]
-    then
-        NEW_PWD=${NEW_PWD:$pwdoffset:$pwdmaxlen}
-        NEW_PWD=${trunc_symbol}/${NEW_PWD#*/}
+
+	# How many characters of the $PWD should be kept
+	local pwdmaxlen=25
+	# Indicate that there has been dir truncation
+	local trunc_symbol=".."
+	local dir=${PWD##*/}
+	pwdmaxlen=$(( ( pwdmaxlen < ${#dir} ) ? ${#dir} : pwdmaxlen ))
+	NEW_PWD=${PWD/#$HOME/\~}
+	local pwdoffset=$(( ${#NEW_PWD} - pwdmaxlen ))
+	if [ ${pwdoffset} -gt "0" ]
+	then
+		NEW_PWD=${NEW_PWD:$pwdoffset:$pwdmaxlen}
+		NEW_PWD=${trunc_symbol}/${NEW_PWD#*/}
 		PWD=${NEW_PWD}
     fi
 }
@@ -220,7 +227,7 @@ setup_variables ()
 	export TERM=xterm
 	export PROMPT_COMMAND=bash_prompt_command
 
-	export PS1=':\[\033[m\]\[\033[01;35;1m\]\w\[\033[m\]\[\033[01;33m\]$\[\033[m\] '
+	export PS1='\e[1;34m$ALIAS\e[m:\[\033[m\]\[\033[01;35;1m\]\w\[\033[m\]\[\033[01;33m\]$\[\033[m\] '
 }
 
 
@@ -230,4 +237,3 @@ setup_colors
 setup_variables
 setup_aliases
 
-cd /space/work
