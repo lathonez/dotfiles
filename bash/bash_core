@@ -237,9 +237,19 @@ setup_variables ()
 }
 
 
+go_home ()
+{
+	if [[ $SERVER == "laptop" ]]; then
+		cd /space/work
+	else
+		cd ~/
+	fi
+}
+
 setup_servers
 setup_system
 setup_colors
 setup_variables
 setup_aliases
+go_home
 
