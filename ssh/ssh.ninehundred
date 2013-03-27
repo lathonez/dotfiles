@@ -158,3 +158,10 @@ ProxyCommand ssh t exec nc %h %p
 Host davonez
 Hostname davonez.zapto.org
 User shazleto
+
+Host tatty
+Hostname talitha-borealis
+ProxyCommand ssh t exec nc %h %p
+User shazleto
+IdentityFile /home/lathonez/.ssh/id_rsa.talitha-borealis
+
