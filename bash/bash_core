@@ -6,11 +6,17 @@ setup_servers ()
 {
 	if [ ${HOSTNAME} == "talitha-borealis" ]; then
 		SERVER="laptop"
+		ALIAS="lap"
 	elif [ ${HOSTNAME} == "ninehundred" ]; then
 		SERVER="desktop"
+		ALIAS="900"
+	elif [ ${HOSTNAME} == "li465-25" ]; then
+		SERVER="davonez"
+		ALIAS="dav"
 	else
 		# probably on a dev server
 		SERVER="dev"
+		ALIAS="dev"
 	fi
 }
 
@@ -122,20 +128,30 @@ setup_aliases ()
 	alias asproc='ps -ef | grep shazleto | grep [a]ppserv'
 
 	# appserv commands, prob put these in a script for better and stuff
-	alias admin='appserv admin_shazleto.cfg'
-	alias cust='appserv cust_shazleto.cfg'
+	alias admin='rm admin.log admin_err.log; touch admin.log; appserv admin_shazleto.cfg 2>admin_err.log & tail -f admin.log | grep -v "<ASM>"'
+	alias cust='rm cust.log cust_err.log; touch cust.log; appserv cust_shazleto.cfg 2>cust_err.log & tail -f cust.log | grep -v "<ASM>"'
 
 	# box_specific
 	if [[ $SERVER == "laptop" ]]; then
-		alias work='~/shaz_utils/scripts/connect_to_work.sh -ed shazleto ssh.openbet.com'
+		alias work='~/shaz_utils/scripts/connect_to_work.sh -ed shazleto vpn.openbet.com'
 		alias hdprim='xrandr --output HDMI1 --primary'
 		alias killwork="ps -ef | egrep \"[s]sh.*openbet.com\" | awk '"'{print $2}'"' | xargs sudo kill -9"
+		alias killas="ps -ef | egrep \"[o]t_appserv\" | awk '"'{print $2}'"' | xargs sudo kill; ipcnuke"
+		alias killas9="ps -ef | egrep \"[o]t_appserv\" | awk '"'{print $2}'"' | xargs sudo kill -9; ipcnuke"
 	fi
 
 	if [[ $SERVER == "desktop" ]]; then
-		alias work='~/shaz_utils/scripts/connect_to_work.sh -d shazleto ssh.openbet.com'
+		alias work='~/shaz_utils/scripts/connect_to_work.sh -d shazleto vpn.openbet.com'
 		alias hdprim='xrandr --output HDMI1 --primary'
 		alias killwork="ps -ef | egrep \"[s]sh.*openbet.com\" | awk '"'{print $2}'"' | xargs sudo kill -9"
+		alias killas="ps -ef | egrep \"[o]t_appserv\" | awk '"'{print $2}'"' | xargs sudo kill; ipcnuke"
+		alias killas9="ps -ef | egrep \"[o]t_appserv\" | awk '"'{print $2}'"' | xargs sudo kill -9; ipcnuke"
+	fi
+
+	if [[ $SERVER == "davonez" ]]; then
+		alias work='~/shaz_utils/scripts/connect_to_work.sh -e shazleto vpn.openbet.com'
+		alias killwork="ps -ef | egrep \"[s]sh.*openbet.com\" | awk '"'{print $2}'"' | xargs sudo kill -9"
+		alias xx='exit 10'
 	fi
 
 	if [[ $SERVER == "dev" ]]; then
@@ -160,7 +176,7 @@ setup_aliases ()
 	alias sysrep='ssh newtest -nNC -L 10289:localhost:10289 -o ServerAliveInterval=60 -o ServerAliveCountMax=2 keepalive'
 
 	# mount dumptrack
-	alias cloud='mount  https://dav.dumptruck.goldenfrog.com/r/giganews.com'
+	alias cloud='mount https://dav.dumptruck.goldenfrog.com/r/giganews.com'
 
 	# dbaccess
 	alias whd='rlwrap dbaccess willhill_dev@db01_1170 -'
@@ -169,18 +185,19 @@ setup_aliases ()
 
 
 bash_prompt_command () {
-    # How many characters of the $PWD should be kept
-    local pwdmaxlen=25
-    # Indicate that there has been dir truncation
-    local trunc_symbol=".."
-    local dir=${PWD##*/}
-    pwdmaxlen=$(( ( pwdmaxlen < ${#dir} ) ? ${#dir} : pwdmaxlen ))
-    NEW_PWD=${PWD/#$HOME/\~}
-    local pwdoffset=$(( ${#NEW_PWD} - pwdmaxlen ))
-    if [ ${pwdoffset} -gt "0" ]
-    then
-        NEW_PWD=${NEW_PWD:$pwdoffset:$pwdmaxlen}
-        NEW_PWD=${trunc_symbol}/${NEW_PWD#*/}
+
+	# How many characters of the $PWD should be kept
+	local pwdmaxlen=25
+	# Indicate that there has been dir truncation
+	local trunc_symbol=".."
+	local dir=${PWD##*/}
+	pwdmaxlen=$(( ( pwdmaxlen < ${#dir} ) ? ${#dir} : pwdmaxlen ))
+	NEW_PWD=${PWD/#$HOME/\~}
+	local pwdoffset=$(( ${#NEW_PWD} - pwdmaxlen ))
+	if [ ${pwdoffset} -gt "0" ]
+	then
+		NEW_PWD=${NEW_PWD:$pwdoffset:$pwdmaxlen}
+		NEW_PWD=${trunc_symbol}/${NEW_PWD#*/}
 		PWD=${NEW_PWD}
     fi
 }
@@ -191,11 +208,9 @@ setup_variables ()
 	arch=`uname -m | sed -e 's/i.86/ix86/' -e 's/sun4./sun4/'`
 
 	OPENBET=/prj/openbet/bin:/prj/deployment/bin:/lib:/prj/orbis/lib/${arch}
-	APPSERV=/prj/openbet/bin/appserv:/prj/openbet/appserv/FREEZES/CURRENT/bin/${arch}
-	APPSERV=$APPSERV:/opt/appserv/current/bin:/opt/appserv/current/lib
+	APPSERV=/opt/appserv/current
 
-	TCL=/opt/tcl8.5
-	PATH=/opt/tcl8.5/bin/:/local/Scripts:/usr/bin:/local/bin
+	PATH=/local/Scripts:/usr/bin:/local/bin:$APPSERV/bin
 
 	export JAVA=/usr/lib/jdk-1.1
 
@@ -203,8 +218,7 @@ setup_variables ()
 	INFORMIXSERVER=_11
 	INFORMIXDIR=/opt/informix
 
-	LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$APPSERV:$OPENBET:$TCL:$TCL/lib
-	LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$INFORMIXDIR/lib:$INFORMIXDIR/lib/esql
+	LD_LIBRARY_PATH=$APPSERV/lib:$INFORMIXDIR/lib:$INFORMIXDIR/lib/esql
 
 	# deployment
 	DEPLOYMENT=/prj/deployment/latest
@@ -215,18 +229,27 @@ setup_variables ()
 
 	CVSROOT=:pserver:${USER}@pserver:/cvsroot
 
-	export INFORMIXDIR INFORMIXSERVER PATH LD_LIBRARY_PATH TCL DEPLOYMENT OPENBET APPSERV CVSROOT
+	export INFORMIXDIR INFORMIXSERVER PATH LD_LIBRARY_PATH DEPLOYMENT OPENBET APPSERV CVSROOT
 	export TERM=xterm
 	export PROMPT_COMMAND=bash_prompt_command
 
-	export PS1=':\[\033[m\]\[\033[01;35;1m\]\w\[\033[m\]\[\033[01;33m\]$\[\033[m\] '
+	export PS1='\e[1;34m$ALIAS\e[m:\[\033[m\]\[\033[01;35;1m\]\w\[\033[m\]\[\033[01;33m\]$\[\033[m\] '
 }
 
+
+go_home ()
+{
+	if [[ $SERVER == "laptop" ]]; then
+		cd /space/work
+	else
+		cd ~/
+	fi
+}
 
 setup_servers
 setup_system
 setup_colors
 setup_variables
 setup_aliases
+go_home
 
-cd /space/work

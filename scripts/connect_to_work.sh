@@ -60,23 +60,21 @@ function connect {
 
 	# need sudo for the reserved ports
 	sudo ssh $user@$host -nfC \
-		-L 10022:pluto.orbis:22 \
-		-L 10023:rosalind.orbis:22 \
-		-L 10024:titan.orbis:22 \
-		-L 10025:dev01.orbis:22 \
-		-L 25:smtp.orbis:25 \
-		-L 465:smtp.orbis:465 \
+		-L 10022:pluto.openbet:22 \
+		-L 10023:rosalind.openbet:22 \
+		-L 10024:titan.openbet:22 \
+		-L 10025:dev01.openbet:22 \
+		-L 25:smtp.openbet:25 \
+		-L 465:smtp.openbet:465 \
 		-L 389:ldap.openbet:389 \
 		-L 636:ldap.openbet:636 \
-		-L 8080:custproxy.orbis:8080 \
+		-L 8080:custproxy.openbet:8080 \
 		-L 5222:jabber.openbet.openbet.com:5222 \
-		-L 138:shared.orbis:138 \
-		-L 139:shared.orbis:139 \
-		-L 445:shared.orbis:445 \
-		-L 8139:shared.orbis:8139 \
-		-L 8445:shared.orbis:8445 \
-		-L 3389:rhea.orbis:3389 \
-		-L 3390:saturn.orbis:3389 \
+		-L 138:shared.openbet:138 \
+		-L 139:shared.openbet:139 \
+		-L 445:shared.openbet:445 \
+		-L 8139:shared.openbet:8139 \
+		-L 8445:shared.openbet:8445 \
 		-L 2401:pserver.openbet:2401 \
 		-o ServerAliveInterval=60 \
 		-o ServerAliveCountMax=2 \
