@@ -121,7 +121,7 @@ then
 fi
 
 # tunnel
-connect ssh.openbet.com
+connect
 
 if [ "$do_tunnel_db" = "1" ]
 then
