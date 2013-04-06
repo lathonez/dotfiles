@@ -74,10 +74,10 @@ perf() {
 	# we need to log some stuff out in the perf as we don't get the time it was run
 	current=`date +"%H:%M:%S"`
 	echo "" >> "$logdir/$logfile.perf.log"
-	echo "| $current perf.pl -q -r run, for last $perf_tail lines of $app_log |" >> "$logdir/$logfile.perf.log" 
+	echo "| $current perf.pl -k run, for last $perf_tail lines of $app_log |" >> "$logdir/$logfile.perf.log" 
 	echo "" >> "$logdir/$logfile.perf.log"
 
-	tail -n $perf_tail $app_log | egrep "DB::EXEC|AS::REQ" | perf.pl -q -r 2>> "$logdir/$logfile.log" >> "$logdir/$logfile.perf.log"
+	tail -n $perf_tail $app_log | perf.pl -k 2>> "$logdir/$logfile.log" >> "$logdir/$logfile.perf.log"
 }
 
 # monitor stuff
