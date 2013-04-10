@@ -10,7 +10,7 @@ setup_servers ()
 	elif [ ${HOSTNAME} == "ninehundred" ]; then
 		SERVER="desktop"
 		ALIAS="900"
-	elif [ ${HOSTNAME} == "li465-25" ]; then
+	elif [ ${HOSTNAME} == "localhost" ]; then
 		SERVER="davonez"
 		ALIAS="dav"
 	else
