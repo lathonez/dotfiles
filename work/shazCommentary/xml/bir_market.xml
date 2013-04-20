@@ -1,0 +1,11 @@
+<!DOCTYPE oxiFeedRequest SYSTEM "oxiFeedRequest.dtd">
+<oxiFeedRequest version="1.0" timestamp="2013-04-13 15:00:25">
+	<auth username="esaunder" password="esaunder01"/>
+	<marketUpdate>
+		<marketId>
+			<openbetId>5722821</openbetId>
+		</marketId>
+		<status>active</status>
+		<display displayed="yes"/>
+	</marketUpdate>
+</oxiFeedRequest>

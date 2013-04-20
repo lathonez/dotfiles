@@ -162,7 +162,7 @@
 
 
 #--------------------------------------------------------------------------------------------------------------------------------------
-# Add entry into Openbet release calendar (09;00 - 10:00) for each of these tickets:
+# Add entry into Openbet release calendar (09:00 - 10:00) for each of these tickets:
 
 	# tickets:
 		REL_TICKETS
@@ -323,6 +323,11 @@
 
 	# If it says anything other than (below), go here and see what to do https://wiki.openbet/display/willhill/Support+Ticket+Processes#SupportTicketProcesses-GenerateReleasenoteforcriticalfiles
 		#####  Critical files have not changed. #####
+#--------------------------------------------------------------------------------------------------------------------------------------
+
+
+#--------------------------------------------------------------------------------------------------------------------------------------
+# Tag CURRENT_LIVE_BRANCHES
 #--------------------------------------------------------------------------------------------------------------------------------------
 
 

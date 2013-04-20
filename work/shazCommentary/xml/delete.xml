@@ -1,0 +1,8 @@
+<oxiFeedRequest version="2.0" timestamp="2013-04-20+01:00">
+	<auth password="esaunder01" username="esaunder"/>
+	<event id="126751">
+		<deletions>
+			<deletion id="126751_2532552345" reason=""/>
+		</deletions>
+	</event>
+</oxiFeedRequest>

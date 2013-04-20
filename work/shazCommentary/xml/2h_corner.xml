@@ -1,0 +1,9 @@
+<oxiFeedRequest version="2.0" timestamp="2013-04-20+01:00">
+	<auth password="esaunder01" username="esaunder"/>
+	<event id="126751">
+		<incidents>
+			<incident id="126751_25315239" period="2h" clock="00:48:53.000+01:00" competitor="0" type="cnr"/>
+		</incidents>
+		<clock action="adjust" period="2h">00:48:53.000+01:00</clock>
+	</event>
+</oxiFeedRequest>
