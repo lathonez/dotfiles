@@ -39,7 +39,7 @@
 		ln -s <PATH_TO_APP_STATIC> <APP> (ln -s cust/static cust)
 
 	# TCL > TBC
-	cat file_list | grep tbc | sed 's/tbc/tcl/g' | awk '{print "cp",$1,$1}' | sed 's/\.tcl/\.tbc/2'
+	cat file_list | /bin/grep tbc | sed 's/tbc/tcl/g' | awk '{print "cp",$1,$1}' | sed 's/\.tcl/\.tbc/2'
 #--------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -114,27 +114,24 @@
 
 
 #--------------------------------------------------------------------------------------------------------------------------------------
-# Copy Web Tar (WEB_BOXES)
+# Copy Web Tar (gibux999)
 
 	cd /space/work/Support/REL_NAME
 
-		scp support_REL_NAME_static.tar.bz2 shazleto@gibux101.willhill:/tmp
-		ssh shazleto@gibux101.willhill
-		chmod 777 /tmp/support_REL_NAME_static.tar.bz2
-		sudo su - openbet
-		mkdir -p ~/users/shazleto/REL_NAME; cp /tmp/support_REL_NAME_static.tar.bz2 ~/users/shazleto/REL_NAME; chmod 644 ~/users/shazleto/REL_NAME/support_REL_NAME_static.tar.bz2; exit
-		rm /tmp/support_REL_NAME_static.tar.bz2
+		ssh shazleto@gibux999.willhill -f 'mkdir -p /opt/upload/Openbet/shazleto/REL_NAME'
+		scp support_REL_NAME_static.tar.bz2 shazleto@gibux999.willhill:/opt/upload/Openbet/shazleto/REL_NAME
+		
 #--------------------------------------------------------------------------------------------------------------------------------------
 
 
 #--------------------------------------------------------------------------------------------------------------------------------------
-# Create Web Backup (WEB_BOXES)
+# Create Web Backup (gibux101)
 
 	# create backup
 		cd /var/www/html/ob/static
-		tar tjf ~/users/shazleto/REL_NAME/support_REL_NAME_static.tar.bz2 | xargs tar cjvf ~/users/shazleto/REL_NAME/support_REL_NAME_static_backup.tar.bz2		
+		tar tjf /opt/upload/Openbet/shazleto/REL_NAME/support_REL_NAME_static.tar.bz2 | xargs tar cjvf ~/users/shazleto/REL_NAME/support_REL_NAME_static_backup.tar.bz2		
 	# verify
-		tar tjf ~/users/shazleto/REL_NAME/support_REL_NAME_static.tar.bz2 | wc -l
+		/opt/upload/Openbet/shazleto/REL_NAME/support_REL_NAME_static.tar.bz2 | wc -l
 		tar tjf ~/users/shazleto/REL_NAME/support_REL_NAME_static_backup.tar.bz2 | wc -l
 #--------------------------------------------------------------------------------------------------------------------------------------
 
@@ -194,7 +191,7 @@
 	# check presence of backup
 		ls -l ~/users/shazleto/REL_NAME/support_REL_NAME_static_backup.tar.bz2
 	# exctract
-		tar xjvf ~/users/shazleto/REL_NAME/support_REL_NAME_static.tar.bz2
+		tar xjvf /opt/upload/Openbet/shazleto/REL_NAME/support_REL_NAME_static.tar.bz2
 	# chmod
 		chmod -R 755 *
 	# sync
