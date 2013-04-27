@@ -1,0 +1,10 @@
+<!DOCTYPE oxiFeedRequest SYSTEM "oxiFeedRequest.dtd">
+	<oxiFeedRequest version="1.0">
+	<auth username="esaunder" password="esaunder01"/>
+	<eventUpdate>
+		<eventId>
+			<openbetId>126751</openbetId>
+		</eventId>
+		<startTime isOff="no">2013-04-20 15:25:44</startTime>
+	</eventUpdate>
+</oxiFeedRequest>
