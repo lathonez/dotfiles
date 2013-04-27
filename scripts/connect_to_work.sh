@@ -69,6 +69,7 @@ function connect {
 		-L 389:ldap.openbet:389 \
 		-L 636:ldap.openbet:636 \
 		-L 8080:custproxy.openbet:8080 \
+		-L 8081:proxy.openbet:8080 \
 		-L 5222:jabber.openbet.openbet.com:5222 \
 		-L 138:shared.openbet:138 \
 		-L 139:shared.openbet:139 \
