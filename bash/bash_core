@@ -130,6 +130,7 @@ setup_aliases ()
 	# appserv commands, prob put these in a script for better and stuff
 	alias admin='rm admin.log admin_err.log; touch admin.log; appserv admin_shazleto.cfg 2>admin_err.log & tail -f admin.log | grep -v "<ASM>"'
 	alias cust='rm cust.log cust_err.log; touch cust.log; appserv cust_shazleto.cfg 2>cust_err.log & tail -f cust.log | grep -v "<ASM>"'
+	alias oxifeed='rm oxifeed.log oxifeed_err.log; touch oxifeed.log; appserv oxifeed_sh.cfg 2>oxifeed_err.log & tail -f oxifeed.log | grep -v "<ASM>"'
 
 	# box_specific
 	if [[ $SERVER == "laptop" ]]; then

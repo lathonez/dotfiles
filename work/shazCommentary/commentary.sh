@@ -83,7 +83,7 @@ set_xml() {
 	sed -i "s/<openbetId>[0-9]*/<openbetId>$event_id/g" xml/off.xml
 	sed -i "s/<openbetId>[0-9]*/<openbetId>$event_id/g" xml/on.xml
 	sed -i "s/[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\} [0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}/$start_time/g" xml/on.xml
-	sed -i "s/<openbetId>[0-9]*/<openbetId>$bir_market_id/g" xml/bir_market.xml
+	sed -i "s/<openbetId>[0-9]*/<openbetId>$bir_market_id/g" xml/bir_market*.xml
 }
 
 
@@ -138,7 +138,9 @@ play_game() {
 	send_com_xml off.xml
 	send_com_xml bir_market.xml
 	send_com_xml 1h_start.xml
-	sleep $delay
+
+	# we need to wait extra long here 'cause of the random ajax
+	sleep 60
 
 	# first half corner
 	send_com_xml 1h_corner.xml
