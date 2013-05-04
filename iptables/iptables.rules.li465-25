@@ -21,11 +21,9 @@ WEB=80
 TERRARIA_DWILLIAM=5555
 TERRARIA_SHAZLETO=6666
 TERRARIA=7777
-MISC_ONE=5091
-MISC_TWO=5000
-MISC_THREE=3541
-CUSTPROXY=8080
-JABBER=5222
+CUSTPROXY=18080
+PROXY=18081
+JABBER=15222
 
 # declare inputs
 iptables -A INPUT -p tcp -m tcp --dport $SSH -j ACCEPT
@@ -33,11 +31,9 @@ iptables -A INPUT -p tcp -m tcp --dport $WEB -j ACCEPT
 iptables -A INPUT -p tcp -m tcp --dport $TERRARIA_DWILLIAM -j ACCEPT
 iptables -A INPUT -p tcp -m tcp --dport $TERRARIA_SHAZLETO -j ACCEPT
 iptables -A INPUT -p tcp -m tcp --dport $TERRARIA -j ACCEPT
-#iptables -A INPUT -p tcp -m tcp --dport $MISC_ONE -j ACCEPT
-#iptables -A INPUT -p tcp -m tcp --dport $MISC_TWO -j ACCEPT
-#iptables -A INPUT -p tcp -m tcp --dport $MISC_THREE -j ACCEPT
 iptables -A INPUT -p tcp -m tcp --dport $CUSTPROXY -j ACCEPT
 iptables -A INPUT -p tcp -m tcp --dport $JABBER -j ACCEPT
+iptables -A INPUT -p tcp -m tcp --dport $PROXY -j ACCEPT
 
 # Anything that gets passed the accepts, will get dropped
 # log dropped packets - tail -f /var/log/kern.log
@@ -49,8 +45,17 @@ iptables -A INPUT -j DROP
 # save rules so they are restored when the network card comes back up
 sh -c "iptables-save > /etc/iptables.rules"
 
+# print out tables
+echo "|------------------ LOADED IPTABLES FROM FILE ------------------|"
+echo ""
+
+iptables -L
+iptables -L -t nat
+
 #
 # PORT FORWARDING EXAMPLE - 9090 to 9091:
+#
+# Note port forwarding will not work from eth* to the loopback
 #
 # what's happening here is that before the main table actually receives the request, it gets transformed
 # from the source port to the destination port. Therefore you need an ACCEPT rule in for the dest port only

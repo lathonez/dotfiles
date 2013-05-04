@@ -12,6 +12,11 @@ host=""
 db01_1150_port=1900
 db01_1170_port=1902
 
+# eth0 tunnel commands
+eth0_csutproxy=""
+eth0_proxy=""
+eth0_jabber=""
+
 # tunnel through ros
 tunnel_host="r"
 
@@ -21,19 +26,24 @@ do_tunnel_db=0
 # will we set up the remote environment?
 do_setup_env=0
 
+# do we want to bind (some) of the tunnels to eth0?
+do_eth0_bind=0
+
 print_usage()  {
 	echo " "
-	echo "Usage: $0 [-ed] [username] [hostname]"
+	echo "Usage: $0 [-edr] [username] [hostname]"
 	echo "  -e : setup the remote environment (swap hosts, ssh config etc)"
 	echo "  -d : tunnel into the database server"
+	echo "  -r : bind certain tunnels to eth0 too"
 	echo " "
 }
 
-while getopts ":de" o;
+while getopts ":der" o;
 do
 	case $o in
 		d)  do_tunnel_db=1;;
 		e)  do_setup_env=1;;
+		r)  do_bind_eth0=1;;
 		\?)
 			print_usage;
 			exit 1;;
@@ -77,6 +87,9 @@ function connect {
 		-L 8139:shared.openbet:8139 \
 		-L 8445:shared.openbet:8445 \
 		-L 2401:pserver.openbet:2401 \
+		$eth0_custproxy \
+		$eth0_proxy \
+		$eth0_jabber \
 		-o ServerAliveInterval=60 \
 		-o ServerAliveCountMax=2 \
 		keepalive
@@ -100,7 +113,6 @@ function setup_env {
 	ln -s ~/shaz_utils/ssh/ssh_remote config
 }
 
-
 #
 # Setup the database server tunnel
 #
@@ -115,6 +127,26 @@ function tunnel_db {
 	ssh $user@$tunnel_host -f -nNC -L $db01_1150_port:db01:$db01_1150_port
 	ssh $user@$tunnel_host -f -nNC -L $db01_1170_port:db01:$db01_1170_port
 }
+
+
+#
+# Set up certain tunnels to also bind to eth0
+#
+function bind_eth0 {
+
+	# first we need to work out what the ip is
+	eth0_ip = `ifconfig | /bin/grep -A1 eth0 | /bin/grep inet | awk -F : '{print $2}' | awk '{print $1}'`
+
+	# overwrite the eth0 tunnel commands set to "" above (eth0 ports are prefixed with 1)
+	eth0_custproxy="-L $eth0_ip:18080:custproxy.openbet:8080"
+	eth0_proxy="-L $eth0_ip:18081:proxy.openbet:8080"
+	eth0_jabber="-L $eth0_ip:15222:jabber.openbet.openbet.com:5222"
+}
+
+if [ "$do_bind_eth0" = "1" ]
+then
+	bind_eth0
+fi
 
 if [ "$do_setup_env" = "1" ]
 then
