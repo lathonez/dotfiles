@@ -135,7 +135,7 @@ function tunnel_db {
 function bind_eth0 {
 
 	# first we need to work out what the ip is
-	eth0_ip = `ifconfig | /bin/grep -A1 eth0 | /bin/grep inet | awk -F : '{print $2}' | awk '{print $1}'`
+	eth0_ip=`ifconfig | /bin/grep -A1 eth0 | /bin/grep inet | awk -F : '{print $2}' | awk '{print $1}'`
 
 	# overwrite the eth0 tunnel commands set to "" above (eth0 ports are prefixed with 1)
 	eth0_custproxy="-L $eth0_ip:18080:custproxy.openbet:8080"
