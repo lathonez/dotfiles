@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE oxiFeedRequest SYSTEM "oxiFeedRequest.dtd">
+<!-- use cases for insert -->
+<oxiFeedRequest version="1.0" timestamp="2013-05-15 11:12:54">
+	<auth username="Administrator" password="1ncharge"/>
+
+	<!-- START MARKETS WITH CASHOUT_AVAIL = Y -->
+	<!-- #3 Calculate with null cashout price -->
+	<selectionInsert>
+		<marketId><externalId>CAERUS_bd88-1368622464184</externalId></marketId>
+		<selectionId><externalId>CAERUS_bd88-H-1368622464184</externalId></selectionId>
+		<selectionName>|Arsenal|</selectionName>
+		<selectionType>home</selectionType>
+		<price type="fractional">10/1</price>
+		<cashoutPrice type="calculate"></cashoutPrice>
+		<status>active</status>
+		<display displayed="yes" order="10"/>
+		<multKey>MYLV</multKey>
+	</selectionInsert>
+	<!-- #4 caclulate with rubbish cashout price -->
+	<selectionInsert>
+		<marketId><externalId>CAERUS_bd88-1368622464184</externalId></marketId>
+		<selectionId><externalId>CAERUS_bd88-D-1368622464184</externalId></selectionId>
+		<selectionName>|Draw|</selectionName>
+		<selectionType>draw</selectionType>
+		<price type="fractional">1/1</price>
+		<cashoutPrice type="calculate">Dave</cashoutPrice>
+		<status>active</status>
+		<display displayed="yes" order="10"/>
+		<multKey>MYLV</multKey>
+	</selectionInsert>
+	<!-- #5 valid decimal -->
+	<selectionInsert>
+		<marketId><externalId>CAERUS_bd88-1368622464184</externalId></marketId>
+		<selectionId><externalId>CAERUS_bd88-A-1368622464184</externalId></selectionId>
+		<selectionName>|Tottenham|</selectionName>
+		<selectionType>away</selectionType>
+		<price type="fractional">1/10</price>
+		<cashoutPrice type="decimal">6.543</cashoutPrice>
+		<status>active</status>
+		<display displayed="yes" order="10"/>
+		<multKey>MYLV</multKey>
+	</selectionInsert>
+	<!-- #6 invalid decimal (fraction) -->
+	<selectionInsert>
+		<marketId><externalId>CAERUS_bd89-1368622464184</externalId></marketId>
+		<selectionId><externalId>CAERUS_bd89-H-1368622464184</externalId></selectionId>
+		<selectionName>|Arsenal|</selectionName>
+		<selectionType>home</selectionType>
+		<price type="fractional">10/1</price>
+		<cashoutPrice type="decimal">1/1</cashoutPrice>
+		<status>active</status>
+		<display displayed="yes" order="10"/>
+		<multKey>MYLV</multKey>
+	</selectionInsert>
+	<!-- #7 null decimal -->
+	<selectionInsert>
+		<marketId><externalId>CAERUS_bd89-1368622464184</externalId></marketId>
+		<selectionId><externalId>CAERUS_bd89-D-1368622464184</externalId></selectionId>
+		<selectionName>|Draw|</selectionName>
+		<selectionType>draw</selectionType>
+		<price type="fractional">1/1</price>
+		<cashoutPrice type="decimal"></cashoutPrice>
+		<status>active</status>
+		<display displayed="yes" order="10"/>
+		<multKey>MYLV</multKey>
+	</selectionInsert>
+	<!-- #8 valid fractional -->
+	<selectionInsert>
+		<marketId><externalId>CAERUS_bd89-1368622464184</externalId></marketId>
+		<selectionId><externalId>CAERUS_bd89-A-1368622464184</externalId></selectionId>
+		<selectionName>|Tottenham|</selectionName>
+		<selectionType>away</selectionType>
+		<price type="fractional">1/10</price>
+		<cashoutPrice type="fractional">1/1</cashoutPrice>
+		<status>active</status>
+		<display displayed="yes" order="10"/>
+		<multKey>MYLV</multKey>
+	</selectionInsert>
+	<!-- #9 invalid fraction (decimal) -->
+	<selectionInsert>
+		<marketId><externalId>CAERUS_bd90-1368622464184</externalId></marketId>
+		<selectionId><externalId>CAERUS_bd90-H-1368622464184</externalId></selectionId>
+		<selectionName>|Arsenal|</selectionName>
+		<selectionType>home</selectionType>
+		<price type="fractional">10/1</price>
+		<cashoutPrice type="fractional">2.345</cashoutPrice>
+		<status>active</status>
+		<display displayed="yes" order="10"/>
+		<multKey>MYLV</multKey>
+	</selectionInsert>
+	<!-- #10 null fractional -->
+	<selectionInsert>
+		<marketId><externalId>CAERUS_bd90-1368622464184</externalId></marketId>
+		<selectionId><externalId>CAERUS_bd90-D-1368622464184</externalId></selectionId>
+		<selectionName>|Draw|</selectionName>
+		<selectionType>draw</selectionType>
+		<price type="fractional">1/1</price>
+		<cashoutPrice type="fractional"></cashoutPrice>
+		<status>active</status>
+		<display displayed="yes" order="10"/>
+		<multKey>MYLV</multKey>
+	</selectionInsert>
+	<!-- #11 not supplied -->
+	<selectionInsert>
+		<marketId><externalId>CAERUS_bd90-1368622464184</externalId></marketId>
+		<selectionId><externalId>CAERUS_bd90-A-1368622464184</externalId></selectionId>
+		<selectionName>|Tottenham|</selectionName>
+		<selectionType>away</selectionType>
+		<price type="fractional">1/10</price>
+		<status>active</status>
+		<display displayed="yes" order="10"/>
+		<multKey>MYLV</multKey>
+	</selectionInsert>
+	<!-- #12 rubbish cashout price type -->
+	<selectionInsert>
+		<marketId><externalId>CAERUS_bd91-1368622464184</externalId></marketId>
+		<selectionId><externalId>CAERUS_bd91-H-1368622464184</externalId></selectionId>
+		<selectionName>|Arsenal|</selectionName>
+		<selectionType>home</selectionType>
+		<price type="fractional">10/1</price>
+		<cashoutPrice type="dave">1.2345</cashoutPrice>
+		<status>active</status>
+		<display displayed="yes" order="10"/>
+		<multKey>MYLV</multKey>
+	</selectionInsert>
+	<!-- still two empty slots in b91 -->
+	<!-- END MARKETS WITH CASHOUT_AVAIL = Y -->
+
+	<!-- START MARKETS WITH CASHOUT_AVAIL = N -->
+	<!-- #13 Calculate with null cashout price -->
+	<selectionInsert>
+		<marketId><externalId>CAERUS_bd92-1368622464184</externalId></marketId>
+		<selectionId><externalId>CAERUS_bd92-H-1368622464184</externalId></selectionId>
+		<selectionName>|Arsenal|</selectionName>
+		<selectionType>home</selectionType>
+		<price type="fractional">10/1</price>
+		<cashoutPrice type="calculate"></cashoutPrice>
+		<status>active</status>
+		<display displayed="yes" order="10"/>
+		<multKey>MYLV</multKey>
+	</selectionInsert>
+	<!-- #14 caclulate with rubbish cashout price -->
+	<selectionInsert>
+		<marketId><externalId>CAERUS_bd92-1368622464184</externalId></marketId>
+		<selectionId><externalId>CAERUS_bd92-D-1368622464184</externalId></selectionId>
+		<selectionName>|Draw|</selectionName>
+		<selectionType>draw</selectionType>
+		<price type="fractional">1/1</price>
+		<cashoutPrice type="calculate">Dave</cashoutPrice>
+		<status>active</status>
+		<display displayed="yes" order="10"/>
+		<multKey>MYLV</multKey>
+	</selectionInsert>
+	<!-- #15 valid decimal -->
+	<selectionInsert>
+		<marketId><externalId>CAERUS_bd92-1368622464184</externalId></marketId>
+		<selectionId><externalId>CAERUS_bd92-A-1368622464184</externalId></selectionId>
+		<selectionName>|Tottenham|</selectionName>
+		<selectionType>away</selectionType>
+		<price type="fractional">1/10</price>
+		<cashoutPrice type="decimal">6.543</cashoutPrice>
+		<status>active</status>
+		<display displayed="yes" order="10"/>
+		<multKey>MYLV</multKey>
+	</selectionInsert>
+	<!-- #16 invalid decimal (fraction) -->
+	<selectionInsert>
+		<marketId><externalId>CAERUS_bd93-1368622464184</externalId></marketId>
+		<selectionId><externalId>CAERUS_bd93-H-1368622464184</externalId></selectionId>
+		<selectionName>|Arsenal|</selectionName>
+		<selectionType>home</selectionType>
+		<price type="fractional">10/1</price>
+		<cashoutPrice type="decimal">1/1</cashoutPrice>
+		<status>active</status>
+		<display displayed="yes" order="10"/>
+		<multKey>MYLV</multKey>
+	</selectionInsert>
+	<!-- #17 null decimal -->
+	<selectionInsert>
+		<marketId><externalId>CAERUS_bd93-1368622464184</externalId></marketId>
+		<selectionId><externalId>CAERUS_bd93-D-1368622464184</externalId></selectionId>
+		<selectionName>|Draw|</selectionName>
+		<selectionType>draw</selectionType>
+		<price type="fractional">1/1</price>
+		<cashoutPrice type="decimal"></cashoutPrice>
+		<status>active</status>
+		<display displayed="yes" order="10"/>
+		<multKey>MYLV</multKey>
+	</selectionInsert>
+	<!-- #18 valid fractional -->
+	<selectionInsert>
+		<marketId><externalId>CAERUS_bd93-1368622464184</externalId></marketId>
+		<selectionId><externalId>CAERUS_bd93-A-1368622464184</externalId></selectionId>
+		<selectionName>|Tottenham|</selectionName>
+		<selectionType>away</selectionType>
+		<price type="fractional">1/10</price>
+		<cashoutPrice type="fractional">1/1</cashoutPrice>
+		<status>active</status>
+		<display displayed="yes" order="10"/>
+		<multKey>MYLV</multKey>
+	</selectionInsert>
+	<!-- #19 invalid fraction (decimal) -->
+	<selectionInsert>
+		<marketId><externalId>CAERUS_bd94-1368622464184</externalId></marketId>
+		<selectionId><externalId>CAERUS_bd94-H-1368622464184</externalId></selectionId>
+		<selectionName>|Arsenal|</selectionName>
+		<selectionType>home</selectionType>
+		<price type="fractional">10/1</price>
+		<cashoutPrice type="fractional">2.345</cashoutPrice>
+		<status>active</status>
+		<display displayed="yes" order="10"/>
+		<multKey>MYLV</multKey>
+	</selectionInsert>
+	<!-- #20 null fractional -->
+	<selectionInsert>
+		<marketId><externalId>CAERUS_bd94-1368622464184</externalId></marketId>
+		<selectionId><externalId>CAERUS_bd94-D-1368622464184</externalId></selectionId>
+		<selectionName>|Draw|</selectionName>
+		<selectionType>draw</selectionType>
+		<price type="fractional">1/1</price>
+		<cashoutPrice type="fractional"></cashoutPrice>
+		<status>active</status>
+		<display displayed="yes" order="10"/>
+		<multKey>MYLV</multKey>
+	</selectionInsert>
+	<!-- #21 not supplied -->
+	<selectionInsert>
+		<marketId><externalId>CAERUS_bd94-1368622464184</externalId></marketId>
+		<selectionId><externalId>CAERUS_bd94-A-1368622464184</externalId></selectionId>
+		<selectionName>|Tottenham|</selectionName>
+		<selectionType>away</selectionType>
+		<price type="fractional">1/10</price>
+		<status>active</status>
+		<display displayed="yes" order="10"/>
+		<multKey>MYLV</multKey>
+	</selectionInsert>
+	<!-- #22 rubbish cashout price type -->
+	<selectionInsert>
+		<marketId><externalId>CAERUS_bd95-1368622464184</externalId></marketId>
+		<selectionId><externalId>CAERUS_bd95-H-1368622464184</externalId></selectionId>
+		<selectionName>|Arsenal|</selectionName>
+		<selectionType>home</selectionType>
+		<price type="fractional">10/1</price>
+		<cashoutPrice type="dave">1.2345</cashoutPrice>
+		<status>active</status>
+		<display displayed="yes" order="10"/>
+		<multKey>MYLV</multKey>
+	</selectionInsert>
+	<!-- END MARKETS WITH CASHOUT_AVAIL = N -->
+
+	<!-- START MISC/EDGE CASES -->
+	<!-- #23 no LP valid fractional/decimal -->
+	<selectionInsert>
+		<marketId><externalId>CAERUS_bd95-1368622464184</externalId></marketId>
+		<selectionId><externalId>CAERUS_bd95-D-1368622464184</externalId></selectionId>
+		<selectionName>|Draw|</selectionName>
+		<selectionType>draw</selectionType>
+		<cashoutPrice type="fractional">1/5</cashoutPrice>
+		<status>active</status>
+		<display displayed="yes" order="10"/>
+		<multKey>MYLV</multKey>
+	</selectionInsert>
+	<!-- #24 no LP valid calculate -->
+	<selectionInsert>
+		<marketId><externalId>CAERUS_bd95-1368622464184</externalId></marketId>
+		<selectionId><externalId>CAERUS_bd95-A-1368622464184</externalId></selectionId>
+		<selectionName>|Tottenham|</selectionName>
+		<selectionType>away</selectionType>
+		<cashoutPrice type="calculate"></cashoutPrice>
+		<status>active</status>
+		<display displayed="yes" order="10"/>
+		<multKey>MYLV</multKey>
+	</selectionInsert>
+	<!-- #25 no LP valid null fractional/decimal (note use of b91) -->
+	<selectionInsert>
+		<marketId><externalId>CAERUS_bd91-1368622464184</externalId></marketId>
+		<selectionId><externalId>CAERUS_bd91-D-1368622464184</externalId></selectionId>
+		<selectionName>|Draw|</selectionName>
+		<selectionType>draw</selectionType>
+		<cashoutPrice type="fractional"></cashoutPrice>
+		<status>active</status>
+		<display displayed="yes" order="10"/>
+		<multKey>MYLV</multKey>
+	</selectionInsert>
+	<!-- #26 Market with invalid cashout_avail -->
+	<marketInsert>
+		<eventId><externalId>CAERUS_4098-1368622464184</externalId></eventId>
+		<marketId><externalId>CAERUS_bd96-1368622464184</externalId></marketId>
+		<marketTemplate>|Match Betting Live|</marketTemplate>
+		<marketName>WIL-12609 Test Market Nine</marketName>
+		<status>active</status>
+		<display displayed="yes" order="0"/>
+		<pricing live="yes" starting="no"/>
+		<bettingInRunning active="no" />
+		<accMin>1</accMin><accMax>25</accMax>
+		<cashoutAvail>Dave</cashoutAvail>
+	</marketInsert>
+	<!-- END MISC/EDGE CASES -->
+
+</oxiFeedRequest>
