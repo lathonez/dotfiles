@@ -150,7 +150,7 @@ setup_aliases ()
 	fi
 
 	if [[ $SERVER == "davonez" ]]; then
-		alias work='~/shaz_utils/scripts/connect_to_work.sh -e shazleto vpn.openbet.com'
+		alias work='~/shaz_utils/scripts/connect_to_work.sh -er shazleto vpn.openbet.com'
 		alias killwork="ps -ef | egrep \"[s]sh.*openbet.com\" | awk '"'{print $2}'"' | xargs sudo kill -9"
 		alias xx='exit 10'
 	fi
