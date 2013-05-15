@@ -105,20 +105,9 @@ get_price() {
 # (event|market|selection)
 get_ids() {
 
-	str=""
-
-	list=`grep -A1 "\<${1}Id\>" xml/tmp_resp.xml | grep openbetId | awk -F ">" '{print $2}' | awk -F "<" '{print $1}'`
-
-	for id in $ids
-	do
-		if [ "$str" == "" ]
-		then
-			str=$id
-		else
-			str="$str $id"
-		fi
-	done
-
+	# We go through and replace all the 152s with BAD status for test eval
+	sed_str="/code=\"152\"/c<${1}Id>\n<openbetId>BAD</openbetId>"
+	ids=(`grep -A4 "<${1}Insert>" xml/tmp_resp.xml | sed ${sed_str} | grep -A1 "<${1}Id>" | grep openbetId | awk -F ">" '{print $2}' | awk -F "<" '{print $1}'`)
 }
 
 
@@ -131,11 +120,12 @@ setup_event() {
 	send_xml setup.xml
 
 	get_ids event
-	event_id=$ids
+	event_ids=(${ids[@]})
 	get_ids market
-	market_ids=$ids
+	market_ids=(${ids[@]})
 
-	echo "Set up event_id: $event_id with markets: $market_ids"
+	echo "Set up event_id: ${event_ids[@]} with markets: ${market_ids[@]}"
+	echo " "
 }
 
 
@@ -145,7 +135,14 @@ main_test() {
 	send_xml insert.xml
 
 	get_ids selection
-	selection_id=$ids
+	selection_ids=(${ids[@]})
+
+	get_ids market
+	market_ids=(${ids[@]})
+
+	echo "Insert test finished with:"
+	echo "EVMKT: ${#market_ids[@]} ev_mkt_ids: ${market_ids[@]}"
+	echo "EVOC:  ${#selection_ids[@]} ev_oc_ids: ${selection_ids[@]}"
 }
 
 gen_config
