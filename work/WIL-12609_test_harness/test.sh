@@ -111,28 +111,9 @@ get_price() {
 # - 2: (Insert|Update)
 get_ids() {
 
-	if [ "$2" == "Insert" ]
-	then
-
-		# We go through and replace all the 152s with BAD status for test eval
-		sed_str="/code=\"152\"/c<${1}Id>\n<openbetId>BAD</openbetId>"
-		ids=(`grep -A4 "<${1}${2}>" xml/tmp_resp.xml | sed ${sed_str} | grep -A1 "<${1}Id>" | grep openbetId | awk -F ">" '{print $2}' | awk -F "<" '{print $1}'`)
-	else
-		# first grab out the ids, as it's an update we should have one for every row
-		ids=(`grep -A4 "<${1}${2}>" xml/tmp_resp.xml | grep "openbetId" | grep openbetId | awk -F ">" '{print $2}' | awk -F "<" '{print $1}'`)
-	
-		# foreach id, find the matching response
-		for ((i = 0; i < "${#ids[@]}"; i++))
-		do
-			code=`grep -A2 "${ids[$i]}" xml/tmp_resp.xml | grep "status code" | awk -F "\"" '{print $2}' | awk -F "\"" '{print $1}'`
-
-			# replace the bad response
-			if [ "$code" != "452" ]
-			then
-				ids[$i]="BAD"
-			fi
-		done
-	fi
+	# We go through and replace all the 152s with BAD status for test eval
+	sed_str="/code=\"\(152\|453\)\"/c<${1}Id>\n<openbetId>BAD</openbetId>"
+	ids=(`grep -A4 "<${1}${2}>" xml/tmp_resp.xml | sed ${sed_str} | grep -A1 "<${1}Id>" | grep openbetId | awk -F ">" '{print $2}' | awk -F "<" '{print $1}'`)
 }
 
 
