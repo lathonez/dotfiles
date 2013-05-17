@@ -347,7 +347,7 @@ set_update_xml() {
 	good_ids=()
 
 	# strip all the BADs out
-	for id in ${all_ids[@]}
+	for id in "${all_ids[@]}"
 	do
 		if [ "$id" != "BAD" ]
 		then
@@ -356,7 +356,7 @@ set_update_xml() {
 	done
 
 	# sanity that we've enough
-	if [[ "${#good_ids[@]}" -lt "$2" ]]
+	if [[ ${#good_ids[@]} -lt $2 ]]
 	then
 		echo "Not enough good inserts to perform update test"
 		exit 1
@@ -389,7 +389,7 @@ update_test() {
 
 	setup_update_asserts
 
-	set_update_xml selection_ids $num_update_seln
+	set_update_xml selection_ids $update_total
 
 	# test update cases
 	send_xml update.xml
