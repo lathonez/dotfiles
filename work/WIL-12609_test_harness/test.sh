@@ -102,7 +102,7 @@ get_price() {
 
 	type=$1
 	ev_oc_id=$2
-	price=`echo "select NVL(${type}_num,-1), NVL(${type}_den,-1) from tevoc where ev_oc_id = 110" | dbaccess $database 2> /dev/null | egrep "[1-9]" | awk '{print $1"/"$2}'`
+	price=`echo "select NVL(${type}_num,-1), NVL(${type}_den,-1) from tevoc where ev_oc_id = $ev_oc_id" | dbaccess $database 2> /dev/null | egrep "[1-9]" | awk '{print $1"/"$2}'`
 }
 
 
@@ -185,17 +185,17 @@ db_assert() {
 				# we get null back as -1 from the db
 				if [ "$price" == "-1/-1" ]
 				then
-					echo "PASS: $3"
+					echo "PASS: $3 (id: $2) "
 				else
-					echo "FAIL: $3 - expecting NULL got $price"
+					echo "FAIL: $3 (id: $2) - expecting NULL got $price"
 				fi
 			elif [ "$1" == "$PRICE" ]
 			then
 				if [ "$price" != "-1/-1" ]
 				then
-					echo "PASS: $3"
+					echo "PASS: $3 (id: $2)  "
 				else
-					echo "FAIL: $3 - expecting PRICE got $price"
+					echo "FAIL: $3 (id: $2) - expecting PRICE got $price"
 				fi
 			fi
 		fi
