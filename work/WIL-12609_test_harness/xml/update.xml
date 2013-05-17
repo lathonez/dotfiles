@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE oxiFeedRequest SYSTEM "oxiFeedRequest.dtd">
+<!-- use cases for update -->
+<oxiFeedRequest version="1.0" timestamp="2013-05-15 11:12:54">
+   <auth username="Administrator" password="1ncharge"/>
+
+	<!-- #31 Calculate with null cashout price -->
+    <selectionUpdate>
+        <selectionId><openbetId><!-- ph31 -->3258</openbetId></selectionId>
+        <price type="fractional">10/1</price>
+        <cashoutPrice type="calculate"></cashoutPrice>
+    </selectionUpdate>
+	<!-- #32 Calculate with rubbish cashout price -->
+    <selectionUpdate>
+        <selectionId><openbetId><!-- ph32 -->3259</openbetId></selectionId>
+        <price type="fractional">10/1</price>
+        <cashoutPrice type="calculate">Dave</cashoutPrice>
+    </selectionUpdate>
+	<!-- #33 Valid decimal -->
+    <selectionUpdate>
+        <selectionId><openbetId><!-- ph33 -->3260</openbetId></selectionId>
+        <price type="fractional">10/1</price>
+        <cashoutPrice type="decimal">1.234</cashoutPrice>
+    </selectionUpdate>
+	<!-- #34 invalid decimal (fraction) -->
+    <selectionUpdate>
+        <selectionId><openbetId><!-- ph34 -->3261</openbetId></selectionId>
+        <price type="fractional">10/1</price>
+        <cashoutPrice type="decimal">1/1</cashoutPrice>
+    </selectionUpdate>
+	<!-- #35 null decimal -->
+    <selectionUpdate>
+        <selectionId><openbetId><!-- ph35 -->3262</openbetId></selectionId>
+        <price type="fractional">10/1</price>
+        <cashoutPrice type="decimal">1/1</cashoutPrice>
+    </selectionUpdate>
+	<!-- #36 Valid fraction -->
+    <selectionUpdate>
+        <selectionId><openbetId><!-- ph36 -->3263</openbetId></selectionId>
+        <price type="fractional">10/1</price>
+        <cashoutPrice type="fractional">10/1</cashoutPrice>
+    </selectionUpdate>
+	<!-- #37 invalid fraction (decimal) -->
+    <selectionUpdate>
+        <selectionId><openbetId><!-- ph37 -->3264</openbetId></selectionId>
+        <price type="fractional">10/1</price>
+        <cashoutPrice type="fractional">1.234</cashoutPrice>
+    </selectionUpdate>
+	<!-- #38 null fraction -->
+    <selectionUpdate>
+        <selectionId><openbetId><!-- ph38 -->3265</openbetId></selectionId>
+        <price type="fractional">10/1</price>
+        <cashoutPrice type="fractional"></cashoutPrice>
+    </selectionUpdate>
+	<!-- #39 not supplied -->
+    <selectionUpdate>
+        <selectionId><openbetId><!-- ph39 -->3266</openbetId></selectionId>
+        <price type="fractional">10/1</price>
+    </selectionUpdate>
+	<!-- #40 rubbish cashout price type -->
+    <selectionUpdate>
+        <selectionId><openbetId><!-- ph40 -->3267</openbetId></selectionId>
+        <price type="fractional">10/1</price>
+		<cashoutPrice type="dave">1.2345</cashoutPrice>
+    </selectionUpdate>
+
+	<!-- no LP edge cases -->
+	<!-- #41 no LP valid fractional/decimal -->
+    <selectionUpdate>
+		<selectionId><openbetId><!-- ph41 -->3268</openbetId></selectionId>
+		<cashoutPrice type="fractional">10/1</cashoutPrice>
+    </selectionUpdate>
+	<!-- #42 no LP valid calculate -->
+    <selectionUpdate>
+        <selectionId><openbetId><!-- ph42 -->3269</openbetId></selectionId>
+		<cashoutPrice type="calculate"></cashoutPrice>
+    </selectionUpdate>
+	<!-- #43 no LP null fractional/decimal -->
+    <selectionUpdate>
+        <selectionId><openbetId><!-- ph43 -->3270</openbetId></selectionId>
+		<cashoutPrice type="calculate"></cashoutPrice>
+    </selectionUpdate>
+
+
+</oxiFeedRequest>
