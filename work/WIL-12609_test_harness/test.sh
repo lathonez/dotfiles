@@ -111,9 +111,28 @@ get_price() {
 # - 2: (Insert|Update)
 get_ids() {
 
-	# We go through and replace all the 152s with BAD status for test eval
-	sed_str="/code=\"152\"/c<${1}Id>\n<openbetId>BAD</openbetId>"
-	ids=(`grep -A4 "<${1}${2}>" xml/tmp_resp.xml | sed ${sed_str} | grep -A1 "<${1}Id>" | grep openbetId | awk -F ">" '{print $2}' | awk -F "<" '{print $1}'`)
+	if [ "$2" == "Insert" ]
+	then
+
+		# We go through and replace all the 152s with BAD status for test eval
+		sed_str="/code=\"152\"/c<${1}Id>\n<openbetId>BAD</openbetId>"
+		ids=(`grep -A4 "<${1}${2}>" xml/tmp_resp.xml | sed ${sed_str} | grep -A1 "<${1}Id>" | grep openbetId | awk -F ">" '{print $2}' | awk -F "<" '{print $1}'`)
+	else
+		# first grab out the ids, as it's an update we should have one for every row
+		ids=(`grep -A4 "<${1}${2}>" xml/tmp_resp.xml | grep "openbetId" | grep openbetId | awk -F ">" '{print $2}' | awk -F "<" '{print $1}'`)
+	
+		# foreach id, find the matching response
+		for ((i = 0; i < "${#ids[@]}"; i++))
+		do
+			code=`grep -A2 "${ids[$i]}" xml/tmp_resp.xml | grep "status code" | awk -F "\"" '{print $2}' | awk -F "\"" '{print $1}'`
+
+			# replace the bad response
+			if [ "$code" != "452" ]
+			then
+				ids[$i]="BAD"
+			fi
+		done
+	fi
 }
 
 
@@ -156,42 +175,47 @@ simple_assert() {
 # - 3 test case desc
 db_assert() {
 
-	# check for bad responses first as we cant look these up
-	# note we're checking to the string BAD here not $BAD
-	if [ "$1" == "$BAD" ]
+	if [ "$1" == "" -o "$2" == "" -o "$3" == "" ] 
 	then
-		if [ "$2" == "BAD" ]
-		then
-			echo "PASS: $3"
-		else
-			# we've got something in the ID, find out what the price is for infos
-			get_price "cp" $2
-			echo "FAIL: $3 - expecting BAD got $price"
-		fi
+		echo "FAIL: No data supplied, invalid response?"
 	else
-		# we're looking for a price comparison in the db
-		get_price "cp" $2
-
-		# if we've got BAD back instead of an ID, its a fail
-		if [ "$2" == "BAD" ]
+		# check for bad responses first as we cant look these up
+		# note we're checking to the string BAD here not $BAD
+		if [ "$1" == "$BAD" ]
 		then
-			echo "FAIL: $3 - expecting PRICE got BAD"
-		elif [ "$1" == "$NULL" ]
-		then
-			# we get null back as -1 from the db
-			if [ "$price" == "-1/-1" ]
+			if [ "$2" == "BAD" ]
 			then
 				echo "PASS: $3"
 			else
-				echo "FAIL: $3 - expecting NULL got $price"
+				# we've got something in the ID, find out what the price is for infos
+				get_price "cp" $2
+				echo "FAIL: $3 - expecting BAD got $price"
 			fi
-		elif [ "$1" == "$PRICE" ]
-		then
-			if [ "$price" != "-1/-1" ]
+		else
+			# we're looking for a price comparison in the db
+			get_price "cp" $2
+
+			# if we've got BAD back instead of an ID, its a fail
+			if [ "$2" == "BAD" ]
 			then
-				echo "PASS: $3"
-			else
-				echo "FAIL: $3 - expecting PRICE got $price"
+				echo "FAIL: $3 - expecting PRICE got BAD"
+			elif [ "$1" == "$NULL" ]
+			then
+				# we get null back as -1 from the db
+				if [ "$price" == "-1/-1" ]
+				then
+					echo "PASS: $3"
+				else
+					echo "FAIL: $3 - expecting NULL got $price"
+				fi
+			elif [ "$1" == "$PRICE" ]
+			then
+				if [ "$price" != "-1/-1" ]
+				then
+					echo "PASS: $3"
+				else
+					echo "FAIL: $3 - expecting PRICE got $price"
+				fi
 			fi
 		fi
 	fi
@@ -351,7 +375,7 @@ set_update_xml() {
 	done
 
 	# sanity that we've enough
-	if [ `expr ${#good_ids[@]} < $2` ]
+	if [[ "${#good_ids[@]}" -lt "$2" ]]
 	then
 		echo "Not enough good inserts to perform update test"
 		exit 1
