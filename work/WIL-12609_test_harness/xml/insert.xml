@@ -283,6 +283,19 @@
 		<display displayed="yes" order="10"/>
 		<multKey>MYLV</multKey>
 	</selectionInsert>
+	<!-- #N/A need another good insert for the updates (note use of b91) -->
+	<selectionInsert>
+		<marketId><externalId>CAERUS_bd91-1368804048230</externalId></marketId>
+		<selectionId><externalId>CAERUS_bd91-A-1368804048230</externalId></selectionId>
+		<selectionName>|Tottenham|</selectionName>
+		<selectionType>away</selectionType>
+		<price type="fractional">10/1</price>
+		<cashoutPrice type="calculate"></cashoutPrice>
+		<status>active</status>
+		<display displayed="yes" order="10"/>
+		<multKey>MYLV</multKey>
+	</selectionInsert>
+
 	<!-- #26 Market with invalid cashout_avail -->
 	<marketInsert>
 		<eventId><externalId>CAERUS_4098-1368622464184</externalId></eventId>

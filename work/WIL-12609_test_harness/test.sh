@@ -173,15 +173,21 @@ db_assert() {
 				echo "FAIL: $3 - expecting BAD got $price"
 			fi
 		else
-			# we're looking for a price comparison in the db
-			get_price "cp" $2
 
 			# if we've got BAD back instead of an ID, its a fail
 			if [ "$2" == "BAD" ]
 			then
-				echo "FAIL: $3 - expecting PRICE got BAD"
+				if [ "$1" == "PRICE" ]
+				then
+					echo "FAIL: $3 - expecting PRICE got BAD"
+				else
+					echo "FAIL: $3 - expecting NULL got BAD"
+				fi
 			elif [ "$1" == "$NULL" ]
 			then
+				# we're looking for a price comparison in the db
+				get_price "cp" $2
+
 				# we get null back as -1 from the db
 				if [ "$price" == "-1/-1" ]
 				then
@@ -191,6 +197,9 @@ db_assert() {
 				fi
 			elif [ "$1" == "$PRICE" ]
 			then
+				# we're looking for a price comparison in the db
+				get_price "cp" $2
+
 				if [ "$price" != "-1/-1" ]
 				then
 					echo "PASS: $3 (id: $2)  "
@@ -221,7 +230,7 @@ array_assert(){
 
 setup_insert_asserts() {
 
-	num_insert_seln="23"
+	num_insert_seln="24"
 	num_insert_market="1"
 
 	insert_total=`expr $num_insert_seln + $num_insert_market`
@@ -240,7 +249,7 @@ setup_insert_asserts() {
 		"#13 Calculate with null cashout price|$PRICE" \
 		"#14 caclulate with rubbish cashout price|$BAD" \
 		"#15 valid decimal|$PRICE" \
-		"#16 invalid decimal (fraction)$BAD" \
+		"#16 invalid decimal (fraction)|$BAD" \
 		"#17 null decimal|$NULL" \
 		"#18 valid fractional|$PRICE" \
 		"#19 invalid fraction (decimal)|$BAD" \
@@ -249,7 +258,8 @@ setup_insert_asserts() {
 		"#22 rubbish cashout price type|$BAD" \
 		"#23 no LP valid fractional/decimal|$BAD" \
 		"#24 no LP valid calculate|$BAD" \
-		"#25 no LP valid null fractional/decimal (note use of b91)|$NULL"
+		"#25 no LP valid null fractional/decimal (note use of b91)|$BAD" \
+		"#N/A need another good insert for the updates (note use of b91)|$PRICE" \
 	)
 
 	insert_mkt_asserts=(\
