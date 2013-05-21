@@ -8,6 +8,8 @@ oxifeed_url=""
 database="willhill_dev@db01_1170"
 start_delay="120"
 cashout_price=""
+log_xml=""
+ignore_updates=0
 
 # statics for assertion
 PRICE=1
@@ -23,17 +25,21 @@ print_usage() {
 	echo "Usage: $0 [-up] [oxifeed_url]"
 	echo "  -u : admin username, default esaunder"
 	echo "  -p : admin password, default esander01"
+	echo "  -d : database, default willhill_dev@db01_1170"
+	echo "  -i : server is ignoring CIMB updates, default 0"
 	echo " "
-	echo "Example: $0 -uAdmininstrator -p1ncharge https://titan.orbis/oxifeed_test"
+	echo "Example: $0 -uAdmininstrator -p1ncharge -dopenbet -i https://titan.orbis/oxifeed_test"
 	echo " "
 }
 
 # read options in from the command line
-while getopts ":u:p:" o;
+while getopts ":u:p:d:i" o;
 do
 	case $o in
 		u)  username=$OPTARG;;
 		p)  password=$OPTARG;;
+	    d)  database=$OPTARG;;
+		i)  ignore_updates=1;;
 		/?)
 			print_usage;
 			exit 1;;
@@ -78,21 +84,38 @@ set_xml() {
 
 
 # curl an xml file at the configured url (filename passed as arg0)
+# -1: xml file
 send_xml() {
 
-	echo " "
-	echo "|======================== send_xml ========================|"
-	echo " "
-	echo "sending $xml_dir/$1 to $oxifeed_url"
-	echo " "
-	cat $xml_dir/$1
-	echo " "
-	echo "----------------------------------------------------------------"
-	echo " "
-	curl -d "@$xml_dir/$1" --insecure --header "Content-Type: text/xml; charset=utf-8" $oxifeed_url 2>/dev/null | tee xml/tmp_resp.xml
-	echo " "
-	echo "|==========================================================|"
-	echo " "
+	file=$1
+
+	if [ "$log_xml" != "" ]
+	then
+		echo " "
+		echo "|======================== send_xml ========================|"
+		echo " "
+		echo "sending $xml_dir/$file to $oxifeed_url"
+		echo " "
+
+		cat $xml_dir/$file
+		outcom="| tee xml/tmp_resp.xml"
+
+		echo " "
+		echo "----------------------------------------------------------------"
+		echo " "
+		curl -d "@$xml_dir/$file" --insecure --header "Content-Type: text/xml; charset=utf-8" $oxifeed_url 2> /dev/null | tee xml/tmp_resp.xml
+
+	else
+		curl -d "@$xml_dir/$file" --insecure --header "Content-Type: text/xml; charset=utf-8" $oxifeed_url 2> /dev/null > xml/tmp_resp.xml
+	fi
+
+
+	if [ "$log_xml" != "" ]
+	then
+		echo " "
+		echo "|==========================================================|"
+		echo " "
+	fi
 }
 
 
@@ -151,9 +174,9 @@ simple_assert() {
 
 	if [ "$1" != "$2" ]
 	then
-		echo "FAIL: $3 - expecting $1 got $2"
+		echo -e "\e[00;31mFAIL\e[00m: $3 - expecting $1 got $2"
 	else
-		echo "PASS: $3"
+		echo -e "\e[00;32mPASS\e[00m: $3"
 	fi
 }
 
@@ -167,7 +190,7 @@ db_assert() {
 
 	if [ "$1" == "" -o "$2" == "" -o "$3" == "" ] 
 	then
-		echo "FAIL: No data supplied, invalid response?"
+		echo -e "\e[00;31mFAIL\e[00m: No data supplied, invalid response?"
 	else
 		# check for bad responses first as we cant look these up
 		# note we're checking to the string BAD here not $BAD
@@ -175,11 +198,11 @@ db_assert() {
 		then
 			if [ "$2" == "BAD" ]
 			then
-				echo "PASS: $3"
+				echo -e "\e[00;32mPASS\e[00m: $3"
 			else
 				# we've got something in the ID, find out what the price is for infos
 				get_price "cp" $2
-				echo "FAIL: $3 - expecting BAD got $price"
+				echo -e "\e[00;31mFAIL\e[00m: $3 - expecting BAD got $price"
 			fi
 		else
 
@@ -188,9 +211,9 @@ db_assert() {
 			then
 				if [ "$1" == "PRICE" ]
 				then
-					echo "FAIL: $3 - expecting PRICE got BAD"
+					echo -e "\e[00;31mFAIL\e[00m: $3 - expecting PRICE got BAD"
 				else
-					echo "FAIL: $3 - expecting NULL got BAD"
+					echo -e "\e[00;31mFAIL\e[00m: $3 - expecting NULL got BAD"
 				fi
 			elif [ "$1" == "$NULL" ]
 			then
@@ -200,9 +223,9 @@ db_assert() {
 				# we get null back as -1 from the db
 				if [ "$price" == "-1/-1" ]
 				then
-					echo "PASS: $3 (id: $2) "
+					echo -e "\e[00;32mPASS\e[00m: $3 (id: $2) "
 				else
-					echo "FAIL: $3 (id: $2) - expecting NULL got $price"
+					echo -e "\e[00;31mFAIL\e[00m: $3 (id: $2) - expecting NULL got $price"
 				fi
 			elif [ "$1" == "$PRICE" ]
 			then
@@ -211,9 +234,9 @@ db_assert() {
 
 				if [ "$price" != "-1/-1" ]
 				then
-					echo "PASS: $3 (id: $2)  "
+					echo -e "\e[00;32mPASS\e[00m: $3 (id: $2)  "
 				else
-					echo "FAIL: $3 (id: $2) - expecting PRICE got $price"
+					echo -e "\e[00;31mFAIL\e[00m: $3 (id: $2) - expecting PRICE got $price"
 				fi
 			fi
 		fi
@@ -337,6 +360,7 @@ insert_test() {
 }
 
 
+# For these tests to pass the app should be configured to listen for CIMB updates
 setup_update_asserts() {
 
 	update_total="13"
@@ -356,6 +380,37 @@ setup_update_asserts() {
 		"#41 no LP valid fractional/decimal|$NULL"
 		"#42 no LP valid calculate|$NULL"
 		"#43 no LP null fractional/decimal|$NULL"
+	)
+
+	# sanity check
+	if [ "${#update_seln_asserts[@]}" != "$update_total" ]
+	then
+		echo "setup_update_asserts: Invalid setup (seln) - ${#update_seln_asserts[@]} assertions"
+		exit 1
+	fi
+}
+
+
+# For these tests to pass the app should be configured to ignore CIMB updates
+setup_update_ignore_asserts() {
+
+	update_total="13"
+
+	# array structure per item (test_desc|assertion|post process func)
+	update_seln_asserts=(\
+		"#44 Calculate with null cashout price|$PRICE"
+		"#45 Calculate with rubbish cashout price|$PRICE"
+		"#46 Valid decimal|$NULL"
+		"#47 invalid decimal (fraction)|$PRICE"
+		"#48 null decimal|$NULL"
+		"#49 Valid fraction|$PRICE"
+		"#50 invalid fraction (decimal)|$PRICE"
+		"#51 null fraction|$PRICE"
+		"#52 not supplied|$NULL"
+		"#53 rubbish cashout price type|$PRICe"
+		"#54 no LP valid fractional/decimal|$NULL"
+		"#55 no LP valid calculate|$NULL"
+		"#56 no LP null fractional/decimal|$NULL"
 	)
 
 	# sanity check
@@ -400,7 +455,7 @@ set_update_xml() {
 	# TODO- we may need to overwrite the NO LP ones separately, but let's get it going first
 	for unit in ${units[@]}
 	do
-		`sed -i "s/<\!-- $unit -->[0-9]*/<\!-- $unit -->${good_ids[$i]}/g" xml/update.xml`
+		`sed -i "s/<\!-- $unit -->[0-9]*/<\!-- $unit -->${good_ids[$i]}/g" xml/update*.xml`
 		let i++
 	done
 }
@@ -417,7 +472,13 @@ update_asserts() {
 
 update_test() {
 
-	setup_update_asserts
+	# we need to switch the assertions if running in ignore mode
+	if [ "$ignore_updates" == "1" ]
+	then
+		setup_update_ignore_asserts
+	else
+		setup_update_asserts
+	fi
 
 	set_update_xml selection_ids $update_total
 
@@ -437,6 +498,24 @@ update_test() {
 	update_asserts
 	echo "|==============================================================|"
 	echo ""
+
+	# test update cases
+	send_xml update_price.xml
+
+	get_ids selection Update
+	selection_ids=(${ids[@]})
+
+	echo "Update price test finished with:"
+	echo "EVOC:  ${#selection_ids[@]} ev_oc_ids: ${selection_ids[@]}"
+
+	update_test_total=${#selection_ids[@]}
+
+	echo ""
+	echo "|====================|UPDATE PRICE SUMMARY|====================|"
+	update_asserts
+	echo "|==============================================================|"
+	echo ""
+
 }
 
 gen_config

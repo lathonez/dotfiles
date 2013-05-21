@@ -6,91 +6,79 @@
 
 	<!-- #31|#44 Calculate with null cashout price -->
     <selectionUpdate>
-        <selectionId><openbetId><!-- ph31 -->3258</openbetId></selectionId>
+        <selectionId><openbetId><!-- ph31 -->4738</openbetId></selectionId>
         <price type="fractional">10/1</price>
         <cashoutPrice type="calculate"></cashoutPrice>
-        <display displayed="no" order="10"/>
     </selectionUpdate>
 	<!-- #32|#45 Calculate with rubbish cashout price -->
     <selectionUpdate>
-        <selectionId><openbetId><!-- ph32 -->3259</openbetId></selectionId>
+        <selectionId><openbetId><!-- ph32 -->4739</openbetId></selectionId>
         <price type="fractional">10/1</price>
         <cashoutPrice type="calculate">Dave</cashoutPrice>
-        <display displayed="no" order="10"/>
     </selectionUpdate>
 	<!-- #33|#46 Valid decimal (for #46 we need to keep the same LP as the insert) -->
     <selectionUpdate>
-        <selectionId><openbetId><!-- ph33 -->3260</openbetId></selectionId>
-        <price type="fractional">10/1</price>
+        <selectionId><openbetId><!-- ph33 -->4740</openbetId></selectionId>
+        <price type="fractional">1/1</price>
         <cashoutPrice type="decimal">1.234</cashoutPrice>
-        <display displayed="no" order="10"/>
     </selectionUpdate>
 	<!-- #34|#47 invalid decimal (fraction) -->
     <selectionUpdate>
-        <selectionId><openbetId><!-- ph34 -->3261</openbetId></selectionId>
+        <selectionId><openbetId><!-- ph34 -->4741</openbetId></selectionId>
         <price type="fractional">10/1</price>
         <cashoutPrice type="decimal">1/1</cashoutPrice>
     </selectionUpdate>
 	<!-- #35|#48 null decimal (for #48 we need to keep the same LP as the insert) -->
     <selectionUpdate>
-        <selectionId><openbetId><!-- ph35 -->3262</openbetId></selectionId>
-        <price type="fractional">10/1</price>
+        <selectionId><openbetId><!-- ph35 -->4742</openbetId></selectionId>
+        <price type="fractional">1/1</price>
         <cashoutPrice type="decimal"></cashoutPrice>
-        <display displayed="no" order="10"/>
     </selectionUpdate>
 	<!-- #36|#49 Valid fraction -->
     <selectionUpdate>
-        <selectionId><openbetId><!-- ph36 -->3263</openbetId></selectionId>
+        <selectionId><openbetId><!-- ph36 -->4743</openbetId></selectionId>
         <price type="fractional">10/1</price>
         <cashoutPrice type="fractional">10/1</cashoutPrice>
-        <display displayed="no" order="10"/>
     </selectionUpdate>
 	<!-- #37|#50 invalid fraction (decimal) -->
     <selectionUpdate>
-        <selectionId><openbetId><!-- ph37 -->3264</openbetId></selectionId>
+        <selectionId><openbetId><!-- ph37 -->4744</openbetId></selectionId>
         <price type="fractional">10/1</price>
         <cashoutPrice type="fractional">1.234</cashoutPrice>
-        <display displayed="no" order="10"/>
     </selectionUpdate>
 	<!-- #38|#51 null fraction -->
     <selectionUpdate>
-        <selectionId><openbetId><!-- ph38 -->3265</openbetId></selectionId>
+        <selectionId><openbetId><!-- ph38 -->4745</openbetId></selectionId>
         <price type="fractional">10/1</price>
         <cashoutPrice type="fractional"></cashoutPrice>
-        <display displayed="no" order="10"/>
     </selectionUpdate>
 	<!-- #39|#52 not supplied -->
     <selectionUpdate>
-        <selectionId><openbetId><!-- ph39 -->3266</openbetId></selectionId>
+        <selectionId><openbetId><!-- ph39 -->4746</openbetId></selectionId>
         <price type="fractional">10/1</price>
-        <display displayed="no" order="10"/>
     </selectionUpdate>
 	<!-- #40|#53 rubbish cashout price type -->
     <selectionUpdate>
-        <selectionId><openbetId><!-- ph40 -->3267</openbetId></selectionId>
+        <selectionId><openbetId><!-- ph40 -->4747</openbetId></selectionId>
         <price type="fractional">10/1</price>
-        <cashoutPrice type="dave">1.2345</cashoutPrice>
-        <display displayed="no" order="10"/>
+		<cashoutPrice type="dave">1.2345</cashoutPrice>
     </selectionUpdate>
 
 	<!-- no LP edge cases -->
 	<!-- #41|#54 no LP valid fractional/decimal -->
     <selectionUpdate>
-        <selectionId><openbetId><!-- ph41 -->3268</openbetId></selectionId>
-        <cashoutPrice type="fractional">10/1</cashoutPrice>
-        <display displayed="no" order="10"/>
+		<selectionId><openbetId><!-- ph41 -->4748</openbetId></selectionId>
+		<cashoutPrice type="fractional">10/1</cashoutPrice>
     </selectionUpdate>
 	<!-- #42|#55 no LP valid calculate -->
     <selectionUpdate>
-        <selectionId><openbetId><!-- ph42 -->3269</openbetId></selectionId>
-        <cashoutPrice type="calculate"></cashoutPrice>
-        <display displayed="no" order="10"/>
+        <selectionId><openbetId><!-- ph42 -->4749</openbetId></selectionId>
+		<cashoutPrice type="calculate"></cashoutPrice>
     </selectionUpdate>
 	<!-- #43|#56 no LP null fractional/decimal -->
     <selectionUpdate>
-        <selectionId><openbetId><!-- ph43 -->3270</openbetId></selectionId>
-        <cashoutPrice type="calculate"></cashoutPrice>
-        <display displayed="no" order="10"/>
+        <selectionId><openbetId><!-- ph43 -->4750</openbetId></selectionId>
+		<cashoutPrice type="calculate"></cashoutPrice>
     </selectionUpdate>
 
 
