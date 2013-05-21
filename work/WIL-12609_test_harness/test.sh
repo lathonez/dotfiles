@@ -106,6 +106,16 @@ get_price() {
 }
 
 
+# there's no way of nulling the live price with the feed. have to hack it
+# - 1: ev_oc_id
+clear_lp() {
+
+	ev_oc_id=$1
+	garc=`echo "update tEvOc set lp_num = '', lp_den = '' where ev_oc_id = $ev_oc_id" | dbaccess $database`
+	echo "Cleared LP for $ev_oc_id: $garc"
+}
+
+
 # get openbet ids from response xml
 # - 1: (event|market|selection)
 # - 2: (Insert|Update)
@@ -223,7 +233,16 @@ array_assert(){
 	do
 		desc=`echo ${asserts[$i]} | awk -F "|" '{print $1}'`
 		expect=`echo ${asserts[$i]} | awk -F "|" '{print $2}'`
+		post_proc=`echo ${asserts[$i]} | awk -F "|" '{print $3}'`
+
 		db_assert $expect ${results[$i]} "$desc"
+
+		# have we got any postprocessing to do?
+		if [ "$post_proc" != "" ]
+		then
+			$post_proc ${results[$i]}
+		fi
+
 	done
 }
 
@@ -235,6 +254,7 @@ setup_insert_asserts() {
 
 	insert_total=`expr $num_insert_seln + $num_insert_market`
 
+	# array structure per item (test_desc|assertion|post process func)
 	insert_seln_asserts=(\
 		"#3 Calculate with null cashout price|$PRICE" \
 		"#4 caclulate with rubbish cashout price|$BAD" \
@@ -253,13 +273,13 @@ setup_insert_asserts() {
 		"#17 null decimal|$NULL" \
 		"#18 valid fractional|$PRICE" \
 		"#19 invalid fraction (decimal)|$BAD" \
-		"#20 null fractional|$NULL" \
-		"#21 not supplied|$NULL" \
+		"#20 null fractional|$NULL|clear_lp" \
+		"#21 not supplied|$NULL|clear_lp" \
 		"#22 rubbish cashout price type|$BAD" \
 		"#23 no LP valid fractional/decimal|$BAD" \
 		"#24 no LP valid calculate|$BAD" \
 		"#25 no LP valid null fractional/decimal (note use of b91)|$BAD" \
-		"#N/A need another good insert for the updates (note use of b91)|$PRICE" \
+		"#N/A need another good insert for the updates (note use of b91)|$PRICE|clear_lp" \
 	)
 
 	insert_mkt_asserts=(\
@@ -322,6 +342,7 @@ setup_update_asserts() {
 
 	update_total="13"
 
+	# array structure per item (test_desc|assertion|post process func)
 	update_seln_asserts=(\
 		"#31 Calculate with null cashout price|$PRICE"
 		"#32 Calculate with rubbish cashout price|$BAD"
