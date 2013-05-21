@@ -112,7 +112,6 @@ clear_lp() {
 
 	ev_oc_id=$1
 	garc=`echo "update tEvOc set lp_num = '', lp_den = '' where ev_oc_id = $ev_oc_id" | dbaccess $database 2> /dev/null`
-	echo "Cleared LP for $ev_oc_id: $garc"
 }
 
 
