@@ -52,10 +52,10 @@
         <price type="fractional">10/1</price>
         <cashoutPrice type="fractional"></cashoutPrice>
     </selectionUpdate>
-	<!-- #39|#52 not supplied -->
+	<!-- #39|#52 not supplied (for #52 we need to keep the same LP as the insert) -->
     <selectionUpdate>
         <selectionId><openbetId><!-- ph39 -->4746</openbetId></selectionId>
-        <price type="fractional">10/1</price>
+        <price type="fractional">1/1</price>
     </selectionUpdate>
 	<!-- #40|#53 rubbish cashout price type -->
     <selectionUpdate>
