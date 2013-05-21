@@ -32,7 +32,7 @@
     <selectionUpdate>
         <selectionId><openbetId><!-- ph35 -->3262</openbetId></selectionId>
         <price type="fractional">10/1</price>
-        <cashoutPrice type="decimal">1/1</cashoutPrice>
+        <cashoutPrice type="decimal"></cashoutPrice>
     </selectionUpdate>
 	<!-- #36 Valid fraction -->
     <selectionUpdate>
