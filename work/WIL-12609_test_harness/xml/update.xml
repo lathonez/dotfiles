@@ -34,7 +34,7 @@
 	<!-- #35|#48 null decimal (for #48 we need to keep the same LP as the insert) -->
     <selectionUpdate>
         <selectionId><openbetId><!-- ph35 -->3262</openbetId></selectionId>
-        <price type="fractional">10/1</price>
+        <price type="fractional">1/1</price>
         <cashoutPrice type="decimal"></cashoutPrice>
         <display displayed="no" order="10"/>
     </selectionUpdate>
