@@ -93,5 +93,26 @@
         <display displayed="no" order="10"/>
     </selectionUpdate>
 
+	<!-- mkt update edge cases #68-#73 -->
+	<!-- #68|#71 cashout_avail Y -->
+	<marketUpdate>
+		<marketId><openbetId><!-- ph68 -->1234</openbetId></marketId>
+		<cashoutAvail>Y</cashoutAvail>
+		<display displayed="no" order="0"/>
+		<status>suspended</status>
+	</marketUpdate>
+	<!-- #69|#72 cashout_avail N -->
+	<marketUpdate>
+		<marketId><openbetId><!-- ph69 -->1235</openbetId></marketId>
+		<cashoutAvail>N</cashoutAvail>
+		<display displayed="no" order="0"/>
+		<status>suspended</status>
+	</marketUpdate>
+	<!-- #70|#73 cashout_avail NS -->
+	<marketUpdate>
+		<marketId><openbetId><!-- ph70 -->1236</openbetId></marketId>
+		<display displayed="no" order="0"/>
+		<status>suspended</status>
+	</marketUpdate>
 
 </oxiFeedRequest>

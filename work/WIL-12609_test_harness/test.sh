@@ -149,6 +149,28 @@ clear_lp() {
 }
 
 
+# there's no way of nulling the live price with the feed. have to hack it
+# - 1: ev_mkt_id
+# - 2: value to set it to
+set_cashout_avail() {
+
+	ev_mkt_id=$1
+	garc=`echo "update tEvMkt set cashout_avail = '$2' where ev_mkt_id = $ev_mkt_id" | dbaccess $database 2> /dev/null`
+}
+
+
+# wrapper
+set_cay() {
+	set_cashout_avail $1 "Y"
+}
+
+
+# wrapper
+set_can() {
+	set_cashout_avail $1 "N"
+}
+
+
 # get openbet ids from response xml
 # - 1: (event|market|selection)
 # - 2: (Insert|Update)
@@ -337,9 +359,9 @@ setup_insert_asserts() {
 
 	insert_mkt_asserts=(\
 		"#26 Market with invalid cashout_avail|$BAD" \
-		"#61 Market with cashout_avail Y|$CAY" \
-		"#62 Market with cashout_avail N|$CAN" \
-		"#63 Market with cashout_avail not supplied|$CAN" \
+		"#61 Market with cashout_avail Y|$CAY|set_can" \
+		"#62 Market with cashout_avail N|$CAN|set_cay" \
+		"#63 Market with cashout_avail not supplied|$CAN|set_cay" \
 	)
 
 	# sanity check
@@ -397,7 +419,10 @@ insert_test() {
 # For these tests to pass the app should be configured to listen for CIMB updates
 setup_update_asserts() {
 
-	update_total="13"
+	num_update_seln="13"
+	num_update_market="3"
+
+	update_total=`expr $num_update_seln + $num_update_market`
 
 	# array structure per item (test_desc|assertion|post process func)
 	update_seln_asserts=(\
@@ -416,10 +441,22 @@ setup_update_asserts() {
 		"#43 no LP null fractional/decimal|$NULL"
 	)
 
+	update_mkt_asserts=(\
+		"#68 cashout avail Y|$CAY|set_can"
+		"#69 cashout avail N|$CAN|set_cay"
+		"#70 cashout avail NS|$CAY"
+	)
+
 	# sanity check
-	if [ "${#update_seln_asserts[@]}" != "$update_total" ]
+	if [ "${#update_seln_asserts[@]}" != "$num_update_seln" ]
 	then
 		echo "setup_update_asserts: Invalid setup (seln) - ${#update_seln_asserts[@]} assertions"
+		exit 1
+	fi
+
+	if [ "${#update_mkt_asserts[@]}" != "$num_update_market" ]
+	then
+		echo "setup_update_asserts: Invalid setup (market)- ${#update_mkt_asserts[@]} assertions"
 		exit 1
 	fi
 }
@@ -428,7 +465,10 @@ setup_update_asserts() {
 # For these tests to pass the app should be configured to ignore CIMB updates
 setup_update_ignore_asserts() {
 
-	update_total="13"
+	num_update_seln="13"
+	num_update_market="3"
+
+	update_total=`expr $num_update_seln + $num_update_market`
 
 	# array structure per item (test_desc|assertion|post process func)
 	update_seln_asserts=(\
@@ -447,40 +487,77 @@ setup_update_ignore_asserts() {
 		"#56 no LP null fractional/decimal|$NULL"
 	)
 
+	update_mkt_asserts=(\
+		"#71 cashout avail Y|$CAN"
+		"#72 cashout avail N|$CAY"
+		"#73 cashout avail NS|$CAY"
+	)
+
 	# sanity check
-	if [ "${#update_seln_asserts[@]}" != "$update_total" ]
+	if [ "${#update_seln_asserts[@]}" != "$num_update_seln" ]
 	then
 		echo "setup_update_asserts: Invalid setup (seln) - ${#update_seln_asserts[@]} assertions"
 		exit 1
 	fi
+
+	if [ "${#update_mkt_asserts[@]}" != "$num_update_market" ]
+	then
+		echo "setup_update_asserts: Invalid setup (market)- ${#update_mkt_asserts[@]} assertions"
+		exit 1
+	fi
+
 }
 
 
 # - 1 array of selection ids we got from the inserts
-# - 2 how many do we need (from setup_update_asserts)
+# - 2 array of market ids we got from the inserts
+# - 3 how many seln_ids do we need (from setup_update_asserts)
+# - 4 how many mkt_ids do we need
 set_update_xml() {
 
 
 	o=$1[@]
-	all_ids=("${!o}")
-	good_ids=()
+	m=$2[@]
+
+	all_seln_ids=("${!o}")
+	all_mkt_ids+=("${!m}")
+
+	good_seln_ids=()
+	good_mkt_ids=()
 
 	# strip all the BADs out
-	for id in "${all_ids[@]}"
+	for id in "${all_seln_ids[@]}"
 	do
 		if [ "$id" != "BAD" ]
 		then
-			good_ids+=($id)
+			good_seln_ids+=($id)
 		fi
 	done
 
-	# sanity that we've enough
-	if [[ ${#good_ids[@]} -lt $2 ]]
+	# strip all the BADs out
+	for id in "${all_mkt_ids[@]}"
+	do
+		if [ "$id" != "BAD" ]
+		then
+			good_mkt_ids+=($id)
+		fi
+	done
+
+	# sanity that we've enough seln
+	if [[ ${#good_seln_ids[@]} -lt $3 ]]
 	then
-		echo "Not enough good inserts to perform update test"
+		echo "Not enough good seln inserts to perform update test (${#good_seln_ids[@]} : $3)"
 		exit 1
 	fi
 
+	# sanity that we've enough mkt
+	if [[ ${#good_mkt_ids[@]} -lt $4 ]]
+	then
+		echo "Not enough good mkt inserts to perform update test (${#good_mkt_ids[@]} : $4)"
+		exit 1
+	fi
+
+	## SED SELN
 	units=("ph31" "ph32" "ph33" "ph34" "ph35" "ph36" "ph37" "ph38" "ph39" "ph40" "ph41" "ph42" "ph43")
 
 	i=0
@@ -489,9 +566,23 @@ set_update_xml() {
 	# TODO- we may need to overwrite the NO LP ones separately, but let's get it going first
 	for unit in ${units[@]}
 	do
-		`sed -i "s/<\!-- $unit -->[0-9]*/<\!-- $unit -->${good_ids[$i]}/g" xml/update*.xml`
+		`sed -i "s/<\!-- $unit -->[0-9]*/<\!-- $unit -->${good_seln_ids[$i]}/g" xml/update*.xml`
 		let i++
 	done
+
+	## SED MKT
+	units=("ph68" "ph69" "ph70")
+
+	i=0
+
+	# give a different ev_oc_id to each test case, in order, so we can assert aferwards
+	# TODO- we may need to overwrite the NO LP ones separately, but let's get it going first
+	for unit in ${units[@]}
+	do
+		`sed -i "s/<\!-- $unit -->[0-9]*/<\!-- $unit -->${good_mkt_ids[$i]}/g" xml/update*.xml`
+		let i++
+	done
+
 }
 
 
@@ -501,6 +592,8 @@ update_asserts() {
 	simple_assert $update_total $update_test_total "NUM UPDATE RESPONSES"
 
 	array_assert update_seln_asserts selection_ids
+	array_assert update_mkt_asserts market_ids
+
 }
 
 
@@ -514,7 +607,7 @@ update_test() {
 		setup_update_asserts
 	fi
 
-	set_update_xml selection_ids $update_total
+	set_update_xml selection_ids market_ids $num_update_seln $num_update_market
 
 	# test update cases
 	send_xml update.xml
@@ -522,10 +615,14 @@ update_test() {
 	get_ids selection Update
 	selection_ids=(${ids[@]})
 
+	get_ids market Update
+	market_ids=(${ids[@]})
+
 	echo "Update test finished with:"
+	echo "EVMKT: ${#market_ids[@]} ev_mkt_ids: ${market_ids[@]}"
 	echo "EVOC:  ${#selection_ids[@]} ev_oc_ids: ${selection_ids[@]}"
 
-	update_test_total=${#selection_ids[@]}
+	update_test_total=`expr ${#selection_ids[@]} + ${#market_ids[@]}`
 
 	echo ""
 	echo "|=======================|UPDATE SUMMARY|=======================|"
@@ -540,9 +637,10 @@ update_test() {
 	selection_ids=(${ids[@]})
 
 	echo "Update price test finished with:"
+	echo "EVMKT: ${#market_ids[@]} ev_mkt_ids: ${market_ids[@]}"
 	echo "EVOC:  ${#selection_ids[@]} ev_oc_ids: ${selection_ids[@]}"
 
-	update_test_total=${#selection_ids[@]}
+	update_test_total=`expr ${#selection_ids[@]} + ${#market_ids[@]}`
 
 	echo ""
 	echo "|====================|UPDATE PRICE SUMMARY|====================|"
