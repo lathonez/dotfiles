@@ -311,4 +311,45 @@
 	</marketInsert>
 	<!-- END MISC/EDGE CASES -->
 
+	<!-- #61 Market with cashout_avail Y -->
+	<marketInsert>
+		<eventId><externalId>CAERUS_4098-1368622464184</externalId></eventId>
+		<marketId><externalId>CAERUS_bd97-1368622464184</externalId></marketId>
+		<marketTemplate>|Match Betting Live|</marketTemplate>
+		<marketName>WIL-12609 Test Market Ten</marketName>
+		<status>active</status>
+		<display displayed="yes" order="0"/>
+		<pricing live="yes" starting="no"/>
+		<bettingInRunning active="no" />
+		<accMin>1</accMin><accMax>25</accMax>
+		<cashoutAvail>Y</cashoutAvail>
+	</marketInsert>
+	<!-- #62 Market with cashout_avail N -->
+	<marketInsert>
+		<eventId><externalId>CAERUS_4098-1368622464184</externalId></eventId>
+		<marketId><externalId>CAERUS_bd98-1368622464184</externalId></marketId>
+		<marketTemplate>|Match Betting Live|</marketTemplate>
+		<marketName>WIL-12609 Test Market Eleven</marketName>
+		<status>active</status>
+		<display displayed="yes" order="0"/>
+		<pricing live="yes" starting="no"/>
+		<bettingInRunning active="no" />
+		<accMin>1</accMin><accMax>25</accMax>
+		<cashoutAvail>N</cashoutAvail>
+	</marketInsert>
+	<!-- #63 Market with cashout_avail not supplied -->
+	<marketInsert>
+		<eventId><externalId>CAERUS_4098-1368622464184</externalId></eventId>
+		<marketId><externalId>CAERUS_bd99-1368622464184</externalId></marketId>
+		<marketTemplate>|Match Betting Live|</marketTemplate>
+		<marketName>WIL-12609 Test Market Twelve</marketName>
+		<status>active</status>
+		<display displayed="yes" order="0"/>
+		<pricing live="yes" starting="no"/>
+		<bettingInRunning active="no" />
+		<accMin>1</accMin><accMax>25</accMax>
+	</marketInsert>
+
+	<!-- END MISC/EDGE CASES -->
+
 </oxiFeedRequest>

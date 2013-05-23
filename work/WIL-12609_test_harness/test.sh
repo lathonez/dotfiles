@@ -8,13 +8,15 @@ oxifeed_url=""
 database="willhill_dev@db01_1170"
 start_delay="120"
 cashout_price=""
-log_xml=""
+log_xml="1"
 ignore_updates=0
 
 # statics for assertion
 PRICE=1
 NULL=2
 BAD=3
+CAY=4
+CAN=5
 
 # how long to wait between messages (seconds)
 # how long in the future should the event be (seconds)
@@ -129,6 +131,15 @@ get_price() {
 }
 
 
+# type
+# ev_oc_id
+get_cashout_avail() {
+
+	ev_mkt_id=$1
+	cashout_avail=`echo "select cashout_avail from tevmkt where ev_mkt_id = $ev_mkt_id" | dbaccess $database 2> /dev/null | egrep "[YN]"`
+}
+
+
 # there's no way of nulling the live price with the feed. have to hack it
 # - 1: ev_oc_id
 clear_lp() {
@@ -188,7 +199,7 @@ simple_assert() {
 # - 3 test case desc
 db_assert() {
 
-	if [ "$1" == "" -o "$2" == "" -o "$3" == "" ] 
+	if [ "$1" == "" -o "$2" == "" -o "$3" == "" ]
 	then
 		echo -e "\e[00;31mFAIL\e[00m: No data supplied, invalid response?"
 	else
@@ -238,6 +249,26 @@ db_assert() {
 				else
 					echo -e "\e[00;31mFAIL\e[00m: $3 (id: $2) - expecting PRICE got $price"
 				fi
+			elif [ "$1" == "$CAY" ]
+			then
+				get_cashout_avail $2
+
+				if [ "$cashout_avail" == "Y" ]
+				then
+					echo -e "\e[00;32mPASS\e[00m: $3 (id: $2)  "
+				else
+					echo -e "\e[00;31mFAIL\e[00m: $3 (id: $2) - expecting Y got $cashout_avail"
+				fi
+			elif [ "$1" == "$CAN" ]
+			then
+				get_cashout_avail $2
+
+				if [ "$cashout_avail" == "N" ]
+				then
+					echo -e "\e[00;32mPASS\e[00m: $3 (id: $2)  "
+				else
+					echo -e "\e[00;31mFAIL\e[00m: $3 (id: $2) - expecting N got $cashout_avail"
+				fi
 			fi
 		fi
 	fi
@@ -272,7 +303,7 @@ array_assert(){
 setup_insert_asserts() {
 
 	num_insert_seln="24"
-	num_insert_market="1"
+	num_insert_market="4"
 
 	insert_total=`expr $num_insert_seln + $num_insert_market`
 
@@ -305,7 +336,10 @@ setup_insert_asserts() {
 	)
 
 	insert_mkt_asserts=(\
-		"#26 Market with invalid cashout_avail|$BAD"
+		"#26 Market with invalid cashout_avail|$BAD" \
+		"#61 Market with cashout_avail Y|$CAY" \
+		"#62 Market with cashout_avail N|$CAN" \
+		"#63 Market with cashout_avail not supplied|$CAN" \
 	)
 
 	# sanity check
