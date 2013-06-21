@@ -60,3 +60,10 @@
 	otasconnwait    5000
 	otashost        localhost 20045
 </Location>
+
+<location /telebet>
+	sethandler      otas-handler
+	otasvrfywait    20000
+	otasconnwait    5000
+	otashost        localhost 20050
+</Location>
