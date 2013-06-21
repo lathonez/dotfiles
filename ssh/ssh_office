@@ -204,3 +204,9 @@ Host macaccess
 hostname 202.86.145.179
 user openbet
 ProxyCommand ssh t exec nc %h %p
+
+# marees
+Host marees
+hostname lp01643
+user shazleto
+ProxyCommand ssh t exec nc %h %p
