@@ -127,10 +127,6 @@ setup_aliases ()
 	alias grace="sudo apache2ctl graceful"
 	alias asproc='ps -ef | grep shazleto | grep [a]ppserv'
 
-	# appserv commands, prob put these in a script for better and stuff
-	alias admin='rm admin.log admin_err.log; touch admin.log; appserv admin_shazleto.cfg 2>admin_err.log & tail -f admin.log | grep -v "<ASM>"'
-	alias cust='rm cust.log cust_err.log; touch cust.log; appserv cust_shazleto.cfg 2>cust_err.log & tail -f cust.log | grep -v "<ASM>"'
-
 	# box_specific
 	if [[ $SERVER == "laptop" ]]; then
 		alias work='~/shaz_utils/scripts/connect_to_work.sh -ed shazleto vpn.openbet.com'
@@ -149,7 +145,7 @@ setup_aliases ()
 	fi
 
 	if [[ $SERVER == "davonez" ]]; then
-		alias work='~/shaz_utils/scripts/connect_to_work.sh -e shazleto vpn.openbet.com'
+		alias work='~/shaz_utils/scripts/connect_to_work.sh -er shazleto vpn.openbet.com'
 		alias killwork="ps -ef | egrep \"[s]sh.*openbet.com\" | awk '"'{print $2}'"' | xargs sudo kill -9"
 		alias xx='exit 10'
 	fi

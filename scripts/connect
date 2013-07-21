@@ -1,0 +1,4 @@
+#!/bin/bash
+# wrapper for the connect script on dev01, just ssh to it and exec that
+
+ssh d -t /shared/orbis/Support/support_shared/connect $1

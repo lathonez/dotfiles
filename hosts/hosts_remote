@@ -2,7 +2,8 @@
 127.0.1.1    talitha-borealis.openbet    talitha-borealis
 
 127.0.0.1 pserver pserver.orbis pserver.openbet amiliaus cvspserver cvspserver.orbis cvspserver.openbet
-127.0.0.1 custproxy
+127.0.0.1 custproxy.openbet
+127.0.0.1 proxy.openbet
 127.0.0.1 mail.orbis
 127.0.0.1 smtp.orbis
 127.0.0.1 jabber.orbis
@@ -10,7 +11,7 @@
 127.0.0.1 rhea.orbis
 127.0.0.1 imap.orbis
 127.0.0.1 ldap.openbet
-127.0.0.1 db01.orbis
+127.0.0.1 db01.openbet
 
 # The following lines are desirable for IPv6 capable hosts
 ::1    ip6-localhost ip6-loopback

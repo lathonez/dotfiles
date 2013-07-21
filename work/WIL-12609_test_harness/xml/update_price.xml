@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE oxiFeedRequest SYSTEM "oxiFeedRequest.dtd">
+<!-- use cases for update -->
+<oxiFeedRequest version="1.0" timestamp="2013-05-15 11:12:54">
+   <auth username="Administrator" password="1ncharge"/>
+
+	<!-- #31|#44 Calculate with null cashout price -->
+    <selectionUpdate>
+        <selectionId><openbetId><!-- ph31 -->4738</openbetId></selectionId>
+        <price type="fractional">10/1</price>
+        <cashoutPrice type="calculate"></cashoutPrice>
+    </selectionUpdate>
+	<!-- #32|#45 Calculate with rubbish cashout price -->
+    <selectionUpdate>
+        <selectionId><openbetId><!-- ph32 -->4739</openbetId></selectionId>
+        <price type="fractional">10/1</price>
+        <cashoutPrice type="calculate">Dave</cashoutPrice>
+    </selectionUpdate>
+	<!-- #33|#46 Valid decimal (for #46 we need to keep the same LP as the insert) -->
+    <selectionUpdate>
+        <selectionId><openbetId><!-- ph33 -->4740</openbetId></selectionId>
+        <price type="fractional">1/1</price>
+        <cashoutPrice type="decimal">1.234</cashoutPrice>
+    </selectionUpdate>
+	<!-- #34|#47 invalid decimal (fraction) -->
+    <selectionUpdate>
+        <selectionId><openbetId><!-- ph34 -->4741</openbetId></selectionId>
+        <price type="fractional">10/1</price>
+        <cashoutPrice type="decimal">1/1</cashoutPrice>
+    </selectionUpdate>
+	<!-- #35|#48 null decimal (for #48 we need to keep the same LP as the insert) -->
+    <selectionUpdate>
+        <selectionId><openbetId><!-- ph35 -->4742</openbetId></selectionId>
+        <price type="fractional">1/1</price>
+        <cashoutPrice type="decimal"></cashoutPrice>
+    </selectionUpdate>
+	<!-- #36|#49 Valid fraction -->
+    <selectionUpdate>
+        <selectionId><openbetId><!-- ph36 -->4743</openbetId></selectionId>
+        <price type="fractional">10/1</price>
+        <cashoutPrice type="fractional">10/1</cashoutPrice>
+    </selectionUpdate>
+	<!-- #37|#50 invalid fraction (decimal) -->
+    <selectionUpdate>
+        <selectionId><openbetId><!-- ph37 -->4744</openbetId></selectionId>
+        <price type="fractional">10/1</price>
+        <cashoutPrice type="fractional">1.234</cashoutPrice>
+    </selectionUpdate>
+	<!-- #38|#51 null fraction -->
+    <selectionUpdate>
+        <selectionId><openbetId><!-- ph38 -->4745</openbetId></selectionId>
+        <price type="fractional">10/1</price>
+        <cashoutPrice type="fractional"></cashoutPrice>
+    </selectionUpdate>
+	<!-- #39|#52 not supplied (for #52 we need to keep the same LP as the insert) -->
+    <selectionUpdate>
+        <selectionId><openbetId><!-- ph39 -->4746</openbetId></selectionId>
+        <price type="fractional">1/1</price>
+    </selectionUpdate>
+	<!-- #40|#53 rubbish cashout price type -->
+    <selectionUpdate>
+        <selectionId><openbetId><!-- ph40 -->4747</openbetId></selectionId>
+        <price type="fractional">10/1</price>
+		<cashoutPrice type="dave">1.2345</cashoutPrice>
+    </selectionUpdate>
+
+	<!-- no LP edge cases -->
+	<!-- #41|#54 no LP valid fractional/decimal -->
+    <selectionUpdate>
+		<selectionId><openbetId><!-- ph41 -->4748</openbetId></selectionId>
+		<cashoutPrice type="fractional">10/1</cashoutPrice>
+    </selectionUpdate>
+	<!-- #42|#55 no LP valid calculate -->
+    <selectionUpdate>
+        <selectionId><openbetId><!-- ph42 -->4749</openbetId></selectionId>
+		<cashoutPrice type="calculate"></cashoutPrice>
+    </selectionUpdate>
+	<!-- #43|#56 no LP null fractional/decimal -->
+    <selectionUpdate>
+        <selectionId><openbetId><!-- ph43 -->4750</openbetId></selectionId>
+		<cashoutPrice type="calculate"></cashoutPrice>
+    </selectionUpdate>
+
+	<!-- mkt update edge cases #68-#73 -->
+	<!-- #68|#71 cashout_avail Y -->
+	<marketUpdate>
+		<marketId><openbetId><!-- ph68 -->1234</openbetId></marketId>
+		<cashoutAvail>Y</cashoutAvail>
+	</marketUpdate>
+	<!-- #69|#72 cashout_avail N -->
+	<marketUpdate>
+		<marketId><openbetId><!-- ph69 -->1235</openbetId></marketId>
+		<cashoutAvail>N</cashoutAvail>
+	</marketUpdate>
+	<!-- #70|#73 cashout_avail NS -->
+	<marketUpdate>
+		<marketId><openbetId><!-- ph70 -->1236</openbetId></marketId>
+		<display displayed="no" order="0"/>
+	</marketUpdate>
+
+
+</oxiFeedRequest>

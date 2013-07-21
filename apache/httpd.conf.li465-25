@@ -39,6 +39,8 @@ AccessFileName .htaccess
 </IfModule>
 
 <IfModule wsgi_module>
+	WSGIDaemonProcess cuereview display-name=%{GROUP}
+	WSGIProcessGroup cuereview
 	WSGIScriptAlias /cuereview /var/www/cuereview/app.py
 	Alias /cuereview/static /var/www/cuereview/static/
 	AddType text/html .py
