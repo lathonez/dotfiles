@@ -156,8 +156,8 @@ setup_aliases ()
 	fi
 	
 	# cvs stuff
-	alias cvsd='CVSROOT=":pserver:${USER}@pserver:/cvsroot"'
-	alias cvso='CVSROOT=":pserver:${USER}@pserver:/cvsroot-openbet"'
+	alias cvsd='CVSROOT=":pserver:shazleto@pserver:/cvsroot"'
+	alias cvso='CVSROOT=":pserver:shazleto@pserver:/cvsroot-openbet"'
 	alias cvsu='cvs -q upd'
 	alias cvss='cvs stat'
 	alias cvst='cvs tag'
@@ -226,7 +226,7 @@ setup_variables ()
 
 	PATH=$PATH:.:/local/j2re1.4.2_05/bin:/bin:/usr/local/bin:/sbin:/usr:/usr/sbin:~/bin:/usr/X11R6/bin:$INFORMIXDIR/bin:$SYBASE/bin:$ORACLE_HOME/bin:$JAVA/bin:$CCM_HOME/bin:$OPENBET:$APPSERV:$DEPLOYMENT/bin:$TLS:/local/j2re1.4.2_05/bin:/local/j2re1.4.2_05
 
-	CVSROOT=:pserver:${USER}@pserver:/cvsroot
+	CVSROOT=:pserver:shazleto@pserver:/cvsroot
 
 	export INFORMIXDIR INFORMIXSERVER PATH LD_LIBRARY_PATH DEPLOYMENT OPENBET APPSERV CVSROOT
 	export TERM=xterm
