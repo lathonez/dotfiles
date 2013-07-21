@@ -1,0 +1,2 @@
+#!/bin/bash
+rm $1.log $1_err.log; touch $1.log; ot_appserv $1.cfg 2>$1_err.log & tail -f $1.log | grep -v "<ASM>"
