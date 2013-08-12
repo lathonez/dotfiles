@@ -67,3 +67,10 @@
 	otasconnwait    5000
 	otashost        localhost 20050
 </Location>
+
+<location /gpc>
+	sethandler      otas-handler
+	otasvrfywait    20000
+	otasconnwait    5000
+	otashost        localhost 20055
+</Location>
