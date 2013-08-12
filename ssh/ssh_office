@@ -215,3 +215,19 @@ host jenstage
 hostname 81.88.162.58
 user openbet
 ProxyCommand ssh t exec nc %h %p
+
+# corals
+host test4
+hostname 10.64.74.36
+user steven.hazleton
+ProxyCommand ssh t exec nc %h %p
+
+host stage2
+hostname 10.64.74.16
+user steven.hazleton
+ProxyCommand ssh t exec nc %h %p
+
+host coralgib
+hostname 10.64.74.15
+user steven.hazleton
+ProxyCommand ssh t exec nc %h %p
