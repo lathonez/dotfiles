@@ -255,3 +255,7 @@ hostname 10.56.2.150
 user openbet
 ProxyCommand ssh t exec nc %h %p
 
+# bit bucket
+host bitbucket.org
+hostname bitbucket.org
+ProxyCommand ssh r exec nc %h %p
