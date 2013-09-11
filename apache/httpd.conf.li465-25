@@ -24,6 +24,36 @@ AccessFileName .htaccess
   Options Indexes FollowSymLinks
 </Directory>
 
+# VIRTUAL HOSTS
+
+# Ensure that Apache listens on port 80
+#Listen 80
+
+# Listen for virtual host requests on all IP addresses
+NameVirtualHost *:80
+
+<VirtualHost *:80>
+  DocumentRoot /var/www/aetc
+  ServerName allelectrictattoocompany.co.uk
+  ServerAlias *.allelectrictattoocompany.co.uk
+</VirtualHost>
+
+<VirtualHost *:80>
+  DocumentRoot /var/www/davidwilliams
+  ServerName davidwilliams.pw
+  ServerAlias *.davidwilliams.pw
+  ServerAlias vidwilliams.com
+  Serveralias *.vidwilliams.com
+</VirtualHost>
+
+#RT
+<Directory /usr/share/request-tracker3.8>
+  Order Allow,Deny
+  Allow from all
+  AllowOverride All
+  Options Indexes FollowSymLinks
+</Directory>
+
 #Alias /terraria/david /var/www/terraria/david.txt
 #Alias /terraria/steve /var/www/terraria/steve.txt
 
@@ -39,11 +69,15 @@ AccessFileName .htaccess
 </IfModule>
 
 <IfModule wsgi_module>
-	WSGIDaemonProcess cuereview display-name=%{GROUP}
-	WSGIProcessGroup cuereview
-	WSGIScriptAlias /cuereview /var/www/cuereview/app.py
-	Alias /cuereview/static /var/www/cuereview/static/
-	AddType text/html .py
+	<VirtualHost *:80>
+		ServerName cuereview.co.uk
+		ServerAlias *.cuereview.co.uk
+		WSGIDaemonProcess cuereview display-name=%{GROUP}
+		WSGIProcessGroup cuereview
+		WSGIScriptAlias / /var/www/cuereview/app.py
+		Alias /static /var/www/cuereview/static/
+		AddType text/html .py
+	</VirtualHost>
 </IfModule>
 <Directory /var/www/cuereview/>
       Order deny,allow
