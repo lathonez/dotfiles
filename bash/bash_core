@@ -214,7 +214,8 @@ setup_variables ()
 	export JAVA=/usr/lib/jdk-1.1
 
 	# informix
-	INFORMIXSERVER=_11
+	INFORMIXSERVER=db01_1170
+	DBSERVERNAME=$INFORMIXSERVER
 	INFORMIXDIR=/opt/informix
 
 	LD_LIBRARY_PATH=$APPSERV/lib:$INFORMIXDIR/lib:$INFORMIXDIR/lib/esql

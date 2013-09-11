@@ -211,14 +211,25 @@ hostname lp01643
 user shazleto
 ProxyCommand ssh t exec nc %h %p
 
+# jennings
 host jenstage
 hostname 81.88.162.58
 user openbet
 ProxyCommand ssh t exec nc %h %p
 
+host jenlive
+hostname 81.88.162.6
+user openbet
+ProxyCommand ssh t exec nc %h %p
+
+host jenlive2
+hostname 81.88.162.8
+user openbet
+ProxyCommand ssh t exec nc %h %p
+
 # corals
-host test4
-hostname 10.64.74.36
+host test1
+hostname 10.64.74.33
 user steven.hazleton
 ProxyCommand ssh t exec nc %h %p
 
@@ -231,3 +242,16 @@ host coralgib
 hostname 10.64.74.15
 user steven.hazleton
 ProxyCommand ssh t exec nc %h %p
+
+# ladbrokes
+host comapp19
+hostname comapp19
+user openbet
+ProxyCommand ssh t exec nc %h %p
+
+# codere
+host codstage
+hostname 10.56.2.150
+user openbet
+ProxyCommand ssh t exec nc %h %p
+
