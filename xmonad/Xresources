@@ -3,7 +3,7 @@
 ! URxvt.background: rgba:1111/1111/1111/dddd
 
 ! clickable urls
-URxvt.urlLauncher:      /usr/bin/firefox
+URxvt.urlLauncher:      /usr/bin/chrome
 URxvt.matcher.button:   1
 
 ! tabs

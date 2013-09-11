@@ -5,14 +5,17 @@
 setup_servers ()
 {
 	if [ ${HOSTNAME} == "talitha-borealis" ]; then
-		SERVER="laptop"
-		ALIAS="lap"
+		SERVER="office"
+		ALIAS="tatty"
 	elif [ ${HOSTNAME} == "ninehundred" ]; then
-		SERVER="desktop"
+		SERVER="home"
 		ALIAS="900"
 	elif [ ${HOSTNAME} == "li465-25" ]; then
 		SERVER="davonez"
 		ALIAS="dav"
+	elif [ ${HOSTNAME} == "x220" ]; then
+		SERVER="home"
+		ALIAS="x220"
 	else
 		# probably on a dev server
 		SERVER="dev"
@@ -127,13 +130,8 @@ setup_aliases ()
 	alias grace="sudo apache2ctl graceful"
 	alias asproc='ps -ef | grep shazleto | grep [a]ppserv'
 
-	# appserv commands, prob put these in a script for better and stuff
-	alias admin='rm admin.log admin_err.log; touch admin.log; appserv admin_shazleto.cfg 2>admin_err.log & tail -f admin.log | grep -v "<ASM>"'
-	alias cust='rm cust.log cust_err.log; touch cust.log; appserv cust_shazleto.cfg 2>cust_err.log & tail -f cust.log | grep -v "<ASM>"'
-	alias oxifeed='rm oxifeed.log oxifeed_err.log; touch oxifeed.log; appserv oxifeed_sh.cfg 2>oxifeed_err.log & tail -f oxifeed.log | grep -v "<ASM>"'
-
 	# box_specific
-	if [[ $SERVER == "laptop" ]]; then
+	if [[ $SERVER == "office" ]]; then
 		alias work='~/shaz_utils/scripts/connect_to_work.sh -ed shazleto vpn.openbet.com'
 		alias hdprim='xrandr --output HDMI1 --primary'
 		alias killwork="ps -ef | egrep \"[s]sh.*openbet.com\" | awk '"'{print $2}'"' | xargs sudo kill -9"
@@ -141,7 +139,7 @@ setup_aliases ()
 		alias killas9="ps -ef | egrep \"[o]t_appserv\" | awk '"'{print $2}'"' | xargs sudo kill -9; ipcnuke"
 	fi
 
-	if [[ $SERVER == "desktop" ]]; then
+	if [[ $SERVER == "home" ]]; then
 		alias work='~/shaz_utils/scripts/connect_to_work.sh -d shazleto vpn.openbet.com'
 		alias hdprim='xrandr --output HDMI1 --primary'
 		alias killwork="ps -ef | egrep \"[s]sh.*openbet.com\" | awk '"'{print $2}'"' | xargs sudo kill -9"
@@ -161,15 +159,15 @@ setup_aliases ()
 	fi
 	
 	# cvs stuff
-	alias cvsd='CVSROOT=":pserver:${USER}@pserver:/cvsroot"'
-	alias cvso='CVSROOT=":pserver:${USER}@pserver:/cvsroot-openbet"'
+	alias cvsd='CVSROOT=":pserver:shazleto@pserver:/cvsroot"'
+	alias cvso='CVSROOT=":pserver:shazleto@pserver:/cvsroot-openbet"'
 	alias cvsu='cvs -q upd'
 	alias cvss='cvs stat'
 	alias cvst='cvs tag'
 	alias vi='vim -X'
 
 	# rdp to live
-	alias rdplive='rdesktop -u shazleton -g 1280x1024 localhost:3391'
+	alias rdplive='rdesktop -u shazleton -g 1024x768 localhost:3391'
 	alias tunoff='ssh p -L3391:10.180.139.210:3389'
 	alias tunon='ssh p -L3391:10.110.132.1:3389'
 
@@ -219,7 +217,8 @@ setup_variables ()
 	export JAVA=/usr/lib/jdk-1.1
 
 	# informix
-	INFORMIXSERVER=_11
+	INFORMIXSERVER=db01_1170
+	DBSERVERNAME=$INFORMIXSERVER
 	INFORMIXDIR=/opt/informix
 
 	LD_LIBRARY_PATH=$APPSERV/lib:$INFORMIXDIR/lib:$INFORMIXDIR/lib/esql
@@ -231,7 +230,7 @@ setup_variables ()
 
 	PATH=$PATH:.:/local/j2re1.4.2_05/bin:/bin:/usr/local/bin:/sbin:/usr:/usr/sbin:~/bin:/usr/X11R6/bin:$INFORMIXDIR/bin:$SYBASE/bin:$ORACLE_HOME/bin:$JAVA/bin:$CCM_HOME/bin:$OPENBET:$APPSERV:$DEPLOYMENT/bin:$TLS:/local/j2re1.4.2_05/bin:/local/j2re1.4.2_05
 
-	CVSROOT=:pserver:${USER}@pserver:/cvsroot
+	CVSROOT=:pserver:shazleto@pserver:/cvsroot
 
 	export INFORMIXDIR INFORMIXSERVER PATH LD_LIBRARY_PATH DEPLOYMENT OPENBET APPSERV CVSROOT
 	export TERM=xterm
@@ -243,7 +242,7 @@ setup_variables ()
 
 go_home ()
 {
-	if [[ $SERVER == "laptop" ]]; then
+	if [[ $SERVER == "office" ]]; then
 		cd /space/work
 	else
 		cd ~/

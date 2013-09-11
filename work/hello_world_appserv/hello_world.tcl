@@ -7,6 +7,11 @@ proc req_init { } {
 	tpBufWrite "hello world"
 }
 
+proc req_end { } {
+
+	# some stuff to end
+}
+
 proc main_init { } {
 
 	# some stuff to init
