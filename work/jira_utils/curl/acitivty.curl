@@ -1,0 +1,1 @@
+curl -u stephen.hazleton@openbet.com:2VqXARVO "https://jira.openbet.com/activity?maxResults=210&streams=user+IS+stephen.hazleton%40openbet.com&os_authType=basic&title=Activity%20Stream"
