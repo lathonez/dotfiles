@@ -1,5 +1,6 @@
 from ConfigParser import SafeConfigParser
 from utils        import HTTPUtils
+import feedparser
 
 class ActivityStream():
 
@@ -36,16 +37,28 @@ class ActivityStream():
 			url_encode=False
 		)
 
-		resp_str = resp['response'].read()
+		print 'get_stream: Stream received from Jira, parsing..'
 
-		print 'get_stream: Response from Jira'
-		print resp_str
+		stream = feedparser.parse(resp['response_string'])
+
+		return stream
+
+	def print_stream(self, stream):
+
+		for entry in stream.entries:
+
+			print 'title: {0}, date: {1}'.format(
+				entry.title,
+				entry.published
+			)
+
 
 def main(args=None):
 
 	print 'Running jira'
-	stream = ActivityStream()
-	stream.get_stream()
+	activity_stream = ActivityStream()
+	stream = activity_stream.get_stream()
+	activity_stream.print_stream(stream)
 
 if __name__ == '__main__':
 	main()
