@@ -1,7 +1,10 @@
 from ConfigParser import SafeConfigParser
 from utils        import HTTPUtils
-import feedparser
+from time         import mktime
+from datetime     import datetime
+import feedparser, re, ConfigParser
 
+# Class to obtain and parse an activity stream from Jira
 class ActivityStream():
 
 	def __init__ (self):
@@ -11,8 +14,12 @@ class ActivityStream():
 		self.config.read('activity_stream.cfg')
 		self.http_utils = HTTPUtils(self.config)
 
-	# username: 
-	# password: 
+	# get the activity stream for a given user
+	#
+	# username: Jira username
+	# password: Jira password
+	#
+	# return: feedparsed activiy stream
 	def get_stream(self, username, password):
 
 		url      = self.config.get('app','base_url')
@@ -43,6 +50,9 @@ class ActivityStream():
 
 		return stream
 
+	# print the title and published date from the entire stream
+	#
+	# stream: feedparsed activity stream
 	def print_stream(self, stream):
 
 		for entry in stream.entries:
@@ -53,50 +63,95 @@ class ActivityStream():
 			)
 
 	# parse the stream:
+	#  - newest events are first in the stream
 	#  - pull out relevant entries
-	#  - sum the time up
+	#  - find unique tickets from entries
+	#  - sum the time up for each ticket
 	#
-	# day:   day of the month (e.g. 26)
-	# month: month of the year (e.g. 09)
+	# stream: feedparsed activity stream
+	# day:    day of the month (e.g. 26)
+	# month:  month of the year (e.g. 09)
+	#
+	# return: list of ticket dicts
 	def _parse_stream(self, stream, day, month):
 
 		fn      = '_parse_stream:'
 		day     = int(day)
 		month   = int(month)
-		events  = []
-		tickets = TicketList()
+		entries = []
+		tickets = []
 
+		# find relevant entries
 		for entry in stream.entries:
 
 			e_day = int(entry.published_parsed.tm_mday)
 			e_month = int(entry.published_parsed.tm_mon)
 
 			if day == e_day and month == e_month:
+				entries.append(entry)
 
-				events.append(entry)
+		if not len(entries):
+			raise ActivityStreamError('No relevant entries found')
 
-		if not len(events):
-			raise ActivityStreamError('No events found')
+		print fn,len(entries),'events found'
 
-		print fn,len(events),'events found'
+		# debug available time
+		start = entries[0]
+		end   = entries[len(entries)-1]
+		avail = self._get_time_difference(start,end)
+		print fn,'Time Available:',avail
 
-		for event in events:
+		prev_entry  = None
+		prev_ticket = None
+
+		for entry in entries:
 
 			try:
 				# temp ticket to test with
-				t = Ticket(self.config, event)
+				t = self._build_ticket_dict(entry)
 			except ActivityStreamError as e:
 				# we've got a random event like 'linked two tickets', ignore
 				if str(e).find('ticket id found in'):
-					print fn,'skipping event @',event.published
+					print fn,'skipping entry @',entry.published
 					continue
 				else:
 					raise e
 
-			# only unique tickets will be added
-			tickets.add(t)
+			exists = self._get_ticket(tickets,t['ticket_id'])
 
-		tickets.print_ids()
+			# if we've not seen this ticket yet, add it
+			if exists is None:
+				tickets.append(t)
+			else:
+				t = exists
+
+			# first event, we can't do anything here
+			if prev_entry is None:
+				prev_entry = entry
+				prev_ticket = t
+				continue
+
+			# what's the time differnce?
+			diff = self._get_time_difference(prev_entry, entry)
+
+			# this time difference is applied to the previous event
+			# we're moving back through time in this loop
+			if prev_ticket['time'] is None:
+				prev_ticket['time'] = diff
+			else:
+				prev_ticket['time'] += diff
+
+			prev_entry = entry
+			prev_ticket = t
+
+		# sanity check time
+		total_time = self._get_total_time(tickets,False)
+		if total_time != avail:
+			raise ActivityStreamError('Time missing: total_time {0} vs avail {1}'.format(total_time,avail))
+		else:
+			print fn,total_time,'accounted for'
+
+		return tickets
 
 	# pretend we're getting some input from web form
 	def spoof_request(self):
@@ -109,63 +164,52 @@ class ActivityStream():
 		stream = self.get_stream(username, password)
 		self._parse_stream(stream, day, month)
 
+	# work out the (published) time difference between two rss entries
+	#
+	# entry1: first entry in the stream (latest)
+	# entry2: subsequent entry in the stream (older than entry 1)
+	#
+	# return datetime object representing the time difference
+	def _get_time_difference(self, entry1, entry2):
 
-class ActivityStreamError(Exception):
+		time1 = datetime.fromtimestamp(mktime(entry1.published_parsed))
+		time2 = datetime.fromtimestamp(mktime(entry2.published_parsed))
+		diff  = time1 - time2
 
-	def __init__(self, message):
+		return diff
 
-		Exception.__init__(self, message)
+	# build a dict from an rss entry
+	#
+	# entry: rss entry
+	#
+	# returns: {
+	#     'project': LBR,
+	#     'ticket_id': LBR-12345,
+	#     'tenrox_code': LBR300,
+	#     'time': None
+	# }
+	def _build_ticket_dict(self,entry):
 
+		td          = self._parse_title_detail(entry.title_detail.value)
+		project     = td['project']
+		ticket_id   = project + '-' + td['ticket_id']
+		tenrox_code = self._get_tenrox_code(project)
 
-# Unique list of tickets
-class TicketList():
+		return {
+			'projet': project,
+			'ticket_id': ticket_id,
+			'tenrox_code': tenrox_code,
+			'time': None
+		}
 
-	def __init__(self):
-
-		self.tickets = []
-
-	# Adds this ticket to the list if one doesn't already exist with the same id
-	# t - an instance of Ticket
-	def add(self,t):
-
-		if not self.has(t):
-			self.tickets.append(t)
-			return True
-
-		return False
-
-	# Checks whether or not a ticket with the same id exists in the list
-	# t - an instance of Ticket
-	def has(self,t):
-
-		for ticket in self.tickets:
-			if ticket.ticket_id == t.ticket_id:
-				return True
-
-		return False
-
-	def print_ids(self):
-		for ticket in self.tickets:
-			print ticket.ticket_id
-
-
-import re, ConfigParser
-# represents a single Jira ticket:
-class Ticket():
-
-	# entry:  raw activity stream entry, will be parsed into the ticket object
-	# config: parsed config file
-	def __init__(self, config, entry):
-
-		self.config      = config
-		td               = self._parse_title_detail(entry.title_detail.value)
-		self.project     = td['project']
-		self.ticket_id   = self.project + '-' + td['ticket_id']
-		self.tenrox_code = self._get_tenrox_code(self.project)
-
-	# returns dict containing:
-	# project (JEN)
-	# ticket_id (JEN-10308)
+	# parse the rss title detail into useful info
+	#
+	# rss entry .title_detail.value
+	#
+	# return {
+	#     'project': LBR,
+	#     'ticket_id': LBR-12345
+	# }
 	def _parse_title_detail(self, title_detail):
 
 		jira_link = 'https://jira.openbet.com/browse/'
@@ -188,6 +232,11 @@ class Ticket():
 			'ticket_id': ticket_id
 		}
 
+	# derive the tenrox code from a project
+	#
+	# project: Jira project (LBR)
+	#
+	# returns: tenrox code (LBR300)
 	def _get_tenrox_code(self, project):
 
 		try:
@@ -197,6 +246,58 @@ class Ticket():
 
 		return code
 
+	# get a ticket dict in a list of tickets based on ticket_id
+	#
+	# tickets: list of ticket dicts
+	# ticket_id: ticket_id we're looking for
+	#
+	# returns ticket dict if found, else None
+	def _get_ticket(self,tickets,ticket_id):
+
+		i = iter(ticket for ticket in tickets if ticket['ticket_id'] == ticket_id)
+
+		ticket = None
+		try:
+			return next(i)
+		except StopIteration:
+			return None
+		finally:
+			del i
+
+	# get the total across all tickets
+	#
+	# tickets: list of ticket dicts
+	# debug:   print the following info whilst summing
+	#  - for each ticket: ticket_id, time
+	#  - total time when completed
+	#
+	# returns datetime object containing the total time (convenience)
+	def _get_total_time(self,tickets,debug=False):
+
+		total_time = None
+
+		for ticket in tickets:
+
+			if debug:
+				print ticket['ticket_id'], ticket['time']
+
+			if ticket['time'] is not None:
+				if total_time is None:
+					total_time = ticket['time']
+				else:
+					total_time += ticket['time']
+
+		if debug:
+			print 'total_time:',total_time
+
+		return total_time
+
+
+# application specific error thrown by the ActivityStream
+class ActivityStreamError(Exception):
+
+	def __init__(self, message):
+		Exception.__init__(self, message)
 
 
 def main(args=None):
