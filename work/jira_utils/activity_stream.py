@@ -32,14 +32,22 @@ class ActivityStream():
 			'os_authType': auth
 		}
 
-		resp = self.http_utils.do_req(
-			url=url,
-			data=request_params,
-			post=False,
-			username=username,
-			password=password,
-			url_encode=False
-		)
+		try:
+			resp = self.http_utils.do_req(
+				url=url,
+				data=request_params,
+				post=False,
+				username=username,
+				password=password,
+				url_encode=False
+			)
+		except Exception as e:
+
+			# check for failed login
+			if str(e).index('HTTP error code: 401'):
+				raise ActivityStreamError('Invalid username or password',-2)
+			else:
+				raise e
 
 		print 'get_stream: Stream received from Jira, parsing..'
 
@@ -70,7 +78,7 @@ class ActivityStream():
 	# month:  month of the year (e.g. 09)
 	#
 	# return: list of ticket dicts
-	def _parse_stream(self, stream, day, month):
+	def parse_stream(self, stream, day, month):
 
 		fn      = '_parse_stream:'
 		day     = int(day)
@@ -88,7 +96,7 @@ class ActivityStream():
 				entries.append(entry)
 
 		if not len(entries):
-			raise ActivityStreamError('No relevant entries found')
+			raise ActivityStreamError('No relevant entries found',-3)
 
 		print fn,len(entries),'events found'
 
@@ -291,8 +299,13 @@ class ActivityStream():
 
 
 # application specific error thrown by the ActivityStream
+#
+# Error codes: -1 - Default / unknown
+#              -2 - Invalid username / Password
+#              -3 - No activities found in stream
+#
 class ActivityStreamError(Exception):
 
-	def __init__(self, message):
+	def __init__(self, message, code=-1):
 		Exception.__init__(self, message)
-
+		self.code = code
