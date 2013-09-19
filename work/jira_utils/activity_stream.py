@@ -1,4 +1,3 @@
-from ConfigParser import SafeConfigParser
 from utils        import HTTPUtils
 from time         import mktime
 from datetime     import datetime
@@ -7,11 +6,9 @@ import feedparser, re, ConfigParser
 # Class to obtain and parse an activity stream from Jira
 class ActivityStream():
 
-	def __init__ (self):
+	def __init__ (self, config):
 
-		# read the conf
-		self.config = SafeConfigParser()
-		self.config.read('activity_stream.cfg')
+		self.config = config
 		self.http_utils = HTTPUtils(self.config)
 
 	# get the activity stream for a given user
@@ -298,14 +295,4 @@ class ActivityStreamError(Exception):
 
 	def __init__(self, message):
 		Exception.__init__(self, message)
-
-
-def main(args=None):
-
-	print 'Running jira'
-	activity_stream = ActivityStream()
-	activity_stream.spoof_request()
-
-if __name__ == '__main__':
-	main()
 

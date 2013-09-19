@@ -1,0 +1,17 @@
+.header {
+	text-align: center;
+}
+.content {
+	margin: 0 auto;
+	padding: 0 2em;
+	max-width: 800px;
+	margin-bottom: 50px;
+}
+.pure-form-aligned {
+	text-align: center;
+}
+.pure-form-aligned .pure-controls {
+	margin: 0 auto;
+}
+
+
