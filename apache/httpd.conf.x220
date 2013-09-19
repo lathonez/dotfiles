@@ -35,6 +35,11 @@ AccessFileName .htaccess
 	ProxyPassReverse /elevenRox    http://localhost:36999
 </IfModule>
 
+<IfModule mod_proxy.c>
+	ProxyPass        /jTime    http://localhost:36998
+	ProxyPassReverse /jTime    http://localhost:36998
+</IfModule>
+
 <Directory /var/www/static/elevenRox/>
 	Order deny,allow
 	Allow from all
