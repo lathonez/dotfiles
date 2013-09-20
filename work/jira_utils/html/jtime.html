@@ -1,4 +1,4 @@
-$def with (tickets)
+$def with (tickets, projects)
 <html>
 	<head>
 		<title>jTime</title>
@@ -16,15 +16,35 @@ $def with (tickets)
 			<h1>jTime</h1>
 			<h2>Jira timesheet generator</h2>
 		</div>
-		<div class="content">
+		<div class="wide-content">
 			<div class="pure-g-r">
-				<div class="pure-u-1-3"></div>
-				<div class="pure-u-1-3">
+				<div class="pure-u-1-4"></div>
+				<div class="pure-u-1-4">
+					<h3>Summary per project</h3>
+					<table class="pure-table-striped">
+						<thead>
+							<tr>
+								<th>project</th>
+								<th>tenrox_code</th>
+								<th>time</th>
+							</tr>
+						</thead>
+						<tbody>
+						$for project in projects
+							<tr>
+								<td>$project['project']</td>
+								<td>$project['tenrox_code']</td>
+								<td>$project['time']</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="pure-u-1-4">
+					<h3>Time per ticket</h3>
 					<table class="pure-table-striped">
 						<thead>
 							<tr>
 								<th>ticket_id</th>
-								<th>tenrox_code</th>
 								<th>time</th>
 							</tr>
 						</thead>
@@ -32,13 +52,12 @@ $def with (tickets)
 						$for ticket in tickets
 							<tr>
 								<td>$ticket['ticket_id']</td>
-								<td>$ticket['tenrox_code']</td>
 								<td>$ticket['time']</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
-				<div class="pure-u-1-3"></div>
+				<div class="pure-u-1-4"></div>
 			</div>	
 		</div>
 	</body>

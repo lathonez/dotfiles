@@ -33,7 +33,7 @@ class jtime:
 
 		try:
 			date_spl = data.date.rsplit('/')
-			tickets = act.do_activity_stream(
+			as_rtn = act.do_activity_stream(
 				data.username,
 				data.password,
 				date_spl[0],
@@ -45,7 +45,10 @@ class jtime:
 				web.seeother('/?msg=' + e.code)
 				return
 
-		return render.jtime(tickets)
+		return render.jtime(
+			as_rtn['tickets'],
+			as_rtn['projects']
+		)
 
 class Server():
 

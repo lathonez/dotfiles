@@ -167,7 +167,6 @@ class ActivityStream():
 	# returns: {
 	#     'project': LBR,
 	#     'ticket_id': LBR-12345,
-	#     'tenrox_code': LBR300,
 	#     'time': None
 	# }
 	def _build_ticket_dict(self,entry):
@@ -175,12 +174,10 @@ class ActivityStream():
 		td          = self._parse_title_detail(entry.title_detail.value)
 		project     = td['project']
 		ticket_id   = project + '-' + td['ticket_id']
-		tenrox_code = self._get_tenrox_code(project)
 
 		return {
-			'projet': project,
+			'project': project,
 			'ticket_id': ticket_id,
-			'tenrox_code': tenrox_code,
 			'time': None
 		}
 
@@ -228,6 +225,8 @@ class ActivityStream():
 
 		return code
 
+	# TODO - combine these functions into a generic one (find me this tickt based on this var)
+
 	# get a ticket dict in a list of tickets based on ticket_id
 	#
 	# tickets: list of ticket dicts
@@ -238,7 +237,23 @@ class ActivityStream():
 
 		i = iter(ticket for ticket in tickets if ticket['ticket_id'] == ticket_id)
 
-		ticket = None
+		try:
+			return next(i)
+		except StopIteration:
+			return None
+		finally:
+			del i
+
+	# get a project dict in a list of projects based on project_name
+	#
+	# projects: list of project dicts
+	# project_name: project name we're looking for (LBR)
+	#
+	# returns project dict if found, else None
+	def _get_project(self,projects,project_name):
+
+		i = iter(project for project in projects if project['project'] == project_name)
+
 		try:
 			return next(i)
 		except StopIteration:
@@ -274,6 +289,34 @@ class ActivityStream():
 
 		return total_time
 
+	# Build a summary per project from a list of ticket dicts
+	#
+	# tickets: ticket dicts
+	#
+	# returns: [{
+	#    'project': 'LBR',
+	#    'time': '01:30:35'
+	# }]
+	def _get_project_summary(self,tickets):
+
+		projects = []
+
+		for ticket in tickets:
+			exists = self._get_project(projects,ticket['project'])
+
+			if exists is None:
+				p = {
+					'project': ticket['project'],
+					'time': ticket['time'],
+					'tenrox_code': self._get_tenrox_code(ticket['project'])
+				}
+				projects.append(p)
+			else:
+				p = exists
+				p['time'] += ticket['time']
+
+		return projects
+
 	#
 	# Public functions
 	#
@@ -285,13 +328,20 @@ class ActivityStream():
 	# day:      Day of the month (e.g. 26)
 	# month:    Month of the year (e.g. 09)
 	#
-	# returns
+	# returns: {
+	#     'tickets': tickets,
+	#     'projects': projects
+	# }
 	def do_activity_stream(self, username, password, day, month):
 
-		stream  = self._get_stream(username,password)
-		tickets = self._parse_stream(stream,day,month)
+		stream   = self._get_stream(username,password)
+		tickets  = self._parse_stream(stream,day,month)
+		projects = self._get_project_summary(tickets)
 
-		return tickets
+		return {
+			'tickets': tickets,
+			'projects': projects
+		}
 
 
 # application specific error thrown by the ActivityStream

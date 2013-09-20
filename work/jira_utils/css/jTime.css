@@ -11,6 +11,12 @@
 	max-width: 800px;
 	margin-bottom: 50px;
 }
+.wide-content {
+	margin: 0 auto;
+	padding: 0 2em;
+	max-width: 1000px;
+	margin-bottom: 50px;
+}
 .pure-form-aligned {
 	text-align: center;
 }
