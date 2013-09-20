@@ -12,7 +12,6 @@ $(document).ready(function() {
 
 	// set the date to yesterday
 	$('#date').val(yesterday());
-	
  });
 
 
@@ -27,7 +26,7 @@ function yesterday() {
 	date.setDate(date.getDate() - 1)
 
 	d = ("00" + date.getDate()).slice (-2);
-	m = ("00" + date.getMonth()).slice (-2);
+	m = ("00" + (date.getMonth()+1)).slice (-2);
 	y = date.getFullYear();
 
 	return d + '/' + m + '/' + y;

@@ -9,7 +9,19 @@ config = None
 class index:
 
 	def GET(self):
-		return render.index()
+
+		data = web.input()
+		msg = None
+
+		try:
+			msg = data.msg
+		except AttributeError:
+			pass
+
+		if msg is not None:
+			msg = ActivityStreamError.ERROR_CODES[msg]
+
+		return render.index(msg)
 
 class jtime:
 
@@ -21,24 +33,15 @@ class jtime:
 
 		try:
 			stream = act.get_stream(data.username, data.password)
+			date_spl = data.date.rsplit('/')
+			tickets = act.parse_stream(stream, date_spl[0], date_spl[1])
 		except ActivityStreamError as e:
-			if e.code == -2:
-				print 'Login to Jira failed: invalid username / password'
-				web.seeother('/')
+			print e.message
+			if e.code == 'BAD_USER' or e.code == 'NO_ACTIVITIES':
+				web.seeother('/?msg=' + e.code)
 				return
 
-		date_spl = date.rsplit('/')
-
-		tickets = act.parse_stream(date_spl[0], date_spl[1])
-
-		return 'HELLO!'
-
-	# split dd/mm/yyyy into [day, month]
-	def _split_date(self, date):
-
-		spl = date.rsplit('/')
-
-		return (spl[0],spl[1])
+		return tickets
 
 class Server():
 

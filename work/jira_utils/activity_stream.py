@@ -45,7 +45,7 @@ class ActivityStream():
 
 			# check for failed login
 			if str(e).index('HTTP error code: 401'):
-				raise ActivityStreamError('Invalid username or password',-2)
+				raise ActivityStreamError('BAD_USER')
 			else:
 				raise e
 
@@ -96,7 +96,7 @@ class ActivityStream():
 				entries.append(entry)
 
 		if not len(entries):
-			raise ActivityStreamError('No relevant entries found',-3)
+			raise ActivityStreamError('NO_ACTIVITIES')
 
 		print fn,len(entries),'events found'
 
@@ -116,7 +116,7 @@ class ActivityStream():
 				t = self._build_ticket_dict(entry)
 			except ActivityStreamError as e:
 				# we've got a random event like 'linked two tickets', ignore
-				if str(e).find('ticket id found in'):
+				if e.code == 'NO_TICKET_ID':
 					print fn,'skipping entry @',entry.published
 					continue
 				else:
@@ -152,7 +152,7 @@ class ActivityStream():
 		# sanity check time
 		total_time = self._get_total_time(tickets,False)
 		if total_time != avail:
-			raise ActivityStreamError('Time missing: total_time {0} vs avail {1}'.format(total_time,avail))
+			raise ActivityStreamError('BAD_TIME','total_time: {0}, avail: {1}'.format(total_time,avail))
 		else:
 			print fn,total_time,'accounted for'
 
@@ -224,13 +224,13 @@ class ActivityStream():
 		match     = re.search(rexp,jira_id)
 
 		if match is None:
-			raise ActivityStreamError('No ticket id found in ' + title_detail)
+			raise ActivityStreamError('NO_TICKET_ID', title_detail)
 
 		try:
 			project   = match.group(1)
 			ticket_id = match.group(2)
 		except Exception as e:
-			raise ActivityStreamError('Failed to parse title' + str(e))
+			raise ActivityStreamError('BAD_TITLE', title_detail)
 
 		return {
 			'project': project,
@@ -299,13 +299,23 @@ class ActivityStream():
 
 
 # application specific error thrown by the ActivityStream
-#
-# Error codes: -1 - Default / unknown
-#              -2 - Invalid username / Password
-#              -3 - No activities found in stream
-#
 class ActivityStreamError(Exception):
 
-	def __init__(self, message, code=-1):
+	ERROR_CODES = {
+		'DEFAULT': 'An error has occurred with the ActivityStream',
+		'BAD_USER': 'Invalid username or password',
+		'NO_ACTIVITIES': 'No activities were found on the date requested',
+		'NO_TICKET_ID': 'Failed to find ticket_id in title',
+		'BAD_TITLE': 'Failed to parse stream title',
+		'BAD_TIME': 'Parsed time does not match validation'
+	}
+
+	# code should be a member of ERROR_CODES
+	def __init__(self, code='DEFAULT', debug=None):
+
+		self.code  = code
+		self.debug = debug
+		message    = self.ERROR_CODES[code]
+
 		Exception.__init__(self, message)
-		self.code = code
+

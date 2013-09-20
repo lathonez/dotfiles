@@ -1,6 +1,10 @@
 .header {
 	text-align: center;
 }
+.error_msg {
+	text-align: center;
+	color: rgb(202, 60, 60); /* this is a maroon */
+}
 .content {
 	margin: 0 auto;
 	padding: 0 2em;
