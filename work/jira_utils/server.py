@@ -32,9 +32,13 @@ class jtime:
 		act = ActivityStream(config)
 
 		try:
-			stream = act.get_stream(data.username, data.password)
 			date_spl = data.date.rsplit('/')
-			tickets = act.parse_stream(stream, date_spl[0], date_spl[1])
+			tickets = act.do_activity_stream(
+				data.username,
+				data.password,
+				date_spl[0],
+				date_spl[1]
+			)
 		except ActivityStreamError as e:
 			print e.message
 			if e.code == 'BAD_USER' or e.code == 'NO_ACTIVITIES':

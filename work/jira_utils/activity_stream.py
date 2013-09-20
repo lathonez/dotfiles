@@ -17,11 +17,11 @@ class ActivityStream():
 	# password: Jira password
 	#
 	# return: feedparsed activiy stream
-	def get_stream(self, username, password):
+	def _get_stream(self, username, password):
 
 		url      = self.config.get('app','base_url')
 		auth     = self.config.get('app','auth_type')
-		results  = self.config.get('user','results')
+		results  = self.config.get('app','results')
 		streams  = 'user+IS+{0}'.format(username)
 
 		print 'get_stream: Attemptint to get stream for user',username
@@ -55,18 +55,6 @@ class ActivityStream():
 
 		return stream
 
-	# print the title and published date from the entire stream
-	#
-	# stream: feedparsed activity stream
-	def print_stream(self, stream):
-
-		for entry in stream.entries:
-
-			print 'title: {0}, date: {1}'.format(
-				entry.title,
-				entry.published
-			)
-
 	# parse the stream:
 	#  - newest events are first in the stream
 	#  - pull out relevant entries
@@ -78,7 +66,7 @@ class ActivityStream():
 	# month:  month of the year (e.g. 09)
 	#
 	# return: list of ticket dicts
-	def parse_stream(self, stream, day, month):
+	def _parse_stream(self, stream, day, month):
 
 		fn      = '_parse_stream:'
 		day     = int(day)
@@ -157,17 +145,6 @@ class ActivityStream():
 			print fn,total_time,'accounted for'
 
 		return tickets
-
-	# pretend we're getting some input from web form
-	def spoof_request(self):
-
-		username = self.config.get('user','username')
-		password = self.config.get('user','password')
-		day      = self.config.get('user','day')
-		month    = self.config.get('user','month')
-
-		stream = self.get_stream(username, password)
-		self._parse_stream(stream, day, month)
 
 	# work out the (published) time difference between two rss entries
 	#
@@ -296,6 +273,25 @@ class ActivityStream():
 			print 'total_time:',total_time
 
 		return total_time
+
+	#
+	# Public functions
+	#
+
+	# Fully parse an ActiviyStream from Jira
+	#
+	# username: Jira username
+	# password: Jira password
+	# day:      Day of the month (e.g. 26)
+	# month:    Month of the year (e.g. 09)
+	#
+	# returns
+	def do_activity_stream(self, username, password, day, month):
+
+		stream  = self._get_stream(username,password)
+		tickets = self._parse_stream(stream,day,month)
+
+		return tickets
 
 
 # application specific error thrown by the ActivityStream
