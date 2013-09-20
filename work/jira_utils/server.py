@@ -41,7 +41,7 @@ class jtime:
 				web.seeother('/?msg=' + e.code)
 				return
 
-		return tickets
+		return render.jtime(tickets)
 
 class Server():
 
