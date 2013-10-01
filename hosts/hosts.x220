@@ -2,7 +2,7 @@
 127.0.1.1    x220
 
 127.0.0.1 pserver pserver.orbis pserver.openbet amiliaus cvspserver cvspserver.orbis cvspserver.openbet
-127.0.0.1 custproxy proxy
+127.0.0.1 custproxy proxy custproxy.openbet
 
 127.0.0.1 jabber.orbis
 
