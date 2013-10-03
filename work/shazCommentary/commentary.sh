@@ -140,7 +140,8 @@ play_game() {
 	send_com_xml 1h_start.xml
 
 	# we need to wait extra long here 'cause of the random ajax
-	sleep 60
+	# could do with a 'do start delay' or something in the options
+	# sleep 60
 
 	# first half corner
 	send_com_xml 1h_corner.xml

@@ -183,6 +183,10 @@ setup_aliases ()
 	# dbaccess
 	alias whd='rlwrap dbaccess willhill_dev@db01_1170 -'
 	alias whdold='rlwrap dbaccess willhill_dev@db01_1150 -'
+
+	# jTime
+	alias jTRun="cd /space/work/jTime; nohup python -u server.py &> /var/log/jTime/jTime.log &"
+	alias jTKill="ps -ef | grep server.py | awk '{print $2}' | xargs kill"
 }
 
 
