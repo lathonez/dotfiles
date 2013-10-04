@@ -186,7 +186,7 @@ setup_aliases ()
 
 	# jTime
 	alias jTRun="cd /space/work/jTime; nohup python -u server.py &> /var/log/jTime/jTime.log &"
-	alias jTKill="ps -ef | grep server.py | awk '{print $2}' | xargs kill"
+	alias jTKill="ps -ef | grep server.py | awk '{print \$2}' | xargs kill"
 }
 
 
