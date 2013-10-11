@@ -53,8 +53,8 @@
 
 	SSLOptions +StrictRequire
 
-	SSLCertificateFile /etc/ssl/certs/server.crt
-	SSLCertificateKeyFile /etc/ssl/private/server.key
+	SSLCertificateFile /etc/apache2/ssl/certificate.crt
+	SSLCertificateKeyFile /etc/apache2/ssl/certificate.key
 
 	<Directory />
 		Options FollowSymLinks
