@@ -1,0 +1,25 @@
+Config { font = "-misc-fixed-*-*-*-*-12-*-*-*-*-*-*-*"
+       , bgColor = "black"
+       , fgColor = "grey"
+	   , border = NoBorder
+	   , borderColor = "red"
+       , position = TopSize L 100 16
+       , lowerOnStart = True
+       , commands = [ Run Weather "EGLL" ["-t","<station>: <tempC>C","-L","18","-H","25","--normal","green","--high","red","--low","lightblue"] 36000
+                    , Run Network "eth0" ["-L","0","-H","32","--normal","green","--high","red"] 10
+                    , Run Network "wlan0" ["-L","0","-H","32","--normal","green","--high","red"] 10
+                    , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
+                    , Run Memory ["-t","Mem: <usedratio>%"] 10
+                    , Run Swap [] 10
+                    , Run Com "uname" ["-s","-r"] "" 36000
+					, Run Com "/home/rconstab/bin/wireless.sh" [] "wifi" 30
+					, Run Com "/home/rconstab/bin/batt.sh" [] "batt" 30
+					, Run Com "/home/rconstab/bin/temp.sh" [] "temp" 30
+                    , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
+					, Run CoreTemp ["-t","\<core0\>C","-L","40","-H","60","-l","lightblue","-n","gray90","-h","red"] 50
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "%cpu% %temp% | %memory% * %swap% | %wifi% | %batt%}{ %EGLL% | <fc=#00ff00>%date%</fc>"
+       }
+
