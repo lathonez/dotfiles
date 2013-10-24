@@ -1,0 +1,4 @@
+#!/bin/bash
+# wrapper for the lookup script on dev01, just ssh to it and exec that
+
+ssh d -t /usr/local/bin/lookup $1
