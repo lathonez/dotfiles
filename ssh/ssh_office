@@ -259,3 +259,8 @@ ProxyCommand ssh t exec nc %h %p
 host bitbucket.org
 hostname bitbucket.org
 ProxyCommand ssh r exec nc %h %p
+
+# docker
+host imiell
+hostname 10.194.12.250
+ProxyCommand ssh r exec nc %h %p
