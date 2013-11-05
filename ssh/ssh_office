@@ -249,6 +249,16 @@ hostname comapp19
 user openbet
 ProxyCommand ssh t exec nc %h %p
 
+host bastion1
+hostname 10.32.165.100
+user shazleton
+ProxyCommand ssh t exec nc %h %p
+
+host bastion2
+hostname 10.32.165.101
+user shazleton
+ProxyCommand ssh t exec nc %h %p
+
 # codere
 host codstage
 hostname 10.56.2.150
@@ -263,4 +273,10 @@ ProxyCommand ssh r exec nc %h %p
 # docker
 host imiell
 hostname 10.194.12.250
+ProxyCommand ssh r exec nc %h %p
+
+# sportech app1
+host sportech
+user openbet
+hostname 10.200.100.11
 ProxyCommand ssh r exec nc %h %p
