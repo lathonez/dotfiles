@@ -28,7 +28,7 @@ init_database() {
 
 		echo "CREATE ROLE dbpublish WITH LOGIN"                 | psql $db
 		echo "ALTER USER dbpublish with SUPERUSER"              | psql $db
-		echo "ALTER user dbpublish with password \"dbpublish\"" | psql $db
+		echo "ALTER user dbpublish with password 'dbpublish'" | psql $db
 	done;
 }
 
