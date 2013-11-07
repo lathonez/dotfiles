@@ -94,7 +94,7 @@ init_database() {
 	export LC_ALL="en_US.UTF-8"
 
 	# let's init our database
-	initdb -D $DB_STORE/data/
+	$POSTGRES/initdb -D $DB_STORE/data/
 
 	echo "Copying over config file $INSTALL_CONFIG"
 	cp $INSTALL_CONFIG $DB_STORE/data/postgresql.conf
@@ -155,35 +155,36 @@ fi
 #
 # Run the instance and restart if it goes down.
 #
-while [ $run -gt 0 ]; do
-	date=`date +"%Y-%m-%d %H:%M:%S"`
-	if [ -f $DB_STORE/data/postmaster.pid ]; then
-		pid=`cat $DB_STORE/data/postmaster.pid | head -1`
-		echo "$date : Postgress  already running (pid = $pid)" >> $LOG_DIR/$LOG_FILE
-	else
-		db_start
-		sleep 5
-		pid=`cat $DB_STORE/data/postmaster.pid | head -1`
-		echo "$date : Starting Postgress (pid = $pid)" >> $LOG_DIR/$LOG_FILE
-	fi
-
-	# Poll check the process is still alive every 2 seconds
-	# this allows the trap to be serviced
-	while kill -0 $pid > /dev/null 2>&1; do
-		sleep 2
-	done
-
-	# Output that we have died
-	date=`date +"%Y-%m-%d %H:%M:%S"`
-	echo "$date : Postgres died!" >> $LOG_DIR/$LOG_FILE
-
-	# If dead due to shutdown, skip the sleep to speed things up
-	if [ $run -gt 0 ]; then
-		sleep 60
-		db_shutdown
-		echo "$date : Postgres Shutdown!" >> $LOG_DIR/$LOG_FILE
-	fi
-done
+#while [ $run -gt 0 ]; do
+#
+#	date=`date +"%Y-%m-%d %H:%M:%S"`
+#	if [ -f $DB_STORE/data/postmaster.pid ]; then
+#		pid=`cat $DB_STORE/data/postmaster.pid | head -1`
+#		echo "$date : Postgress  already running (pid = $pid)" >> $LOG_DIR/$LOG_FILE
+#	else
+#		db_start
+#		sleep 5
+#		pid=`cat $DB_STORE/data/postmaster.pid | head -1`
+#		echo "$date : Starting Postgress (pid = $pid)" >> $LOG_DIR/$LOG_FILE
+#	fi
+#
+#	# Poll check the process is still alive every 2 seconds
+#	# this allows the trap to be serviced
+#	while kill -0 $pid > /dev/null 2>&1; do
+#		sleep 2
+#	done
+#
+#	# Output that we have died
+#	date=`date +"%Y-%m-%d %H:%M:%S"`
+#	echo "$date : Postgres died!" >> $LOG_DIR/$LOG_FILE
+#
+#	# If dead due to shutdown, skip the sleep to speed things up
+#	if [ $run -gt 0 ]; then
+#		sleep 60
+#		db_shutdown
+#		echo "$date : Postgres Shutdown!" >> $LOG_DIR/$LOG_FILE
+#	fi
+#done
 
 date=`date +"%Y-%m-%d %H:%M:%S"`
 echo "$date : Shutdown complete." >> $LOG_DIR/$LOG_FILE
