@@ -1,18 +1,5 @@
 #!/bin/sh
 
-# ============================================================================
-# $Header: /cvsroot/willhill/scripts/postgres/postgres.sh,v 1.6.52.2 2013/10/10 15:00:37 kdheena Exp $
-# $Name: B_WillHill_34_0_2 $
-#
-# (C) 2011 OpenBet Technologies Ltd. All rights reserved.
-# ============================================================================
-
-# set up environment variables
-export PATH=/opt/informix/10.0/bin:/opt/informix/10.0/bin:/opt/openbet/bin:/opt/openbet/current/openbet_utils:/opt/openbet/control:/opt/openbet/current/bin:/opt/openbet/appserv/bin:/opt/informix/10.0/bin:/opt/openbet/release/tcl/bin:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/opt/openbet/postgres/bin:/usr/kerberos/sbin:/usr/kerberos/bin:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/opt/perf/bin:/root/bin:/usr/local/ardenta
-export LD_LIBRARY_PATH=/opt/openbet/current/lib:/opt/informix/10.0/lib:/opt/informix/10.0/lib/esql:/opt/openbet/appserv/lib:/opt/openbet/release/tcl/lib:/lib:/usr/lib:/usr/local/lib:/opt/openbet/release/postgres/lib:/opt/openbet/release/openssl-1.0.0a/lib:/opt/openbet/release/openssl-0.9.8b/lib/:/usr/local/postgresql/lib
-export INFORMIXDIR=/opt/informix/10.0
-export INFORMIXSERVER=openbet_tcp
-
 # set up postgres variables
 BOX=$(hostname)
 DB_STORE='/database/dbpublish'
