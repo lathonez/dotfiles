@@ -121,33 +121,35 @@ init_rebuild() {
 	init_database
 }
 
+init_database
+
 # capture signals which should cause shut down
 # on HUP/INT/TERM, stop postgres then terminate
-trap script_shutdown HUP INT TERM
+#trap script_shutdown HUP INT TERM
 
 
 # check if postgres is on the box
-if [ -d "$POSTGRES" ]; then
-	# check if the db is initialized
-	if [ -d "$DB_STORE" ]; then
-		OWNER=$(stat -c %U $DB_STORE)
-		if [ "$OWNER" = "openbet" ]; then
-			echo "100.i - startup in $DB_STORE"
-			script_startup
-		else
-			echo "Current owner is not openbet (owner: $OWNER)" >> $LOG_DIR/$LOG_FILE
-			exit 1
-		fi
-	else
-		echo "current box ($BOX) doesnt have postgres initialized" >> $LOG_DIR/$LOG_FILE
-		echo "108.i - startup in $DB_STORE"
-		init_database
-	fi
-else
-	echo "112.i - startup in $DB_STORE"
-	echo "current box ($BOX) doesnt have postgres setup" >> $LOG_DIR/$LOG_FILE
-	exit 1
-fi
+#if [ -d "$POSTGRES" ]; then
+#	# check if the db is initialized
+#	if [ -d "$DB_STORE" ]; then
+#		OWNER=$(stat -c %U $DB_STORE)
+#		if [ "$OWNER" = "openbet" ]; then
+#			echo "100.i - startup in $DB_STORE"
+#			script_startup
+#		else
+#			echo "Current owner is not openbet (owner: $OWNER)" >> $LOG_DIR/$LOG_FILE
+#			exit 1
+#		fi
+#	else
+#		echo "current box ($BOX) doesnt have postgres initialized" >> $LOG_DIR/$LOG_FILE
+#		echo "108.i - startup in $DB_STORE"
+#		init_database
+#	fi
+#else
+#	echo "112.i - startup in $DB_STORE"
+#	echo "current box ($BOX) doesnt have postgres setup" >> $LOG_DIR/$LOG_FILE
+#	exit 1
+#fi
 
 
 #
@@ -186,7 +188,7 @@ fi
 #	fi
 #done
 
-date=`date +"%Y-%m-%d %H:%M:%S"`
-echo "$date : Shutdown complete." >> $LOG_DIR/$LOG_FILE
+#date=`date +"%Y-%m-%d %H:%M:%S"`
+#echo "$date : Shutdown complete." >> $LOG_DIR/$LOG_FILE
 
 
