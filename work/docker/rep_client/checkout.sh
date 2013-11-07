@@ -19,7 +19,6 @@ cvs co -d shared_pkg -r B_WillHill_34_0_2 openbet/shared_pkg
 # configuration
 CVSROOT=":pserver:shazleto@pserver:/cvsroot"
 cvs co -d conf                  -r B_WillHill_34_0_2 willhill/conf/global_func.cfg
-cvs co -d conf/env              -r B_WillHill_34_0_2 willhill/conf/env
 cvs co -d conf/OXi/oxipubserver -r B_WillHill_34_0_2 willhill/conf/OXi/oxipubserver 
 cvs co -d conf/postgres         -r B_WillHill_34_0_2 willhill/conf/postgres
 
