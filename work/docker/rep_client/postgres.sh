@@ -16,10 +16,10 @@ export INFORMIXSERVER=openbet_tcp
 # set up postgres variables
 BOX=$(hostname)
 DB_STORE='/database/dbpublish'
-POSTGRES='/usr/lib/postgresql/9.1/bin/pg_ctl'
+POSTGRES='/usr/lib/postgresql/9.1/bin'
 APP='/opt/openbet/rep_client'
 
-LOG_DIR=/opt/openbet/rep_client/log/postgres
+LOG_DIR=/opt/openbet/rep_client/log
 LOG_FILE=postgres.log_out.`date +"%Y%m%d_%H"`
 
 if [ $1 ]
