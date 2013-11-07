@@ -23,7 +23,7 @@ cvs co -d conf/OXi/oxipubserver -r B_WillHill_34_0_2 willhill/conf/OXi/oxipubser
 cvs co -d conf/postgres         -r B_WillHill_34_0_2 willhill/conf/postgres
 
 # links
-ln -s $base/conf/OXi/oxipubserver/oxipub.cfg       $base/OXi/services/dbPublish
+ln -s $base/setup/oxipub.cfg                       $base/OXi/services/dbPublish
 ln -s $base/OXi/services/repServer/schema-base.cfg $base/OXi/services/dbPublish
 ln -s $base/OXi/services/repServer/api-base.cfg    $base/OXi/services/dbPublish
 ln -s $base/OXi/shared/tcl                         $base/OXi/services/dbPublish/tcl/shared
