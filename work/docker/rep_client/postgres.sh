@@ -22,6 +22,27 @@ APP='/opt/openbet/rep_client'
 LOG_DIR=/opt/openbet/rep_client/log
 LOG_FILE=postgres.log_out.`date +"%Y%m%d_%H"`
 
+# initalise the postgres database
+init_database() {
+
+	echo "Creating postgres installation"
+	export LC_ALL="en_US.UTF-8"
+
+	# let's init our database
+	$POSTGRES/initdb -D $DB_STORE/data/
+
+	echo "Copying over config file $INSTALL_CONFIG"
+	cp $INSTALL_CONFIG $DB_STORE/data/postgresql.conf
+
+	for db in dbpublish; do
+		createdb -E UTF8 -O openbet $db  -T 'template0'
+
+		echo "CREATE ROLE dbPublish WITH LOGIN"     | psql $db
+		echo "ALTER USER dbPublish with SUPERUSER"  | psql $db
+		echo "CREATE LANGUAGE plpgsql"              | psql $db
+	done;
+}
+
 if [ $1 ]
 then
 	INSTALL_CONFIG=$APP/conf/postgres/postgresql_$1.conf
@@ -48,144 +69,4 @@ if [ ! -d $LOG_DIR ]; then
 	fi
 fi
 
-
-# database start
-db_start() {
-	# start db
-	echo "Copying over config file $INSTALL_CONFIG"
-	cp $INSTALL_CONFIG $DB_STORE/data/postgresql.conf
-	echo "Starting postgres"
-	$POSTGRES/pg_ctl -D$DB_STORE/data -l $DB_STORE/logfile start
-	echo "postgres started"
-}
-
-
-# database shutdown
-db_shutdown() {
-	# shutdown db
-	echo "Stopping progres in directory '$DB_STORE'"
-	$POSTGRES/pg_ctl -D$DB_STORE/data -l $DB_STORE/logfile stop -m fast
-	echo "postgres stopped"
-}
-
-# set up a startup procedure (of this script)
-script_startup() {
-	# Log we are starting up
-	date=`date +"%Y-%m-%d %H:%M:%S"`
-	echo "$date : Startup initiated..." >> $LOG_DIR/$LOG_FILE
-	run=1
-}
-# set up a shutdown procedure (of this script)
-script_shutdown() {
-	# Log we are shutting down
-	date=`date +"%Y-%m-%d %H:%M:%S"`
-	echo "$date : Shutdown initiated..." >> $LOG_DIR/$LOG_FILE
-
-	db_shutdown
-	echo "$date : Postgres Shutdown!" >> $LOG_DIR/$LOG_FILE
-	run=0
-	# exit nicely
-	exit 0
-}
-
-# initalise the postgres database
-init_database() {
-	echo "Creating postgres installation"
-	export LC_ALL="en_US.UTF-8"
-
-	# let's init our database
-	initdb -D $DB_STORE/data/
-
-	echo "Copying over config file $INSTALL_CONFIG"
-	cp $INSTALL_CONFIG $DB_STORE/data/postgresql.conf
-
-	db_start
-	sleep 10
-	for db in dbpublish dbpublish_gib dbpublish_uk; do
-		createdb -E UTF8 -O openbet $db  -T 'template0'
-
-		echo "CREATE ROLE dbPublish WITH LOGIN"     | psql $db
-		echo "ALTER USER dbPublish with SUPERUSER"  | psql $db
-		echo "CREATE LANGUAGE plpgsql"              | psql $db
-	done;
-	run=1
-}
-
-# delete the database directory and then reinitalise it
-#- used for when database directory becomes full
-init_rebuild() {
-	db_shutdown
-	echo "$date : Postgres Shutdown!" >> $LOG_DIR/$LOG_FILE
-
-	rm -rf /database/dbpublish
-	init_database
-}
-
-# capture signals which should cause shut down
-# on HUP/INT/TERM, stop postgres then terminate
-trap script_shutdown HUP INT TERM
-
-
-# check if postgres is on the box
-if [ -d "$POSTGRES" ]; then
-	# check if the db is initialized
-	if [ -d "$DB_STORE" ]; then
-		OWNER=$(stat -c %U $DB_STORE)
-		if [ "$OWNER" = "openbet" ]; then
-			echo "100.i - startup in $DB_STORE"
-			script_startup
-		else
-			echo "Current owner is not openbet (owner: $OWNER)" >> $LOG_DIR/$LOG_FILE
-			exit 1
-		fi
-	else
-		echo "current box ($BOX) doesnt have postgres initialized" >> $LOG_DIR/$LOG_FILE
-		echo "108.i - startup in $DB_STORE"
-		init_database
-	fi
-else
-	echo "112.i - startup in $DB_STORE"
-	echo "current box ($BOX) doesnt have postgres setup" >> $LOG_DIR/$LOG_FILE
-	exit 1
-fi
-
-
-#
-
-#
-# Run the instance and restart if it goes down.
-#
-while [ $run -gt 0 ]; do
-	date=`date +"%Y-%m-%d %H:%M:%S"`
-	if [ -f $DB_STORE/data/postmaster.pid ]; then
-		pid=`cat $DB_STORE/data/postmaster.pid | head -1`
-		echo "$date : Postgress  already running (pid = $pid)" >> $LOG_DIR/$LOG_FILE
-	else
-		db_start
-		sleep 5
-		pid=`cat $DB_STORE/data/postmaster.pid | head -1`
-		echo "$date : Starting Postgress (pid = $pid)" >> $LOG_DIR/$LOG_FILE
-	fi
-
-	# Poll check the process is still alive every 2 seconds
-	# this allows the trap to be serviced
-	while kill -0 $pid > /dev/null 2>&1; do
-		sleep 2
-	done
-
-	# Output that we have died
-	date=`date +"%Y-%m-%d %H:%M:%S"`
-	echo "$date : Postgres died!" >> $LOG_DIR/$LOG_FILE
-
-	# If dead due to shutdown, skip the sleep to speed things up
-	if [ $run -gt 0 ]; then
-		sleep 60
-		db_shutdown
-		echo "$date : Postgres Shutdown!" >> $LOG_DIR/$LOG_FILE
-	fi
-done
-
-date=`date +"%Y-%m-%d %H:%M:%S"`
-echo "$date : Shutdown complete." >> $LOG_DIR/$LOG_FILE
-
-
+init_database
