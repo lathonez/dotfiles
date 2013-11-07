@@ -193,6 +193,10 @@ setup_aliases ()
 	alias eRRun="cd /space/work/elevenrox; nohup python -u server.py elevenRox &>> /var/log/elevenRox/elevenRox.log &"
 	alias eRKill="ps -ef | grep \"server.py elevenRox\" | awk '{print \$2}' | xargs kill"
 
+	# docker
+	alias docker="sudo docker"
+	alias tundock="ssh -L5000:10.194.12.250:5000 pluto"
+	alias dockrm="sudo docker ps -q -a | xargs sudo docker rm"
 }
 
 
