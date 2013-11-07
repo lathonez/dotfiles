@@ -22,11 +22,12 @@ init_database() {
 	cp $INSTALL_CONFIG $DB_STORE/data/postgresql.conf
 
 	for db in dbpublish; do
+
+		echo "Creating database $db.." 
 		createdb -E UTF8 -O openbet $db  -T 'template0'
 
 		echo "CREATE ROLE dbPublish WITH LOGIN"     | psql $db
 		echo "ALTER USER dbPublish with SUPERUSER"  | psql $db
-		echo "CREATE LANGUAGE plpgsql"              | psql $db
 	done;
 }
 
