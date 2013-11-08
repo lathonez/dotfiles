@@ -33,8 +33,7 @@ ln -s $base/OXi/shared/tcl                         $base/OXi/services/dbPublish/
 ln -s $base/shared_tcl                             $base/OXi/services/dbPublish/tcl
 ln -s $base/shared_pkg                             $base/OXi/services/dbPublish/tcl
 
-ln -s $base/setup/oxipub.cfg                       $base/OXi/services/repServer
+ln -s $base/setup/oxirep.cfg                       $base/OXi/services/repServer
 ln -s $base/OXi/shared/tcl                         $base/OXi/services/repServer/tcl/shared
 ln -s $base/shared_tcl                             $base/OXi/services/repServer/tcl
-ln -s $base/shared_pkg                             $base/Oxi/services/repServer/tcl
-
+ln -s $base/shared_pkg                             $base/OXi/services/repServer/tcl
