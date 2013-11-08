@@ -22,6 +22,9 @@ cvs co -d conf                  -r B_WillHill_34_0_2 willhill/conf/global_func.c
 cvs co -d conf/OXi/oxipubserver -r B_WillHill_34_0_2 willhill/conf/OXi/oxipubserver 
 cvs co -d conf/postgres         -r B_WillHill_34_0_2 willhill/conf/postgres
 
+# mkdirs
+mkdir $base/log
+
 # links
 ln -s $base/setup/oxipub.cfg                       $base/OXi/services/dbPublish
 ln -s $base/OXi/services/repServer/schema-base.cfg $base/OXi/services/dbPublish
@@ -29,3 +32,9 @@ ln -s $base/OXi/services/repServer/api-base.cfg    $base/OXi/services/dbPublish
 ln -s $base/OXi/shared/tcl                         $base/OXi/services/dbPublish/tcl/shared
 ln -s $base/shared_tcl                             $base/OXi/services/dbPublish/tcl
 ln -s $base/shared_pkg                             $base/OXi/services/dbPublish/tcl
+
+ln -s $base/setup/oxipub.cfg                       $base/OXi/services/repServer
+ln -s $base/OXi/shared/tcl                         $base/OXi/services/repServer/tcl/shared
+ln -s $base/shared_tcl                             $base/OXi/services/repServer/tcl
+ln -s $base/shared_pkg                             $base/Oxi/services/repServer/tcl
+
