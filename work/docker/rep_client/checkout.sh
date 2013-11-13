@@ -2,6 +2,10 @@
 # mkdirs
 mkdir $OPENBETRELEASE
 mkdir $OPENBETLOGDIR
+mkdir $OPENBETLOGDIR/oxipub
+mkdir $OPENBETLOGDIR/oxirep
+mkdir $OPENBETLOGDIR/rep_client
+mkdir $OPENBETLOGDIR/site_management
 
 cd $OPENBETRELEASE
 
