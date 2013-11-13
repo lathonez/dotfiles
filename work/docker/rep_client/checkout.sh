@@ -34,7 +34,7 @@ cvs co -d conf/OXi/oxipubserver -r B_WillHill_34_0_2 willhill/conf/OXi/oxipubser
 cvs co -d conf/postgres         -r B_WillHill_34_0_2 willhill/conf/postgres
 
 # mkdirs
-mkdir $OPENBETRELEASE/log
+mkdir $OB/log
 
 # links
 ln -s $OB/setup/conf/oxipub.cfg                              $OPENBETRELEASE/OXi/services/dbPublish
