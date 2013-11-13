@@ -37,13 +37,13 @@ cvs co -d conf/postgres         -r B_WillHill_34_0_2 willhill/conf/postgres
 mkdir $OPENBETRELEASE/log
 
 # links
-ln -s $OPENBETRELEASE/setup/oxipub.cfg                       $OPENBETRELEASE/OXi/services/dbPublish
+ln -s $OB/setup/conf/oxipub.cfg                              $OPENBETRELEASE/OXi/services/dbPublish
 ln -s $OPENBETRELEASE/OXi/services/repServer/schema-base.cfg $OPENBETRELEASE/OXi/services/dbPublish
 ln -s $OPENBETRELEASE/OXi/services/repServer/api-base.cfg    $OPENBETRELEASE/OXi/services/dbPublish
 ln -s $OPENBETRELEASE/OXi/shared/tcl                         $OPENBETRELEASE/OXi/services/dbPublish/tcl/shared
 ln -s $OPENBETRELEASE/shared_tcl                             $OPENBETRELEASE/OXi/services/dbPublish/tcl
 ln -s $OPENBETRELEASE/shared_pkg                             $OPENBETRELEASE/OXi/services/dbPublish/tcl
-ln -s $OPENBETRELEASE/setup/oxirep.cfg                       $OPENBETRELEASE/OXi/services/repServer
+ln -s $OB/setup/conf/oxirep.cfg                              $OPENBETRELEASE/OXi/services/repServer
 ln -s $OPENBETRELEASE/OXi/shared/tcl                         $OPENBETRELEASE/OXi/services/repServer/tcl/shared
 ln -s $OPENBETRELEASE/shared_tcl                             $OPENBETRELEASE/OXi/services/repServer/tcl
 ln -s $OPENBETRELEASE/shared_pkg                             $OPENBETRELEASE/OXi/services/repServer/tcl
