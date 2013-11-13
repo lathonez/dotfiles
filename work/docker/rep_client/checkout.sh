@@ -1,6 +1,8 @@
 #!/bin/bash
 
-base="/opt/openbet/rep_client"
+!pragma substenv
+
+base=$(OB)
 
 cd $base
 
@@ -15,6 +17,17 @@ cvs co -r T_Support_WIL-18130_2     OXi/services/repClient
 # shared code
 cvs co -d shared_tcl -r B_WillHill_34_0_2 openbet/shared_tcl
 cvs co -d shared_pkg -r B_WillHill_34_0_2 openbet/shared_pkg
+
+# site management
+mkdir $base/ops
+cd $base/ops
+wget http://artifactory.ci01.openbet/artifactory/simple/openbet-tcl-release-local/com/openbet/ops/openbet-ops/1.2/openbet-ops-1.2-sources.tgz
+tar -xzvf openbet-ops-1.2-sources.tgz
+rm openbet-ops-1.2-sources.tgz
+chmod +x $base/ops/site_management/obcontrol
+chmod +x $base/ops/site_management/obmonitor
+chmod +x $base/ops/site_management/obmanage
+
 
 # configuration
 CVSROOT=":pserver:shazleto@pserver:/cvsroot"
