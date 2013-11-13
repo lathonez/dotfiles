@@ -1,4 +1,8 @@
 #!/bin/bash
+# mkdirs
+mkdir $OPENBETRELEASE
+mkdir $OPENBETLOGDIR
+
 cd $OPENBETRELEASE
 
 CVSROOT=":pserver:shazleto@pserver:/cvsroot-openbet"
@@ -33,8 +37,6 @@ cvs co -d conf/OXi/oxirepserver -r B_WillHill_34_0_2 willhill/conf/OXi/oxirepser
 cvs co -d conf/OXi/oxipubserver -r B_WillHill_34_0_2 willhill/conf/OXi/oxipubserver 
 cvs co -d conf/postgres         -r B_WillHill_34_0_2 willhill/conf/postgres
 
-# mkdirs
-mkdir $OB/log
 
 # links
 ln -s $OB/setup/conf/oxipub.cfg                              $OPENBETRELEASE/OXi/services/dbPublish
