@@ -14,9 +14,7 @@ cvs co -d shared_tcl -r B_WillHill_34_0_2 openbet/shared_tcl
 cvs co -d shared_pkg -r B_WillHill_34_0_2 openbet/shared_pkg
 
 # site management
-cd /tmp
-mkdir ops
-cd ops
+mkdir /tmp/ops; cd /tmp/ops
 wget http://artifactory.ci01.openbet/artifactory/simple/openbet-tcl-release-local/com/openbet/ops/openbet-ops/1.2/openbet-ops-1.2-sources.tgz
 tar -xzvf openbet-ops-1.2-sources.tgz
 mv openbet-ops-1.2-sources/site_management $OPENBETRELEASE
@@ -39,17 +37,16 @@ cvs co -d conf/postgres         -r B_WillHill_34_0_2 willhill/conf/postgres
 mkdir $OPENBETRELEASE/log
 
 # links
-ln -s $OPENBETRELEASE/setup/oxipub.cfg                       $base/OXi/services/dbPublish
-ln -s $OPENBETRELEASE/OXi/services/repServer/schema-base.cfg $base/OXi/services/dbPublish
-ln -s $OPENBETRELEASE/OXi/services/repServer/api-base.cfg    $base/OXi/services/dbPublish
-ln -s $OPENBETRELEASE/OXi/shared/tcl                         $base/OXi/services/dbPublish/tcl/shared
-ln -s $OPENBETRELEASE/shared_tcl                             $base/OXi/services/dbPublish/tcl
-ln -s $OPENBETRELEASE/shared_pkg                             $base/OXi/services/dbPublish/tcl
-
-ln -s $OPENBETRELEASE/setup/oxirep.cfg                       $base/OXi/services/repServer
-ln -s $OPENBETRELEASE/OXi/shared/tcl                         $base/OXi/services/repServer/tcl/shared
-ln -s $OPENBETRELEASE/shared_tcl                             $base/OXi/services/repServer/tcl
-ln -s $OPENBETRELEASE/shared_pkg                             $base/OXi/services/repServer/tcl
+ln -s $OPENBETRELEASE/setup/oxipub.cfg                       $OPENBETRELEASE/OXi/services/dbPublish
+ln -s $OPENBETRELEASE/OXi/services/repServer/schema-base.cfg $OPENBETRELEASE/OXi/services/dbPublish
+ln -s $OPENBETRELEASE/OXi/services/repServer/api-base.cfg    $OPENBETRELEASE/OXi/services/dbPublish
+ln -s $OPENBETRELEASE/OXi/shared/tcl                         $OPENBETRELEASE/OXi/services/dbPublish/tcl/shared
+ln -s $OPENBETRELEASE/shared_tcl                             $OPENBETRELEASE/OXi/services/dbPublish/tcl
+ln -s $OPENBETRELEASE/shared_pkg                             $OPENBETRELEASE/OXi/services/dbPublish/tcl
+ln -s $OPENBETRELEASE/setup/oxirep.cfg                       $OPENBETRELEASE/OXi/services/repServer
+ln -s $OPENBETRELEASE/OXi/shared/tcl                         $OPENBETRELEASE/OXi/services/repServer/tcl/shared
+ln -s $OPENBETRELEASE/shared_tcl                             $OPENBETRELEASE/OXi/services/repServer/tcl
+ln -s $OPENBETRELEASE/shared_pkg                             $OPENBETRELEASE/OXi/services/repServer/tcl
 
 # hacks
 # see OPENBETRELEASEPUB-458?
