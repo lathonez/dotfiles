@@ -38,3 +38,7 @@ ln -s $base/setup/oxirep.cfg                       $base/OXi/services/repServer
 ln -s $base/OXi/shared/tcl                         $base/OXi/services/repServer/tcl/shared
 ln -s $base/shared_tcl                             $base/OXi/services/repServer/tcl
 ln -s $base/shared_pkg                             $base/OXi/services/repServer/tcl
+
+# hacks
+# see OBPUB-458?
+sed -i 's/OXi::log::init      DEFAULT/OXi::log::init/g' $base/OXi/services/repServer/tcl/init.tcl
