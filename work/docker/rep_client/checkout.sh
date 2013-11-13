@@ -15,11 +15,13 @@ cvs co -d shared_pkg -r B_WillHill_34_0_2 openbet/shared_pkg
 
 # site management
 cd /tmp
+mkdir ops
+cd ops
 wget http://artifactory.ci01.openbet/artifactory/simple/openbet-tcl-release-local/com/openbet/ops/openbet-ops/1.2/openbet-ops-1.2-sources.tgz
 tar -xzvf openbet-ops-1.2-sources.tgz
 mv openbet-ops-1.2-sources/site_management $OPENBETRELEASE
-rm -r /tmp/*
 cd $OPENBETRELEASE
+rm -rf /tmp/ops
 
 chmod +x $OPENBETRELEASE/site_management/obcontrol
 chmod +x $OPENBETRELEASE/site_management/obmonitor
