@@ -63,4 +63,4 @@ site_management
 hacks
 links
 mkdirs
-postgres.sh small
+$OB/setup/postgres.sh small
