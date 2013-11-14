@@ -59,8 +59,14 @@ hacks() {
 	sed -i 's/OXi::log::init      DEFAULT/OXi::log::init/g' $OPENBETRELEASE/OXi/oxirepserver/tcl/init.tcl
 }
 
+apache() {
+	cp $OB/setup/conf/apache.conf /etc/apache2/user_settings/openbet.conf
+	sudo apache2ctl graceful
+}
+
 site_management
 hacks
 links
 mkdirs
 $OB/setup/postgres.sh small
+apache
