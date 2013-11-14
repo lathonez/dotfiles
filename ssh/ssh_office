@@ -270,6 +270,10 @@ host bitbucket.org
 hostname bitbucket.org
 ProxyCommand ssh r exec nc %h %p
 
+host tatty
+hostname talitha-borealis
+ProxyCommand ssh r exec nc %h %p
+
 # docker
 host imiell
 hostname 10.194.12.250
