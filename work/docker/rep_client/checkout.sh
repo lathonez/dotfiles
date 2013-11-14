@@ -52,9 +52,6 @@ links() {
 	ln -s $OPENBETRELEASE/OXi/oxirepserver/api-base.cfg    $OPENBETRELEASE/OXi/oxipubserver
 	ln -s $OPENBETRELEASE/shared_tcl                       $OPENBETRELEASE/OXi/oxipubserver/tcl
 	ln -s $OPENBETRELEASE/shared_pkg                       $OPENBETRELEASE/OXi/oxipubserver/tcl
-	ln -s $OB/setup/conf/oxirep.cfg                        $OPENBETRELEASE/OXi/oxirepserver
-	ln -s $OPENBETRELEASE/shared_tcl                       $OPENBETRELEASE/OXi/oxirepserver/tcl
-	ln -s $OPENBETRELEASE/shared_pkg                       $OPENBETRELEASE/OXi/oxirepserver/tcl
 }
 
 hacks() {
