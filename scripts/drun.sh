@@ -16,4 +16,4 @@ else
 	cmd=$2
 fi
 
-sudo docker run -privileged -h=test1 -p 49161:22 -p 50000:80 -t -i $1 $cmd
+sudo docker run -privileged -h=test1 -p 40000:22 -p 50000:80 -t -i $1 $cmd

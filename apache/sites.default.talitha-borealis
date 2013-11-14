@@ -95,6 +95,11 @@
 	</IfModule>
 
 	<IfModule mod_proxy.c>
+		ProxyPass        /jTimeDev    http://localhost:36997
+		ProxyPassReverse /jTimeDev    http://localhost:36997
+	</IfModule>
+
+	<IfModule mod_proxy.c>
 		ProxyPass        /elevenRox    http://localhost:36999
 		ProxyPassReverse /elevenRox    http://localhost:36999
 	</IfModule>
