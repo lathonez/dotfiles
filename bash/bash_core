@@ -186,12 +186,14 @@ setup_aliases ()
 	alias whdold='rlwrap dbaccess willhill_dev@db01_1150 -'
 
 	# jTime
-	alias jTRun="cd /space/work/jTime; nohup python -u server.py &>> /var/log/jTime/jTime.log &"
-	alias jTKill="ps -ef | grep server.py | grep -v elevenRox | awk '{print \$2}' | xargs kill"
+	alias jTRun="cd /space/work/jTime; nohup python -u /space/work/jTime/server.py &>> /var/log/jTime/jTime.log &"
+	alias jTKill="ps -ef | grep server.py | grep jTime | grep -v Dev | awk '{print \$2}' | xargs kill"
+	alias jTDRun="cd /space/work/jTimeDev; nohup python -u /space/work/jTimeDev/server.py &>> /var/log/jTime/jTimeDev.log &"
+	alias jTDKill="ps -ef | grep server.py | grep jTimeDev | awk '{print \$2}' | xargs kill"
 
 	# elevenRox
-	alias eRRun="cd /space/work/elevenrox; nohup python -u server.py elevenRox &>> /var/log/elevenRox/elevenRox.log &"
-	alias eRKill="ps -ef | grep \"server.py elevenRox\" | awk '{print \$2}' | xargs kill"
+	alias eRRun="cd /space/work/elevenrox; nohup python -u /space/work/elevenrox/server.py &>> /var/log/elevenRox/elevenRox.log &"
+	alias eRKill="ps -ef | grep server.py | grep evelenrox | awk '{print \$2}' | xargs kill"
 
 	# docker
 	alias docker="sudo docker"

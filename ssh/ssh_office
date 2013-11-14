@@ -279,6 +279,11 @@ host imiell
 hostname 10.194.12.250
 ProxyCommand ssh r exec nc %h %p
 
+#ninehundred
+host nh
+hostname ninehundred
+ProxyCommand ssh r exec nc %h %p
+
 # sportech app1
 host sportech
 user openbet
