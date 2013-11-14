@@ -4,9 +4,8 @@
 BOX=$(hostname)
 DB_STORE='/database/dbpublish'
 POSTGRES='/usr/lib/postgresql/9.1/bin'
-APP='/opt/openbet/rep_client'
 
-LOG_DIR=/opt/openbet/rep_client/log
+LOG_DIR=$OPENBETLOGDIR/postgres
 LOG_FILE=postgres.log_out.`date +"%Y%m%d_%H"`
 
 # initalise the postgres database
@@ -34,7 +33,7 @@ init_database() {
 
 if [ $1 ]
 then
-	INSTALL_CONFIG=$APP/conf/postgres/postgresql_$1.conf
+	INSTALL_CONFIG=$OPENBETRELEASE/conf/postgres/postgresql_$1.conf
 
 	if [ -e "$INSTALL_CONFIG" ]
 	then
