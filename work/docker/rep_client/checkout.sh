@@ -1,13 +1,12 @@
 #!/bin/bash
 # mkdirs
 
+mkdirs() {
+	# we need a logdir for site_management, but the others will create themselves
+	mkdir -p $OPENBETLOGDIR/site_management
+}
+
 checkout() {
-	mkdir $OPENBETRELEASE
-	mkdir $OPENBETLOGDIR
-	mkdir $OPENBETLOGDIR/oxipub
-	mkdir $OPENBETLOGDIR/oxirep
-	mkdir $OPENBETLOGDIR/rep_client
-	mkdir $OPENBETLOGDIR/site_management
 
 	cd $OPENBETRELEASE
 
