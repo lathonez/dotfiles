@@ -62,15 +62,23 @@ apache() {
 }
 
 rewrite_env_config() {
+	echo "re-writing the environment configs"
 	find $OPENBETRELEASE -name *.cfg* | xargs grep "include /opt/openbet/current" | awk -F ':' '{print $1}' | sort -u | xargs sed -i 's|include /opt/openbet/current|include '"$OPENBETRELEASE"'|'
+	echo "..done"
 }
 
 static() {
+	echo "copying static"
 	cp -r $OPENBETRELEASE/cust/static                     /var/www/static/cust
+	echo "..done cust"
 	cp -r $OPENBETRELEASE/telebet/client                  /var/www/static/telebet
+	echo ".. done telebet"
 	cp -r $OPENBETRELEASE/products/ti/webserver/static/ti /var/www/static/ti
+	echo "..done ti"
 	cp -r $OPENBETRELEASE/products/office/lib/static      /var/www/static/office
+	echo "..done office"
 	chmod -R 755 /var/www/static
+	echo "..done chmod"
 }
 
 checkout
