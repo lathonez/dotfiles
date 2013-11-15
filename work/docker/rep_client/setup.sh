@@ -12,8 +12,8 @@ checkout() {
 	cd $OPENBETRELEASE
 
 	CVSROOT=":pserver:shazleto@pserver:/cvsroot"
-	cvs co -d games/fog/admin willhill/conf/games/fog/game_server/fog_base.cfg
-	ln -s $OPENBETRELEASE/games/fog/admin/fog_base.cfg $OPENBETRELEASE/games/fog/admin/fog-base.cfg
+	cvs co -d games/fog/admin -r R_FOG_ORBISGAMESPACKAGE31_0_12 games/fog/admin 
+	cvs co -d conf/games/fog/game_server willhill/conf/games/fog/game_server/fog_base.cfg
 }
 
 site_management() {
@@ -31,22 +31,23 @@ site_management() {
 }
 
 links() {
-	ln -s $OPENBETRELEASE/OXi/oxirepserver/schema-base.cfg $OPENBETRELEASE/OXi/oxipubserver
-	ln -s $OPENBETRELEASE/OXi/oxirepserver/api-base.cfg    $OPENBETRELEASE/OXi/oxipubserver
-	ln -s $OPENBETRELEASE/shared_tcl_liveserv              $OPENBETRELEASE/shared_tcl/push
-	ln -s $OPENBETRELEASE/ovs/shared_tcl                   $OPENBETRELEASE/shared_tcl/ovs
-	ln -s $OPENBETRELEASE/cnj_verification/tcl             $OPENBETRELEASE/shared_tcl/cnj
-	ln -s $OPENBETRELEASE/admin/admin_mkt_props.cfg        $OPENBETRELEASE/stl_engine
+	ln -s $OPENBETRELEASE/OXi/oxirepserver/schema-base.cfg            $OPENBETRELEASE/OXi/oxipubserver
+	ln -s $OPENBETRELEASE/OXi/oxirepserver/api-base.cfg               $OPENBETRELEASE/OXi/oxipubserver
+	ln -s $OPENBETRELEASE/shared_tcl_liveserv                         $OPENBETRELEASE/shared_tcl/push
+	ln -s $OPENBETRELEASE/ovs/shared_tcl                              $OPENBETRELEASE/shared_tcl/ovs
+	ln -s $OPENBETRELEASE/cnj_verification/tcl                        $OPENBETRELEASE/shared_tcl/cnj
+	ln -s $OPENBETRELEASE/admin/admin_mkt_props.cfg                   $OPENBETRELEASE/stl_engine
+	ln -s $OPENBETRELEASE/conf/games/fog/game_server/fog_base.cfg     $OPENBETRELEASE/games/fog/admin/fog-base.cfg
 
 	# cust
-	ln -s $OPENBETRELEASE/shared_tcl                       $OPENBETRELEASE/cust/tcl
-	ln -s $OPENBETRELEASE/shared_pkg                       $OPENBETRELEASE/cust/tcl
-	ln -s $OPENBETRELEASE/products/shared_core             $OPENBETRELEASE/cust/tcl
-	ln -s $OPENBETRELEASE/willhill_shared                  $OPENBETRELEASE/cust/tcl
-	ln -s $OPENBETRELEASE/content_manager/lib/tcl          $OPENBETRELEASE/cust/tcl/cms_lib
-	ln -s $OPENBETRELEASE/games/fog/admin/tcl              $OPENBETRELEASE/cust/tcl/igf
-	ln -s $OPENBETRELEASE/content_manager/lib/html         $OPENBETRELEASE/cust/html/cms_lib
-	ln -s $OPENBETRELEASE/cust/static                      $OPENBETRELEASE/cust/html/cust_static
+	ln -s $OPENBETRELEASE/shared_tcl                                  $OPENBETRELEASE/cust/tcl
+	ln -s $OPENBETRELEASE/shared_pkg                                  $OPENBETRELEASE/cust/tcl
+	ln -s $OPENBETRELEASE/products/shared_core                        $OPENBETRELEASE/cust/tcl
+	ln -s $OPENBETRELEASE/willhill_shared                             $OPENBETRELEASE/cust/tcl
+	ln -s $OPENBETRELEASE/content_manager/lib/tcl                     $OPENBETRELEASE/cust/tcl/cms_lib
+	ln -s $OPENBETRELEASE/games/fog/admin/tcl                         $OPENBETRELEASE/cust/tcl/igf
+	ln -s $OPENBETRELEASE/content_manager/lib/html                    $OPENBETRELEASE/cust/html/cms_lib
+	ln -s $OPENBETRELEASE/cust/static                                 $OPENBETRELEASE/cust/html/cust_static
 }
 
 hacks() {
