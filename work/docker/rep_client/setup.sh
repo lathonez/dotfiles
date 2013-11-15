@@ -48,12 +48,6 @@ links() {
 	ln -s $OPENBETRELEASE/games/fog/admin/tcl                         $OPENBETRELEASE/cust/tcl/igf
 	ln -s $OPENBETRELEASE/content_manager/lib/html                    $OPENBETRELEASE/cust/html/cms_lib
 	ln -s $OPENBETRELEASE/cust/static                                 $OPENBETRELEASE/cust/html/cust_static
-
-	# webtier
-	ln -s $OPENBETRELEASE/cust/static                                 /var/www/static/cust
-	ln -s $OPENBETRELEASE/telebet/client                              /var/www/static/telebet
-        ln -s $OPENBETRELEASE/products/ti/webserver/static/ti             /var/www/static/ti
-	ln -s $OPENBETRELEASE/products/office/lib/static                  /var/www/static/office
 }
 
 hacks() {
@@ -71,6 +65,14 @@ rewrite_env_config() {
 	find $OPENBETRELEASE -name *.cfg* | xargs grep "include /opt/openbet/current" | awk -F ':' '{print $1}' | sort -u | xargs sed -i 's|include /opt/openbet/current|include '"$OPENBETRELEASE"'|'
 }
 
+static() {
+	cp -r $OPENBETRELEASE/cust/static                     /var/www/static/cust
+	cp -r $OPENBETRELEASE/telebet/client                  /var/www/static/telebet
+	cp -r $OPENBETRELEASE/products/ti/webserver/static/ti /var/www/static/ti
+	cp -r $OPENBETRELEASE/products/office/lib/static      /var/www/static/office
+	chmod -R 755 /var/www/static
+}
+
 checkout
 site_management
 hacks
@@ -79,3 +81,4 @@ mkdirs
 $OB/setup/postgres.sh small
 apache
 rewrite_env_config
+static
