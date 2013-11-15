@@ -183,3 +183,15 @@ ProxyCommand ssh t exec nc %h %p
 User shazleto
 IdentityFile /home/lathonez/.ssh/id_rsa.talitha-borealis
 
+Host nh
+Hostname ninehundred
+ProxyCommand ssh t exec nc %h %p
+User shazleto
+IdentityFile /home/lathonez/.ssh/id_rsa.talitha-borealis
+
+host docker
+user openbet
+hostname localhost
+port 40000
+ProxyCommand ssh nh exec nc %h %p
+
