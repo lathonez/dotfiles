@@ -64,9 +64,14 @@ apache() {
 	sudo apache2ctl graceful
 }
 
+rewrite_env_config() {
+	find $OPENBETRELEASE -name *.cfg* | xargs grep "include /opt/openbet/current" | awk -F ':' '{print $1}' | sort -u | xargs sed -i 's|include /opt/openbet/current|include '"$OPENBETRELEASE"'|'
+}
+
 site_management
 hacks
 links
 mkdirs
 $OB/setup/postgres.sh small
 apache
+rewrite_env_config
