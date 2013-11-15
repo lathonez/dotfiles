@@ -48,6 +48,12 @@ links() {
 	ln -s $OPENBETRELEASE/games/fog/admin/tcl                         $OPENBETRELEASE/cust/tcl/igf
 	ln -s $OPENBETRELEASE/content_manager/lib/html                    $OPENBETRELEASE/cust/html/cms_lib
 	ln -s $OPENBETRELEASE/cust/static                                 $OPENBETRELEASE/cust/html/cust_static
+
+	# webtier
+	ln -s $OPENBETRELEASE/cust/static                                 /var/www/static/cust
+	ln -s $OPENBETRELEASE/telebet/client                              /var/www/static/telebet
+        ln -s $OPENBETRELEASE/products/ti/webserver/static/ti             /var/www/static/ti
+	ln -s $OPENBETRELEASE/products/office/lib/static                  /var/www/static/office
 }
 
 hacks() {
