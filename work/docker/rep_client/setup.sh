@@ -48,6 +48,9 @@ links() {
 	# links
 	ln -s $OPENBETRELEASE/OXi/oxirepserver/schema-base.cfg $OPENBETRELEASE/OXi/oxipubserver
 	ln -s $OPENBETRELEASE/OXi/oxirepserver/api-base.cfg    $OPENBETRELEASE/OXi/oxipubserver
+	ln -s $OPENBETRELEASE/shared_tcl_liveserv              $OPENBETRELEASE/shared_tcl/push
+	ln -s $OPENBETRELEASE/ovs/shared_tcl                   $OPENBETRELEASE/shared_tcl/ovs
+	ln -s $OPENBETRELEASE/cnj_verification/tcl             $OPENBETRELEASE/shared_tcl/cnj
 }
 
 hacks() {
