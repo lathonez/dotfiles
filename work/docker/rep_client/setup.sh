@@ -72,7 +72,7 @@ static() {
 	cp -r $OPENBETRELEASE/cust/static                     /var/www/static/cust
 	echo "..done cust"
 	cp -r $OPENBETRELEASE/telebet/client                  /var/www/static/telebet
-	echo ".. done telebet"
+	echo "..done telebet"
 	cp -r $OPENBETRELEASE/products/ti/webserver/static/ti /var/www/static/ti
 	echo "..done ti"
 	cp -r $OPENBETRELEASE/products/office/lib/static      /var/www/static/office
