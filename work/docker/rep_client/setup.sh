@@ -6,28 +6,14 @@ mkdirs() {
 	mkdir -p $OPENBETLOGDIR/site_management
 }
 
+# random stuff we may be missing from the release
 checkout() {
 
 	cd $OPENBETRELEASE
 
-	CVSROOT=":pserver:shazleto@pserver:/cvsroot-openbet"
-
-	# OXi
-	cvs co -r R_shared2_27-0            OXi/shared
-	cvs co -r R_dbPublish3_31_WH_1-2    OXi/oxipubserver
-	cvs co -r R_RT29669_repServer2_5-50 OXi/oxirepserver
-	cvs co -r T_Support_WIL-18130_2     OXi/services/repClient
-
-	# shared code
-	cvs co -d shared_tcl -r B_WillHill_34_0_2 openbet/shared_tcl
-	cvs co -d shared_pkg -r B_WillHill_34_0_2 openbet/shared_pkg
-
-	# configuration
 	CVSROOT=":pserver:shazleto@pserver:/cvsroot"
-	cvs co -d conf                  -r B_WillHill_34_0_2 willhill/conf/global_func.cfg
-	cvs co -d conf/OXi/oxirepserver -r B_WillHill_34_0_2 willhill/conf/OXi/oxirepserver 
-	cvs co -d conf/OXi/oxipubserver -r B_WillHill_34_0_2 willhill/conf/OXi/oxipubserver 
-	cvs co -d conf/postgres         -r B_WillHill_34_0_2 willhill/conf/postgres
+	cvs co -d games/fog/admin willhill/conf/games/fog/game_server/fog_base.cfg
+	ln -s $OPENBETRELEASE/games/fog/admin/fog_base.cfg $OPENBETRELEASE/games/fog/admin/fog-base.cfg
 }
 
 site_management() {
@@ -68,6 +54,7 @@ rewrite_env_config() {
 	find $OPENBETRELEASE -name *.cfg* | xargs grep "include /opt/openbet/current" | awk -F ':' '{print $1}' | sort -u | xargs sed -i 's|include /opt/openbet/current|include '"$OPENBETRELEASE"'|'
 }
 
+checkout
 site_management
 hacks
 links
