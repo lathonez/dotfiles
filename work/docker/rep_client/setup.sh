@@ -37,6 +37,16 @@ links() {
 	ln -s $OPENBETRELEASE/ovs/shared_tcl                   $OPENBETRELEASE/shared_tcl/ovs
 	ln -s $OPENBETRELEASE/cnj_verification/tcl             $OPENBETRELEASE/shared_tcl/cnj
 	ln -s $OPENBETRELEASE/admin/admin_mkt_props.cfg        $OPENBETRELEASE/stl_engine
+
+	# cust
+	ln -s $OPENBETRELEASE/shared_tcl                       $OPENBETRELEASE/cust/tcl
+	ln -s $OPENBETRELEASE/shared_pkg                       $OPENBETRELEASE/cust/tcl
+	ln -s $OPENBETRELEASE/products/shared_core             $OPENBETRELEASE/cust/tcl
+	ln -s $OPENBETRELEASE/willhill_shared                  $OPENBETRELEASE/cust/tcl
+	ln -s $OPENBETRELEASE/content_manager/lib/tcl          $OPENBETRELEASE/cust/tcl/cms_lib
+	ln -s $OPENBETRELEASE/games/fog/admin/tcl              $OPENBETRELEASE/cust/tcl/igf
+	ln -s $OPENBETRELEASE/content_manager/lib/html         $OPENBETRELEASE/cust/html/cms_lib
+	ln -s $OPENBETRELEASE/cust/static                      $OPENBETRELEASE/cust/html/cust_static
 }
 
 hacks() {
