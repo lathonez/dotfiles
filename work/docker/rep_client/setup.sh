@@ -46,11 +46,8 @@ site_management() {
 
 links() {
 	# links
-	ln -s $OB/setup/conf/oxipub.cfg                        $OPENBETRELEASE/OXi/oxipubserver
 	ln -s $OPENBETRELEASE/OXi/oxirepserver/schema-base.cfg $OPENBETRELEASE/OXi/oxipubserver
 	ln -s $OPENBETRELEASE/OXi/oxirepserver/api-base.cfg    $OPENBETRELEASE/OXi/oxipubserver
-	ln -s $OPENBETRELEASE/shared_tcl                       $OPENBETRELEASE/OXi/oxipubserver/tcl
-	ln -s $OPENBETRELEASE/shared_pkg                       $OPENBETRELEASE/OXi/oxipubserver/tcl
 }
 
 hacks() {
