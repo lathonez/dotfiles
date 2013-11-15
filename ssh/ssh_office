@@ -284,6 +284,12 @@ host nh
 hostname ninehundred
 ProxyCommand ssh r exec nc %h %p
 
+host docker
+user openbet
+hostname localhost
+port 40000
+ProxyCommand ssh nh exec nc %h %p
+
 # sportech app1
 host sportech
 user openbet
