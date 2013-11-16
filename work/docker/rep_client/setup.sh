@@ -53,7 +53,7 @@ rewrite_env_config() {
 
 static() {
 	cd /var/www
-	tar -xzvf $OPENBETRELEASE/webserver/*OpenbetStatic.tgz
+	tar -xzvf $OPENBETRELEASE/webserver/*OpenBetStatic.tgz
 	cd /var/www/static
 	tar -xzvf $OPENBETRELEASE/webserver/*OpenBetTelebet_v2_static.tgz
 	chmod -R 755 /var/www/static
