@@ -33,14 +33,18 @@
 
 	CustomLog /var/log/apache2/access.log combined
 
-    Alias /doc/ "/usr/share/doc/"
-    <Directory "/usr/share/doc/">
-        Options Indexes MultiViews FollowSymLinks
-        AllowOverride None
-        Order deny,allow
-        Deny from all
-        Allow from 127.0.0.0/255.0.0.0 ::1/128
-    </Directory>
+	Alias /doc/ "/usr/share/doc/"
+	<Directory "/usr/share/doc/">
+		Options Indexes MultiViews FollowSymLinks
+		AllowOverride None
+		Order deny,allow
+		Deny from all
+		Allow from 127.0.0.0/255.0.0.0 ::1/128
+	</Directory>
+	<IfModule mod_proxy.c>
+		ProxyPass        /docker http://localhost:50000
+		ProxyPassReverse /docker http://localhost:50000
+	</IfModule>
 </VirtualHost>
 
 <VirtualHost *:443>
@@ -50,6 +54,7 @@
 
 	# mod ssl stuff
 	SSLEngine on
+	SSLProxyEngine on
 
 	SSLOptions +StrictRequire
 
@@ -86,12 +91,16 @@
 
 	CustomLog /var/log/apache2/access.log combined
 
-    Alias /doc/ "/usr/share/doc/"
-    <Directory "/usr/share/doc/">
-        Options Indexes MultiViews FollowSymLinks
-        AllowOverride None
-        Order deny,allow
-        Deny from all
-        Allow from 127.0.0.0/255.0.0.0 ::1/128
-    </Directory>
+	Alias /doc/ "/usr/share/doc/"
+	<Directory "/usr/share/doc/">
+		Options Indexes MultiViews FollowSymLinks
+		AllowOverride None
+		Order deny,allow
+		Deny from all
+		Allow from 127.0.0.0/255.0.0.0 ::1/128
+	</Directory>
+	<IfModule mod_proxy.c>
+		ProxyPass        /docker https://localhost:50001
+		ProxyPassReverse /docker https://localhost:50001
+	</IfModule>
 </VirtualHost>

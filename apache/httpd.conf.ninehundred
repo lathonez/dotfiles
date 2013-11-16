@@ -9,9 +9,3 @@ RewriteLogLevel 3
 # TODO - need to create the user for this to work properly
 #User apache
 #Group apache
-
-# Proxy Passes
-<IfModule mod_proxy.c>
-        ProxyPass        /docker http://localhost:50000
-        ProxyPassReverse /docker http://localhost:50000
-</IfModule>
