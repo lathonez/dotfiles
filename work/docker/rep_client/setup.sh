@@ -62,11 +62,11 @@ static() {
 	echo "..done chmod"
 }
 
+mkdirs
 checkout
 site_management
 hacks
 links
-mkdirs
 $OB/setup/postgres.sh small
 apache
 rewrite_env_config
