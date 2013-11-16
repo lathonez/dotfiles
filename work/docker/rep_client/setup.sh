@@ -4,6 +4,8 @@
 mkdirs() {
 	# we need a logdir for site_management, but the others will create themselves
 	mkdir -p $OPENBETLOGDIR/site_management
+	# we need to remove the current_fog instated as part of the build
+	rm -rf $OPENBETRELEASE/games
 }
 
 # random stuff we may be missing from the release
