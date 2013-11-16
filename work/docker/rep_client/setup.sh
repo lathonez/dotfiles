@@ -31,23 +31,7 @@ site_management() {
 }
 
 links() {
-#	ln -s $OPENBETRELEASE/OXi/oxirepserver/schema-base.cfg            $OPENBETRELEASE/OXi/oxipubserver
-#	ln -s $OPENBETRELEASE/OXi/oxirepserver/api-base.cfg               $OPENBETRELEASE/OXi/oxipubserver
-#	ln -s $OPENBETRELEASE/shared_tcl_liveserv                         $OPENBETRELEASE/shared_tcl/push
-#	ln -s $OPENBETRELEASE/ovs/shared_tcl                              $OPENBETRELEASE/shared_tcl/ovs
-#	ln -s $OPENBETRELEASE/cnj_verification/tcl                        $OPENBETRELEASE/shared_tcl/cnj
-#	ln -s $OPENBETRELEASE/admin/admin_mkt_props.cfg                   $OPENBETRELEASE/stl_engine
 	ln -s $OPENBETRELEASE/conf/games/fog/game_server/fog_base.cfg     $OPENBETRELEASE/games/fog/admin/fog-base.cfg
-
-	# cust
-#	ln -s $OPENBETRELEASE/shared_tcl                                  $OPENBETRELEASE/cust/tcl
-#	ln -s $OPENBETRELEASE/shared_pkg                                  $OPENBETRELEASE/cust/tcl
-#	ln -s $OPENBETRELEASE/products/shared_core                        $OPENBETRELEASE/cust/tcl
-#	ln -s $OPENBETRELEASE/willhill_shared                             $OPENBETRELEASE/cust/tcl
-#	ln -s $OPENBETRELEASE/content_manager/lib/tcl                     $OPENBETRELEASE/cust/tcl/cms_lib
-#	ln -s $OPENBETRELEASE/games/fog/admin/tcl                         $OPENBETRELEASE/cust/tcl/igf
-#	ln -s $OPENBETRELEASE/content_manager/lib/html                    $OPENBETRELEASE/cust/html/cms_lib
-#	ln -s $OPENBETRELEASE/cust/static                                 $OPENBETRELEASE/cust/html/cust_static
 }
 
 hacks() {
@@ -68,15 +52,10 @@ rewrite_env_config() {
 }
 
 static() {
-	echo "copying static"
-	cp -r $OPENBETRELEASE/cust/static                     /var/www/static/cust
-	echo "..done cust"
-	cp -r $OPENBETRELEASE/telebet/client                  /var/www/static/telebet
-	echo "..done telebet"
-	cp -r $OPENBETRELEASE/products/ti/webserver/static/ti /var/www/static/ti
-	echo "..done ti"
-	cp -r $OPENBETRELEASE/products/office/lib/static      /var/www/static/office
-	echo "..done office"
+	cd /var/www
+	tar -xzvf $OPENBETRELEASE/webserver/*OpenbetStatic.tgz
+	cd /var/www/static
+	tar -xzvf $OPENBETRELEASE/webserver/*OpenBetTelebet_v2_static.tgz
 	chmod -R 755 /var/www/static
 	echo "..done chmod"
 }
