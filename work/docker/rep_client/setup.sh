@@ -36,6 +36,8 @@ links() {
 	ln -s $OPENBETRELEASE/conf/games/fog/game_server/fog_base.cfg     $OPENBETRELEASE/games/fog/admin/fog-base.cfg
 	rm $OPENBETRELEASE/cust/tcl/igf
 	ln -s $OPENBETRELEASE/games/fog/admin/tcl                         $OPENBETRELEASE/cust/tcl/igf
+	rm $OPENBETRELEASE/campaign_manager/cm/tcl/igf
+	ln -s $OPENBETRELEASE/games/fog/admin/tcl                         $OPENBETRELEASE/campaign_manager/cm/tcl/igf
 }
 
 hacks() {
