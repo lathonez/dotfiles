@@ -4,7 +4,7 @@
 # $Source: /cvsroot/willhill/scripts/timule/timule_start.sh,v $
 # $Name: R_WillHill_33_1_14 $
 
-TCLSH=/usr/bin/tcl
+TCLSH=/usr/bin/tclsh
 TCL_XTN=tcl
 LOG_DIR=$OPENBETLOGDIR/timule/
 LOG_FILE=timule.out
@@ -16,7 +16,7 @@ do
 	esac
 done
 
-cd $OPENBETRELEASE/products/trading/timule/tcl
+cd $OPENBETRELEASE/products/timule/tcl
 
 #
 # Run the instance and restart if it goes down.

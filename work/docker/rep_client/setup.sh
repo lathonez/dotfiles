@@ -66,6 +66,10 @@ static() {
 	echo "..done chmod"
 }
 
+set_feed_priority() {
+	echo "update tfeedhostpref set hostname = 'test1' where  priority = 1;" | dbaccess openbet -
+}
+
 mkdirs
 checkout
 site_management
@@ -75,3 +79,4 @@ $OB/setup/postgres.sh small
 apache
 rewrite_env_config
 static
+set_feed_priority
