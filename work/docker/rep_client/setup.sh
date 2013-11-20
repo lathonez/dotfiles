@@ -9,6 +9,7 @@ environment() {
 	echo "export OPENBETLOGDIR=\"/opt/openbet/log\"" >> /opt/openbet/.bash_profile
 	echo "export OPENBETSMCONFIG=\"/opt/openbet/setup/conf/site_management.cfg\""  >> /opt/openbet/.bash_profile
 	echo "export OB_SHARED_BASH=\"/opt/openbet/release/site_management/bin/shared_bash\""  >> /opt/openbet/.bash_profile
+	source /opt/openbet/.bash_profile
 	echo "export PATH=$PATH:$OPENBETRELEASE/site_management" >> /opt/openbet/.bash_profile
 	source /opt/openbet/.bash_profile
 }
