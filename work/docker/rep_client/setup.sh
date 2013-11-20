@@ -1,6 +1,18 @@
 #!/bin/bash
 # mkdirs
 
+# wang stuff in the environment
+environment() {
+
+	echo "export OB=\"/opt/openbet\"" >> /opt/openbet/.bash_profile
+	echo "export OPENBETRELEASE=\"/opt/openbet/release\"" >> /opt/openbet/.bash_profile
+	echo "export OPENBETLOGDIR=\"/opt/openbet/log\"" >> /opt/openbet/.bash_profile
+	echo "export OPENBETSMCONFIG=\"/opt/openbet/setup/conf/site_management.cfg\""  >> /opt/openbet/.bash_profile
+	echo "export OB_SHARED_BASH=\"/opt/openbet/release/site_management/bin/shared_bash\""  >> /opt/openbet/.bash_profile
+	echo "export PATH=$PATH:$OPENBETRELEASE/site_management" >> /opt/openbet/.bash_profile
+	source /opt/openbet/.bash_profile
+}
+
 mkdirs() {
 	# we need a logdir for site_management, but the others will create themselves
 	mkdir -p $OPENBETLOGDIR/site_management
@@ -18,8 +30,8 @@ checkout() {
 	cvs co -d conf/games/fog/game_server willhill/conf/games/fog/game_server/fog_base.cfg
 }
 
+# use our own site management
 site_management() {
-	# remove if it exsits already
 	rm -rf $OPENBETRELEASE/site_management
 	mkdir /tmp/ops; cd /tmp/ops
 	wget http://artifactory.ci01.openbet/artifactory/simple/openbet-tcl-release-local/com/openbet/ops/openbet-ops/1.2/openbet-ops-1.2-sources.tgz
@@ -66,10 +78,12 @@ static() {
 	echo "..done chmod"
 }
 
+# so feedlocked apps work properly
 set_feed_priority() {
 	echo "update tfeedhostpref set hostname = 'test1' where  priority = 1;" | dbaccess openbet -
 }
 
+environment
 mkdirs
 checkout
 site_management
