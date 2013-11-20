@@ -84,6 +84,14 @@ set_feed_priority() {
 	echo "update tfeedhostpref set hostname = 'test1' where  priority = 1;" | dbaccess openbet -
 }
 
+finished() {
+
+	echo "******************************************************"
+	echo "Please resource .bash_profile:"
+	echo "source $OB/.bash_profile"
+	echo "******************************************************"
+}
+
 environment
 mkdirs
 checkout
@@ -95,3 +103,4 @@ apache
 rewrite_env_config
 static
 set_feed_priority
+finished
