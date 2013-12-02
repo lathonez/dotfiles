@@ -90,13 +90,13 @@
     </Directory>
 
 	<IfModule mod_proxy.c>
-		ProxyPass        /jTime    http://localhost:36998
-		ProxyPassReverse /jTime    http://localhost:36998
+		ProxyPass        /jTime    http://localhost:32701
+		ProxyPassReverse /jTime    http://localhost:32701
 	</IfModule>
 
 	<IfModule mod_proxy.c>
-		ProxyPass        /jTimeDev    http://localhost:36997
-		ProxyPassReverse /jTimeDev    http://localhost:36997
+		ProxyPass        /jTimeDev    http://localhost:36998
+		ProxyPassReverse /jTimeDev    http://localhost:36998
 	</IfModule>
 
 	<IfModule mod_proxy.c>
