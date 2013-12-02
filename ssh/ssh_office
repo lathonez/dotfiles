@@ -1,17 +1,17 @@
 Host r
-Hostname rosalind
+Hostname rosalind.openbet
 ForwardX11 yes
 
 Host t
-Hostname titan
+Hostname titan.openbet
 ForwardX11 yes
 
 Host p
-Hostname pluto
+Hostname pluto.openbet
 ForwardX11 yes
 
 Host d
-Hostname dev01
+Hostname dev01.openbet
 ForwardX11 yes
 
 Host live
