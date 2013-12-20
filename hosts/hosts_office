@@ -3,6 +3,8 @@
 127.0.0.1	williamhill-shaz.es
 127.0.0.1	sports.shazlebet.com
 
+10.194.0.72	 pserver	pserver.openbet
+
 # The following lines are desirable for IPv6 capable hosts
 ::1     localhost ip6-localhost ip6-loopback
 fe00::0 ip6-localnet

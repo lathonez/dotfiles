@@ -14,6 +14,10 @@ Host d
 Hostname dev01.openbet
 ForwardX11 yes
 
+Host dr
+Hostname dev01.dr.openbet
+ForwardX11 yes
+
 Host live
 Hostname gibux224.willhill
 User shazleto
@@ -281,8 +285,8 @@ ProxyCommand ssh r exec nc %h %p
 
 #ninehundred
 host nh
-hostname ninehundred
-ProxyCommand ssh r exec nc %h %p
+hostname 10.199.1.81
+#ProxyCommand ssh r exec nc %h %p
 
 host docker
 user openbet
