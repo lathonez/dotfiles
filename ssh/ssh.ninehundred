@@ -178,7 +178,7 @@ Hostname davonez.zapto.org
 User shazleto
 
 Host tatty
-Hostname talitha-borealis
+Hostname talitha-borealis.brentford.openbet.com
 ProxyCommand ssh t exec nc %h %p
 User shazleto
 IdentityFile /home/lathonez/.ssh/id_rsa.talitha-borealis
