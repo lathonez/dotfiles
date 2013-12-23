@@ -252,7 +252,7 @@ setup_variables ()
 	export TERM=xterm
 	export PROMPT_COMMAND=bash_prompt_command
 
-	export PS1='\e[1;34m$ALIAS\e[m:\[\033[m\]\[\033[01;35;1m\]\w\[\033[m\]\[\033[01;33m\]$\[\033[m\] '
+	#export PS1='\e[1;34m$ALIAS\e[m:\[\033[m\]\[\033[01;35;1m\]\w\[\033[m\]\[\033[01;33m\]$\[\033[m\] '
 }
 
 
