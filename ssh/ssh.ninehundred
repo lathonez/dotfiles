@@ -183,10 +183,11 @@ ProxyCommand ssh t exec nc %h %p
 User shazleto
 IdentityFile /home/lathonez/.ssh/id_rsa.talitha-borealis
 
+#ninehundred
 Host nh
-Hostname ninehundred
-ProxyCommand ssh t exec nc %h %p
+Hostname 10.199.1.81
 User shazleto
+ProxyCommand ssh tatty exec nc %h %p
 IdentityFile /home/lathonez/.ssh/id_rsa.talitha-borealis
 
 host docker
