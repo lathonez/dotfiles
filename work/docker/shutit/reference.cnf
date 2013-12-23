@@ -12,11 +12,11 @@ build:yes
 #[com.openbet.openbet_builder.mysql]
 #build:yes
 
-[com.openbet.openbet_builder.postgres]
-build:yes
+#[com.openbet.openbet_builder.postgres]
+#build:yes
 
-[com.openbet.openbet_builder.hills_postgres]
-build:yes
+#[com.openbet.openbet_builder.hills_postgres]
+#build:yes
 
 #[com.openbet.openbet_builder.informix]
 #build:yes
