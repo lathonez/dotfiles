@@ -6,8 +6,8 @@ class hills(ShutItModule):
 
 	def is_installed(self,config_dict):
 
-		# atm we'd have to grep for this line in /etc/sudoers. Later on there will be something more straightforward to check for
-		return False
+		container_child = util.get_pexpect_child('container_child')
+		return util.file_exists(container_child,'/var/www/static',config_dict['expect_prompts']['root_prompt'])
 
 	def build(self,config_dict):
 
@@ -16,6 +16,17 @@ class hills(ShutItModule):
 		# give ourselves passwordless permission for stuff as the openbet user
 		# apache2ctl
 		util.add_line_to_file(container_child,'openbet ALL = NOPASSWD: /usr/sbin/apache2ctl','/etc/sudoers',config_dict['expect_prompts']['root_prompt'],force=True)
+
+		# create static directories
+		util.send_and_expect(container_child,'mkdir -p /var/www/static',config_dict['expect_prompts']['root_prompt'])
+		util.send_and_expect(container_child,'chown -R openbet:orbis /var/www/static',config_dict['expect_prompts']['root_prompt'])
+
+		# clone the hills specific docker scripts/configs
+		util.send_and_expect(container_child,'sudo su - openbet',config_dict['expect_prompts']['openbet_prompt'])
+		util.send_and_expect(container_child,'git clone http://dev03.openbet/gitbucket/git/ahobsons/dockerutil.git',config_dict['expect_prompts']['openbet_prompt'])
+		util.send_and_expect(container_child,'ln -s dockerutil/hills/setup_base.sh setup.sh',config_dict['expect_prompts']['openbet_prompt'])
+		util.send_and_expect(container_child,'ln -s dockerutil/hills setup',config_dict['expect_prompts']['openbet_prompt'])
+		util.send_and_expect(container_child,'exit',config_dict['expect_prompts']['root_prompt'])
 
 		return True
 
