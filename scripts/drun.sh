@@ -11,7 +11,7 @@ fi
 
 if [ "$2" = "" ]
 then
-	cmd=/root/start.sh
+	cmd=/bin/bash
 else
 	cmd=$2
 fi
