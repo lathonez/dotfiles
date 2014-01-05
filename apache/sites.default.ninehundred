@@ -71,8 +71,8 @@
 		Order allow,deny
 		allow from all
 		# send stuff to docker
-		RewriteEngine on
-		RewriteRule ^(.*)$ /docker/$1
+#		RewriteEngine on
+#		RewriteRule ^(.*)$ /docker/$1
 	</Directory>
 
 	ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/
@@ -99,8 +99,8 @@
 		Deny from all
 		Allow from 127.0.0.0/255.0.0.0 ::1/128
 	</Directory>
-	<IfModule mod_proxy.c>
-		ProxyPass        /docker https://localhost:50001
-		ProxyPassReverse /docker https://localhost:50001
-	</IfModule>
+#	<IfModule mod_proxy.c>
+#		ProxyPass        /docker https://localhost:50001
+#		ProxyPassReverse /docker https://localhost:50001
+#	</IfModule>
 </VirtualHost>
