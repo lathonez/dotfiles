@@ -173,23 +173,8 @@ User openbet
 ProxyCommand ssh t exec nc %h %p
 
 # stupid knyboxxes for push
-Host sc1
-Hostname 10.120.145.31
-User openbet
-ProxyCommand ssh t exec nc %h %p
-
-Host sc2
-Hostname 10.120.145.32
-User openbet
-ProxyCommand ssh t exec nc %h %p
-
-Host sc3
-Hostname 10.120.145.33
-User openbet
-ProxyCommand ssh t exec nc %h %p
-
-Host sc4
-Hostname 10.120.145.34
+Host sc1non
+Hostname sc1uxprnap71
 User openbet
 ProxyCommand ssh t exec nc %h %p
 
@@ -286,7 +271,7 @@ ProxyCommand ssh r exec nc %h %p
 #ninehundred
 host nh
 hostname 10.199.1.140
-#ProxyCommand ssh r exec nc %h %p
+ProxyCommand ssh r exec nc %h %p
 
 host docker
 user openbet
