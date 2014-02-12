@@ -12,9 +12,9 @@ fi
 g=`which grep`
 
 # this is filth, cant think of a better way of doing it for now - hostname would be preferably, but then we have to use custproxy for the DNS, which may break SSL
-# host_ipa=`ifconfig | $g -A1 eth | $g inet | $g -v inet6 | awk -F ':' '{print $2}' | awk '{print $1}'`
+host_ipa=`ifconfig | $g -A1 eth | $g inet | $g -v inet6 | awk -F ':' '{print $2}' | awk '{print $1}'`
 
-host_ipa="localhost"
+#host_ipa="localhost"
 username=`whoami`
 conthost="test1"
 ssh_port=50010
