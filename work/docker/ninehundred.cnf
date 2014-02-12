@@ -1,0 +1,26 @@
+# Details relating to the container itself
+# Information specific to the host on which the container runs.
+[host]
+# TODO - this doesn't want to be in git
+dns:
+username:shazleto
+password:Rh0mbu5t
+resources_dir:/home/shazleto/docker_resources
+
+[repository]
+do_repository_work:yes
+push:yes
+tar:no
+server:10.199.1.136:5000
+# tag name
+name:hills_r36
+# Whether to suffix the date to the tag
+suffix_date:yes
+# Suffix format (default is date YYYYmmdd)
+suffix_format:%Y%m%d
+
+# this really wants to be in hills/default.cnf but we have to keep it here
+[container]
+root_password:0p3nb3t
+password:0p3nb3t
+hostname:test1
