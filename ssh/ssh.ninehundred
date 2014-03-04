@@ -185,9 +185,9 @@ IdentityFile /home/lathonez/.ssh/id_rsa.talitha-borealis
 
 #ninehundred
 Host nh
-Hostname 10.199.1.81
+Hostname ninehundred.brentford.openbet.com
 User shazleto
-ProxyCommand ssh tatty exec nc %h %p
+ProxyCommand ssh t exec nc %h %p
 IdentityFile /home/lathonez/.ssh/id_rsa.talitha-borealis
 
 host docker
