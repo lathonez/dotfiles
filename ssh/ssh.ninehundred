@@ -193,6 +193,6 @@ IdentityFile /home/lathonez/.ssh/id_rsa.talitha-borealis
 host docker
 user openbet
 hostname localhost
-port 40000
+port 50010
 ProxyCommand ssh nh exec nc %h %p
 
