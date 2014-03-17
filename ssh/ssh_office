@@ -263,20 +263,19 @@ host tatty
 hostname talitha-borealis
 ProxyCommand ssh r exec nc %h %p
 
-# docker
 host imiell
 hostname 10.194.12.250
 ProxyCommand ssh r exec nc %h %p
 
 #ninehundred
 host nh
-hostname 10.199.1.140
-ProxyCommand ssh r exec nc %h %p
+hostname ninehundred.brentford.openbet.com
+ProxyCommand ssh t exec nc %h %p
 
 host docker
 user openbet
 hostname localhost
-port 40000
+port 50010
 ProxyCommand ssh nh exec nc %h %p
 
 # sportech app1
