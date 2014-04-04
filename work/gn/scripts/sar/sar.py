@@ -1,9 +1,7 @@
 #! /usr/bin/python
 
-from ConfigParser import SafeConfigParser
-import datetime
-import os
-import re
+from ConfigParser import *
+import datetime, os, re, sys
 
 class sar:
 
@@ -11,11 +9,25 @@ class sar:
 
 		self.config = SafeConfigParser()
 		self.config.read('sar.cfg')
+
 		self.cpu  = []
 		self.mem  = []
 		self.swap = []
 		self.load = []
 		self.net  = []
+
+		self.do_highlight = sys.stdout.isatty()
+		# some colours for logging
+		self.colours = {
+			'black': '30',
+			'red': '31',
+			'green': '32',
+			'yellow': '33',
+			'blue': '34',
+			'pink': '35',
+			'cyan': '36',
+			'white': '37'
+		}
 
 	def read_logs(self):
 
@@ -53,7 +65,7 @@ class sar:
 			ll = ''
 			nl = ''
 
-			lines = logs[box].split('\n') 
+			lines = logs[box].split('\n')
 
 			# get the last relevant line
 			for line in lines:
@@ -82,42 +94,179 @@ class sar:
 	# sort the parsed dict list according to the configured value
 	def sort_dict_list(self,list_name):
 
-		list = eval('self.' + list_name)
-		sort_key = self.config.get('sar',list_name + '_sort').split(':')
-		reverse = (sort_key[1] == "True")
-		return sorted(list, key=lambda k: k[sort_key[0]], reverse=reverse) 
+		d = {
+			'list': eval('self.' + list_name),
+			'sort_key': self.config.get('sar',list_name + '_sort').split(':'),
+			'self': self
+		}
+		d['reverse'] = (d['sort_key'][1] == "True")
+
+		exec('self.' + list_name + ' = sorted(list, key=lambda k: k[sort_key[0]], reverse=reverse)',d)
 	
 	# nicely format a list of dicts
-	def print_dict_list(self,list):
+	def print_dict_list(self,type):
 
-		log_time = self.config.getboolean('sar','log_time')
-		header = self._get_header_from_dict(list[0])
-		lines  = [header]
+		list = eval('self.' + type)
+
+		log_time  = self.config.getboolean('sar','log_time')
+		log_check = self.config.getboolean('sar','log_check')
+		skips     = ['hostname','time','warnings','dangers']
+		header    = self._get_header_from_dict(list[0],type)
+
+		if log_check:
+			header.insert(0,type.upper())
+
+		lines = [header]
 
 		for dict in list:
-			line = dict['hostname'] + ' '
+			line = []
+			if log_check:
+				line.append(type.upper())
+			line.append(dict['hostname'])
+			if log_time:
+				line.append(self._col_to_str(dict['time']))
 			for col in dict.keys():
-				if not log_time and col == 'time':
+				if col in skips:
 					continue
-				if col == 'hostname':
-					continue
-				line += '| ' + str(dict[col]) + ' '
+
+				str = self._col_to_str(dict[col])
+
+				# this is dirt
+				if col in dict['dangers']:
+					str = 'D|' + str
+				elif col in dict['warnings']:
+					str = 'W|' + str
+				
+				line.append(str)
+
 			lines.append(line)
 
-		for line in lines:
-			print line
-			
-	def _get_header_from_dict(self,dict):
+		# now we've got a list containing each line, which itself is a list of items
+		w = self._get_max_col_width(lines)
 
-		header = 'hostname '
+		i = 0
+		for line in lines:
+			j = 0
+
+			# print header sep
+			if i == 1:
+				l = '+'
+				for col in line:
+					l += '-' * (w[j]+2)
+					l += '+'
+					j += 1
+				i += 1
+				j = 0
+				print l
+
+			l = '| '
+			for col in line:
+				l += self._highlight_align(col,w[j])
+				l += ' | '
+				j += 1
+			print l
+			i += 1
+
+	# helper function to get the column index for a given column
+	def _get_col_index(self,col,header):
+		skips = set(['hostname','time','warnings','dangers'])
+		header = set(header) - skips
+		return header.index(col)
+
+	# give the accurate string length, stripping our hacky markings out
+	def _get_str_len(self,str):
+
+		marked = False
+		if str.find('D|') > -1 or str.find('W|') > -1:
+			marked = True
+
+		l = len(str)
+		if marked:
+			l -= 2
+
+		return l
+
+	# http://stackoverflow.com/questions/2330245/python-change-text-color-in-shell
+	def _highlight_align(self,str,width):
+
+		colour = None
+
+		# strip out the marker and decide which colour to chose as a matter of course
+		if str.find('D|') > -1:
+			str = str.replace('D|','')
+			colour = 'red'
+			bold   = True
+
+		if str.find('W|') > -1:
+			str = str.replace('W|','')
+			colour = 'yellow'
+			bold   = True
+
+		str = str.ljust(width)
+
+		if not self.do_highlight or colour is None:
+			return str
+
+		attr = []
+		attr.append(self.colours[colour])
+
+		if bold:
+			attr.append('1')
+
+		return '\x1b[%sm%s\x1b[0m' % (';'.join(attr), str)
+
+	# turn an output columns into a string
+	def _col_to_str(self,col):
+
+		if type(col) is datetime.datetime:
+			return col.strftime('%H:%M')
+
+		# assume large ints are KB and convert to GB
+		if self.config.getboolean('sar','round_kb') and type(col) is int and col > 1000000:
+			return "%.2f" % (float(col)/1024/1024)
+
+		if type(col) is float:
+			return "%.2f" % (float(col))
+
+		return str(col)
+
+	# for a list of lines input, return the maximum column width of each column
+	def _get_max_col_width(self,lines):
+
+		col_width = []
+
+		# pad with 0
+		for col in lines[0]:
+			col_width.append(0)
+
+		for line in lines:
+			i = 0
+			for col in line:
+				l = self._get_str_len(col)
+				if l > col_width[i]:
+					col_width[i] = l
+				i += 1
+
+		return col_width
+
+	# return a list of the header columns
+	def _get_header_from_dict(self,dict,type):
+
+		header   = ['hostname']
 		log_time = self.config.getboolean('sar','log_time')
+		skips    = ['hostname','time','warnings','dangers']
+
+		if log_time:
+			header.append('time')
+
+		s,r = self.config.get('sar',type + '_sort').split(':')
 
 		for col in dict.keys():
-			if not log_time and col == 'time':
+			if col in skips:
 				continue
-			if col == 'hostname':
-				continue
-			header += '| ' + col + ' '
+			if s == col:
+				col += '*'
+			header.append(col)
 
 		return header
 
@@ -136,6 +285,12 @@ class sar:
 
 		d = {}
 		d['hostname'] = box
+		d['warnings'] = []
+		d['dangers']  = []
+
+		# for load we add a spoof column for the la/core calc
+		line.append(None)
+
 		for col in cols:
 			c = line.pop(0)
 			if col == 'junk':
@@ -143,17 +298,71 @@ class sar:
 			if col == 'time':
 				d[col] = self._parse_time(c)
 				continue
-			col, type = col.split(':')
-			if type == 'int':
+			col, datatype = col.split(':')
+
+			# need to derive this from the load_average
+			if col == 'la/core':
+				cores = self.config.getint('sar', box + '_cores')
+				c = d['load_avg'] / cores
+
+			# check for breaching warning or error threshold
+			if datatype == 'int' or datatype == 'float':
+				warning = self._check_threshold(type,col,c,'W',box)
+				danger  = self._check_threshold(type,col,c,'D',box)
+				if danger:
+					d['dangers'].append(col)
+				if warning:
+					d['warnings'].append(col)
+			if datatype == 'int':
 				d[col] = int(c)
 				continue
-			if type == 'float':
+			if datatype == 'float':
 				d[col] = float(c)
 				continue
 			d[col] = c
 
 		return d
 
+	# check whether or not a value has breached the error/warning threshold for a given column
+	#
+	# type   - cpu
+	# column - %idle
+	# value  - 20
+	# mode   - (W)arning|(D)anger
+	# box    - what box are we on
+	#
+	# returns True if the threshold has been breached, else false
+	def _check_threshold(self,type,column,value,mode,box):
+
+		thres_type = 'danger'
+
+		if mode == 'D':
+			thres_type = 'danger'
+		if mode == 'W':
+			thres_type = 'warning'
+
+		try:
+			# grab the thresholds for this type	
+			threspl = self.config.get('sar',type + '_' + thres_type).split('|')
+		except NoOptionError, e:
+			return False
+
+		for t in threspl:
+
+			col, threshold, direction = t.split(':')
+
+			if col != column:
+				continue
+
+			if direction == 'lower':
+				if float(value) < float(threshold):
+					return True
+			else:
+				if float(value) > float(threshold):
+					return True
+
+		return False
+	
 	# returns python datetime from sar time string: 04/04-03:50
 	def _parse_time(self,str):
 
@@ -183,19 +392,9 @@ if __name__ == "__main__":
 	sar = sar()
 	logs = sar.read_logs()
 	sar.parse_logs(logs)
-	print('\nCPU:')
-	sar.cpu = sar.sort_dict_list('cpu')
-	sar.print_dict_list(sar.cpu)
-	print('\nMEM:')
-	sar.mem = sar.sort_dict_list('mem')
-	sar.print_dict_list(sar.mem)
-	print('\nSWAP:')
-	sar.swap = sar.sort_dict_list('swap')
-	sar.print_dict_list(sar.swap)
-	print('\nLOAD:')
-	sar.load = sar.sort_dict_list('load')
-	sar.print_dict_list(sar.load)
-	print('\nNET:')
-	sar.net = sar.sort_dict_list('net')
-	sar.print_dict_list(sar.net)
+
+	for check in ['load','cpu','mem','swap','net']:
+		sar.sort_dict_list(check)
+		sar.print_dict_list(check)
+		print ''
 
