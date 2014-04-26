@@ -5,6 +5,7 @@
 127.0.0.1 custproxy proxy custproxy.openbet
 
 127.0.0.1 jabber.orbis
+127.0.0.1 jabber.openbet
 
 127.0.0.1 shared.orbis
 127.0.0.1 rhea.orbis
