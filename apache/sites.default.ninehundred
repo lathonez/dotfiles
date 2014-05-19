@@ -40,8 +40,21 @@
 	</Directory>
 
 	<IfModule mod_proxy.c>
-		ProxyPass        /info http://localhost:40001
-		ProxyPassReverse /info http://localhost:40001
+		ProxyPass        /info http://localhost:40001/info
+		ProxyPassReverse /info http://localhost:40001/info
+
+		ProxyPass        /sm    http://localhost:40002
+		ProxyPassReverse /sm    http://localhost:40002
+		ProxyPass        /css   http://localhost:40002/css
+		ProxyPassReverse /css   http://localhost:40002/css
+		ProxyPass        /js    http://localhost:40002/js
+		ProxyPassReverse /js    http://localhost:40002/js
+		ProxyPass        /api   http://localhost:40002/api
+		ProxyPassReverse /api   http://localhost:40002/api
+		ProxyPass        /fonts http://localhost:40002/fonts
+		ProxyPassReverse /fonts http://localhost:40002/fonts
+
+
 	</IfModule>
 
 </VirtualHost>
