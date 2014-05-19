@@ -199,6 +199,7 @@ setup_aliases ()
 	alias docker="sudo docker"
 	alias tundock="ssh -L5000:10.194.12.250:5000 pluto"
 	alias dockrm="sudo docker ps -q -a | xargs sudo docker rm"
+	alias dockkill="sudo docker ps -a | grep Up | grep -v registry | awk '{print \$1}' | xargs sudo docker kill"
 }
 
 
