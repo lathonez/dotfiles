@@ -65,7 +65,13 @@ then
 	#$untag_cmd
 else
 	echo "current live build looks to have failed, check $current_log"
-	echo "Build failure. See log attached" | mail -s "CURRENT_LIVE_BRANCHES Build Failed" -a $current_log $mailto
+	sendemail \
+		-f broken@shutit.com \
+		-t $mailto \
+		-m "Build failure. See logs attached\n\n --Broken Shutit" \
+		-u "CURRENT_LIVE_BRANCHES Build Failed" \
+		-a shutit.daily.log \
+		-a $current_log
 fi
 
 old_image=""
@@ -102,5 +108,11 @@ then
 	fi
 else
 	echo "next live build looks to have failed, check $next_log"
-	echo "Build failure. See log attached" | mail -s "NEXT_LIVE_BRANCHES Build Failed" -a $next_log $mailto
+	sendemail \
+		-f broken@shutit.com \
+		-t $mailto \
+		-m "Build failure. See logs attached\n\n --Broken Shutit" \
+		-u "NEXT_LIVE_BRANCHES Build Failed" \
+		-a shutit.daily.log \
+		-a $next_log
 fi
