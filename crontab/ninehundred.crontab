@@ -7,4 +7,4 @@
 # |  |  |  |  |
 # *  *  *  *  *  command to be executed
 #--------------------------------------------------------------------------
-  0 2 * * * nohup /home/shazleto/utils/work/docker/daily_build.sh >> /tmp/shutit.daily.log 2>&1
+  0 2 * * * nohup /home/shazleto/utils/work/docker/daily_build.sh > /tmp/shutit.daily.log 2>&1

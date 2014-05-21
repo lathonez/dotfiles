@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# lon1 url
-lon1="lon1vtp32.int.openbet.com"
 nh="ninehundred.brentford.openbet.com"
 
 # releases
@@ -12,107 +10,97 @@ next_release="39"
 today=`date +"%Y%m%d"`
 stale=`date +"%Y%m%d" -d "2 days ago"`
 
+# new images
+new_current_image="hills_r${current_release}_${today}"
+new_next_image="hills_r${next_release}_${today}"
+
 # logfiles
 current_log="/tmp/shutit.daily.current.${today}.log"
 next_log="/tmp/shutit.daily.next.${today}.log"
 
 # repodir
 repo_dir="/srv/registry/repositories/library"
+
+# Send failure reports to this address
 mailto="stephen.hazleton@openbet.com"
 
-# build current live
-#python shutit_main.py --image_tag ninehundred.brentford.openbet.com:5000/r37_template_2014-02-28 --config ../shutit_modules/openbet/hills/configs/current_daily_build.cnf --shutit_module_path ../shutit_modules/openbet/:../shutit_modules/openbet/hills > $current_log
-cd ~/whdock/shutit
-./build.sh -p CURRENT > $current_log
+# return value from build_image
+build_status=0
 
-# we should have a pushed image now, if not we can't go any further with current
-success=`sudo docker images | grep hills_r${current_release}_${today} | awk -F "/" '{print $2}' | awk '{print $1}'`
+build_image() {
 
-# if the build was successul, we'll remove the day before yesterday's (keep previous just in case of stuff)
-if [ "x${success}" != "x" ]
-then
+	success=""
+	old_image=""
+	old_image_repo=""
+	build_status=0
 
-	echo "current live build looks successful - $success"
+	# CURRENT/NEXT/DATA..
+	build=$1
+	# Image we're looking for without the data (e.g. hills_r38 or hills_r38_data)
+	image=$2
+	inner_image=$3
 
-	old_image=`sudo docker images | grep hills_r${current_release}_${stale} | awk -F "/" '{print $2}' | awk '{print $1}'`
-
-	if [ "x${old_image}" != "x" ]
-	then
-		echo "found an image to delete: $old_image"
-
-		# clear out any containers which may be using the image
-		sudo docker ps -a | grep $old_image | awk '{print $1}' | xargs sudo docker rm
-
-		old_image_repo="${nh}:5000/${old_image}"
-		sudo docker rmi $old_image_repo
-		cd $repo_dir
-		sudo rm -r $old_image
+	if [ -z "$inner_image" ] ; then
+		log="/tmp/${image}_${today}.log"
+		com="./build.sh -p $build > $log"
 	else
-		echo "no image to delete, maybe manual cleanup is required"
+		log="/tmp/${image}_${inner_image}_${today}.log"
+		com="./build.sh -p -i${inner_image} $build > $log"
 	fi
 
-	# push to lon1
-	#tag_cmd="sudo docker tag ${nh}:5000/${success} ${lon1}:5000/${success}"
-	#echo "Tagging with: $tag_cmd"
-	#$tag_cmd
+	echo "building with $com"
 
-	#push_cmd="sudo docker push ${lon1}:5000/${success}"
-	#echo "Pushing with: $push_cmd"
-	#$push_cmd
+	cd ~/whdock/shutit
+	eval $com
 
-	#untag_cmd="sudo docker rmi ${lon1}:5000/${success}"
-	#echo "Untagging with: $untag_cmd"
-	#$untag_cmd
-else
-	echo "current live build looks to have failed, check $current_log"
-	sendemail \
-		-f broken@shutit.com \
-		-t $mailto \
-		-m "Build failure. See logs attached\n\n --Broken Shutit" \
-		-u "CURRENT_LIVE_BRANCHES Build Failed" \
-		-a shutit.daily.log \
-		-a $current_log
-fi
+	# we should have a pushed image now, if not we can't go any further with current
+	success=`sudo docker images | grep ${image}_${today} | awk -F "/" '{print $2}' | awk '{print $1}'`
 
-old_image=""
-old_image_repo=""
-
-cd ~/whdock/shutit
-# build next live
-./build.sh -p NEXT > $next_log
-
-# we should have a pushed image now, if not we can't go any further with current
-success=`sudo docker images | grep hills_r${next_release}_${today} | awk -F "/" '{print $2}' | awk '{print $1}'`
-
-# if the build was successul, we'll remove the day before yesterday's (keep previous just in case of stuff)
-if [ "x${success}" != "x" ]
-then
-
-	echo "current live build looks successful - $success"
-
-	old_image=`sudo docker images | grep hills_r${next_release}_${stale} | awk -F "/" '{print $2}' | awk '{print $1}'`
-
-	if [ "x${old_image}" != "x" ]
-	then
-		echo "found an image to delete: $old_image"
-
-		# clear out any containers which may be using the image
-		sudo docker ps -a | grep $old_image | awk '{print $1}' | xargs sudo docker rm
-
-		old_image_repo="${nh}:5000/${old_image}"
-		sudo docker rmi $old_image_repo
-		cd $repo_dir
-		sudo rm -r $old_image
+	# if the build was successul, we'll remove the day before yesterday's (keep previous just in case of stuff)
+	if [ -z "${success}" ] ; then
+		echo "$build build looks to have failed, check $log"
+		sendemail \
+			-f broken@shutit.com \
+			-t $mailto \
+			-m "Build failure. See logs attached\n\n --Broken Shutit" \
+			-u "$build Build Failed" \
+			-a /tmp/shutit.daily.log \
+			-a $log
+		build_status=0
 	else
-		echo "no image to delete, maybe manual cleanup is required"
+		echo "$build build looks successful - $success"
+
+		old_image=`sudo docker images | grep ${image}_${stale} | awk -F "/" '{print $2}' | awk '{print $1}'`
+
+		if [ -z "${old_image}" ] ; then
+			echo "no image to delete, maybe manual cleanup is required"
+		else
+			echo "found an image to delete: $old_image"
+
+			# clear out any containers which may be using the image
+			sudo docker ps -a | grep $old_image | awk '{print $1}' | xargs sudo docker rm
+
+			old_image_repo="${nh}:5000/${old_image}"
+			sudo docker rmi $old_image_repo
+			cd $repo_dir
+			sudo rm -r $old_image
+		fi
+		build_status=1
 	fi
-else
-	echo "next live build looks to have failed, check $next_log"
-	sendemail \
-		-f broken@shutit.com \
-		-t $mailto \
-		-m "Build failure. See logs attached\n\n --Broken Shutit" \
-		-u "NEXT_LIVE_BRANCHES Build Failed" \
-		-a shutit.daily.log \
-		-a $next_log
+}
+
+build_image CURRENT hills_r${current_release}
+
+if [ $build_success -eq 1 ] ; then
+	echo "running data for CURRENT"
+	build_image DATA_LOAD hills_r${current_release}
 fi
+
+# exit for testing
+build_image NEXT hills_r${next_release}
+
+if [ $build_sucess -eq 1 ] ; then
+	echo "running data for NEXT"
+	build_image DATA_LOAD hills_r${next_release}
+fi
+
