@@ -20,6 +20,7 @@ conthost="test1"
 ssh_port=50010
 web_port=50011
 ssl_port=50012
+db_port=59088
 
 if [ "$2" = "" ]
 then
@@ -28,4 +29,4 @@ else
 	cmd=$2
 fi
 
-sudo docker run -privileged -h $conthost -p $ssh_port:22 -p $web_port:80 -p $ssl_port:443 -t -i $1 $cmd
+sudo docker run -privileged -h $conthost -p $ssh_port:22 -p $web_port:80 -p $ssl_port:443 -p $db_port:9088 -t -i $1 $cmd

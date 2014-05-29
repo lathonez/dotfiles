@@ -5,10 +5,13 @@ dns:
 username:shazleto
 password:Rh0mbu5t
 resources_dir:/home/shazleto/docker_resources
-docker_exectuable:sudo docker
+docker_executable:sudo docker
 logfile:
 
 [build]
 # Run container in privileged mode
 # we need this for mounting shared
 privileged:yes
+
+[repository]
+user:your_index_username_or_blank
