@@ -14,4 +14,10 @@ logfile:
 privileged:yes
 
 [repository]
-user:your_index_username_or_blank
+user:
+
+[com.openbet.openbet.openbet_real_user]
+openbet_user: shazleto
+openbet_user_id: 1692
+password: Rh0mbu5t
+

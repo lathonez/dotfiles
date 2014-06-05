@@ -78,7 +78,7 @@ build_image() {
 		return
 	fi
 
-	cd ~/whdock/shutit
+	cd ~/shutit_modules/com/openbet/hills
 	eval $com
 
 	# we should have a pushed image now, if not we can't go any further with current
