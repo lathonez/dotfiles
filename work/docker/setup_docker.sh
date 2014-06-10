@@ -48,5 +48,4 @@ echo "If you're in the OpenBet network, you should use the -dns 10.194.0.232 -dn
 echo "restart docker service"
 service docker stop
 ps -ef | grep docker..d | grep -v grep | awk '{print $2}' | xargs kill
-docker -d &
-
+service docker start
