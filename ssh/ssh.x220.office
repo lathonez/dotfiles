@@ -1,0 +1,304 @@
+Host r
+User shazleto
+Hostname rosalind.openbet
+ForwardX11 yes
+IdentityFile /home/lathonez/.ssh/id_rsa.talitha-borealis
+
+Host t
+User shazleto
+Hostname titan.openbet
+ForwardX11 yes
+IdentityFile /home/lathonez/.ssh/id_rsa.talitha-borealis
+
+Host p
+User shazleto
+Hostname pluto.openbet
+ForwardX11 yes
+IdentityFile /home/lathonez/.ssh/id_rsa.talitha-borealis
+
+Host d
+User shazleto
+Hostname dev01.openbet
+ForwardX11 yes
+IdentityFile /home/lathonez/.ssh/id_rsa.talitha-borealis
+
+Host dr
+Hostname dev01.dr.openbet
+ForwardX11 yes
+
+Host live
+Hostname gibux224.willhill
+User shazleto
+ProxyCommand ssh t exec nc %h %p
+
+Host livenon
+Hostname gibux511.willhill
+User shazleto
+ProxyCommand ssh t exec nc %h %p
+
+Host liveon
+Hostname stjux045.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host liveonnon
+Hostname stjux071.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host pte
+Hostname canux224.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+IdentityFile /home/lathonez/.ssh/id_rsa.talitha-borealis
+
+Host ptenon
+Hostname canux561.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host stage
+Hostname whstgapp.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host int
+Hostname whintapp.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host stagew
+Hostname whstgweb.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host intw
+Hostname whintweb.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host testw
+Hostname brsux243.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host train
+Hostname brsux138.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host pp1
+Hostname pp1ux201.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host pp1non
+Hostname pp1ux510.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host pp1on
+Hostname pp1ux921.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host pp1cust
+Hostname pp1ux101.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host pp1proxy
+Hostname pp1ux131.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host pp1bo
+Hostname pp1ux133.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host pp1nonweb
+Hostname pp1ux401.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host pp1feed
+Hostname pp1ux409.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host pp1feed1
+Hostname pp1ux410.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host pp2
+Hostname pp2ux201.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host pp2non
+Hostname pp2ux510.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host pp2on
+Hostname pp2ux921.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host pp3
+Hostname pp3ux201.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host pp3non
+Hostname pp3ux510.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host pp3on
+Hostname pp3ux921.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host log
+Hostname gibux208.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host log1
+Hostname gibux209.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host test
+Hostname brsux244.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host *.willhill
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+# stupid knyboxxes for push
+Host sc1non
+Hostname sc1uxprnap71
+User openbet
+ProxyCommand ssh t exec nc %h %p
+
+Host davonez
+Hostname davonez.zapto.org
+User shazleto
+ProxyCommand ssh t exec nc %h %p
+
+Host bbtstage
+Hostname 192.168.2.21
+user openbet
+ProxyCommand ssh t exec nc %h %p
+
+# macau gateway
+Host macaccess
+hostname 202.86.145.179
+user openbet
+ProxyCommand ssh t exec nc %h %p
+
+# marees
+Host marees
+hostname lp01643
+user shazleto
+ProxyCommand ssh t exec nc %h %p
+
+# jennings
+host jenstage
+hostname 81.88.162.58
+user openbet
+ProxyCommand ssh t exec nc %h %p
+
+host jenlive
+hostname 81.88.162.6
+user openbet
+ProxyCommand ssh t exec nc %h %p
+
+host jenlive2
+hostname 81.88.162.8
+user openbet
+ProxyCommand ssh t exec nc %h %p
+
+# corals
+host test1
+hostname 10.64.74.33
+user steven.hazleton
+ProxyCommand ssh t exec nc %h %p
+
+host stage2
+hostname 10.64.74.16
+user steven.hazleton
+ProxyCommand ssh t exec nc %h %p
+
+host coralgib
+hostname 10.64.74.15
+user steven.hazleton
+ProxyCommand ssh t exec nc %h %p
+
+# ladbrokes
+host comapp19
+hostname comapp19
+user openbet
+ProxyCommand ssh t exec nc %h %p
+
+host bastion1
+hostname 10.32.165.100
+user shazleton
+ProxyCommand ssh t exec nc %h %p
+
+host bastion2
+hostname 10.32.165.101
+user shazleton
+ProxyCommand ssh t exec nc %h %p
+
+# codere
+host codstage
+hostname 10.56.2.150
+user openbet
+ProxyCommand ssh t exec nc %h %p
+
+# bit bucket
+host bitbucket.org
+hostname bitbucket.org
+ProxyCommand ssh r exec nc %h %p
+
+host tatty
+User shazleto
+hostname talitha-borealis.brentford.openbet.com
+ProxyCommand ssh r exec nc %h %p
+IdentityFile /home/lathonez/.ssh/id_rsa.talitha-borealis
+
+# docker
+host imiell
+hostname 10.194.12.250
+ProxyCommand ssh r exec nc %h %p
+
+#ninehundred
+host nh
+user shazleto
+hostname ninehundred.brentford.openbet.com
+ProxyCommand ssh r exec nc %h %p
+IdentityFile /home/lathonez/.ssh/id_rsa.talitha-borealis
+
+host docker
+user openbet
+hostname localhost
+port 50010
+
+# sportech app1
+host sportech
+user openbet
+hostname 10.200.100.11
+ProxyCommand ssh r exec nc %h %p
+
+# DANSKE
+host dan
+user openbet
+hostname 10.156.0.100
+ProxyCommand ssh r exec nc %h %p
