@@ -11,6 +11,7 @@ host=""
 # /etc/services
 db01_1150_port=1900
 db01_1170_port=1902
+docker_repo_port=5000
 
 # eth0 tunnel commands
 eth0_csutproxy=""
@@ -35,15 +36,17 @@ print_usage()  {
 	echo "  -e : setup the remote environment (swap hosts, ssh config etc)"
 	echo "  -d : tunnel into the database server"
 	echo "  -r : bind certain tunnels to eth0 too"
+	echo "  -n : tunnel to ninehundred for docker"
 	echo " "
 }
 
-while getopts ":der" o;
+while getopts ":dern" o;
 do
 	case $o in
 		d)  do_tunnel_db=1;;
 		e)  do_setup_env=1;;
 		r)  do_bind_eth0=1;;
+		n)  do_tunnel_nh=1;;
 		\?)
 			print_usage;
 			exit 1;;
@@ -128,6 +131,13 @@ function tunnel_db {
 	ssh $user@$tunnel_host -f -nNC -L $db01_1170_port:db01:$db01_1170_port
 }
 
+#
+# tunnel to ninehundred for docker
+#
+function tunnel_nh {
+	ssh $user@$tunnel_host -f -nNC -L $docker_repo_port:ninehundred.brentford.openbet.com:$docker_repo_port
+}
+
 
 #
 # Set up certain tunnels to also bind to eth0
@@ -159,5 +169,10 @@ connect
 if [ "$do_tunnel_db" = "1" ]
 then
 	tunnel_db;
+fi
+
+if [ "$do_tunnel_nh" = "1" ]
+then
+	tunnel_nh;
 fi
 

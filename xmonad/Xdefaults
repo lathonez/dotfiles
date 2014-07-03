@@ -3,8 +3,8 @@ urxvt*font:                   xft:DejaVu Sans Mono:pixelsize=9
 urxvt*scrollstyle:             plain
 urxvt*scrollBar_right:         true
 urxvt*scrollTtyKeypress:       true
-urxvt*foreground:              white
-urxvt*background:              black
+urxvt*foreground:              black
+urxvt*background:              white
 urxvt*termName:                urxvt
 urxvt*color4:   #FF5500
 urxvt*color12:  #FF5500
