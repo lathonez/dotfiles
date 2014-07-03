@@ -140,7 +140,7 @@ setup_aliases ()
 	fi
 
 	if [[ $SERVER == "home" ]]; then
-		alias work='~/shaz_utils/scripts/connect_to_work.sh -d shazleto vpn.openbet.com'
+		alias work='~/shaz_utils/scripts/connect_to_work.sh -n shazleto vpn.openbet.com'
 		alias work_old='~/shaz_utils/scripts/connect_to_work.sh -ed shazleto ssh.openbet.com'
 		alias hdprim='xrandr --output HDMI1 --primary'
 		alias killwork="ps -ef | egrep \"[s]sh.*openbet.com\" | awk '"'{print $2}'"' | xargs sudo kill -9"
@@ -169,7 +169,7 @@ setup_aliases ()
 
 	# rdp to live
 	alias rdplive='rdesktop -u shazleton -g 1024x768 localhost:3391'
-	alias rdpon='xfreerdp -u shazleto -p Password1 -g 1440x900 -k en-gb localhost:3387'
+	alias rdpon='xfreerdp -u shazleton -p Password1 -g 1440x900 -k en-gb localhost:3387'
 	alias tunoff='ssh p -L3391:10.180.139.210:3389'
 	alias tunon='ssh -C -f -N pluto.openbet -L3387:10.120.136.80:3389'
 
