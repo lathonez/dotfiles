@@ -7,8 +7,9 @@
 127.0.0.1 mail.orbis
 127.0.0.1 smtp.orbis
 127.0.0.1 jabber.orbis
-# 127.0.0.1 jabber.openbet
+127.0.0.1 jabber.openbet
 127.0.0.1 jabber.openbet.com
+127.0.0.1 jabber.openbet.openbet.com
 127.0.0.1 shared.orbis
 127.0.0.1 rhea.orbis
 127.0.0.1 imap.orbis

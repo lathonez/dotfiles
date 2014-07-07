@@ -289,3 +289,8 @@ host dan
 user openbet
 hostname 10.156.0.100
 ProxyCommand ssh r exec nc %h %p
+
+host git.openbet
+user git
+hostname git.openbet
+ProxyCommand ssh r exec nc %h %p
