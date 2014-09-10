@@ -1,0 +1,4 @@
+# start docker
+/home/shazleto/utils/work/docker/start_docker.sh
+# start the registry list
+cd /home/shazleto/obdock && ./run_obdock.sh
