@@ -7,4 +7,9 @@
 # |  |  |  |  |
 # *  *  *  *  *  command to be executed
 #--------------------------------------------------------------------------
+
+# check sar in the afternoon incase we need to reboot in time for the morning
+  0 15 * * * nohup /home/shazleto/shutit_modules/com/openbet/hills/daily_build.sh sar_only > /tmp/shutit.sar.log 2>&1
+
+# actually run the build
   0 2 * * * nohup /home/shazleto/shutit_modules/com/openbet/hills/daily_build.sh > /tmp/shutit.daily.log 2>&1
