@@ -1,7 +1,0 @@
-scp ~/.ssh/id_rsa.pub shazleto@pp3non:/tmp/shaz
-scp ~/.ssh/id_rsa.pub shazleto@pp3on:/tmp/shaz
-scp ~/.ssh/id_rsa.pub shazleto@pp3ux101:/tmp/shaz
-scp ~/.ssh/id_rsa.pub shazleto@pp3ux133:/tmp/shaz
-scp ~/.ssh/id_rsa.pub shazleto@pp3ux401:/tmp/shaz
-scp ~/.ssh/id_rsa.pub shazleto@pp3ux911:/tmp/shaz
-
