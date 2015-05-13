@@ -27,11 +27,10 @@ urxvt*color12:  #FF5500
 !urxvt.scrollBar: false
 !
 !urxvt*geometry:                80x20
-!urxvt*font:                     xft:Terminus:size=9
+!urxvt*font:                    xft:Terminus:size=9
 !urxvt*font:                    xft:Bitstream Vera Sans Mono:pixelsize=9
-!urxvt*font:                   xft:Bitstream Vera Sans mono:size=9:antialias=true:pixelsize=9
+!urxvt*font:                    xft:Bitstream Vera Sans mono:size=9:antialias=true:pixelsize=9
 
 !urxvt*reverseVideo:            false
 !urxvt*tintColor:               black
 !urxvt*inheritPixmap:           true
-
