@@ -21,7 +21,6 @@ WEB=80
 TERRARIA_DWILLIAM=5555
 TERRARIA_SHAZLETO=6666
 TERRARIA=7777
-CUSTPROXY=18080
 PROXY=18081
 JABBER=15222
 
@@ -31,7 +30,6 @@ iptables -A INPUT -p tcp -m tcp --dport $WEB -j ACCEPT
 iptables -A INPUT -p tcp -m tcp --dport $TERRARIA_DWILLIAM -j ACCEPT
 iptables -A INPUT -p tcp -m tcp --dport $TERRARIA_SHAZLETO -j ACCEPT
 iptables -A INPUT -p tcp -m tcp --dport $TERRARIA -j ACCEPT
-iptables -A INPUT -p tcp -m tcp --dport $CUSTPROXY -j ACCEPT
 iptables -A INPUT -p tcp -m tcp --dport $JABBER -j ACCEPT
 iptables -A INPUT -p tcp -m tcp --dport $PROXY -j ACCEPT
 
