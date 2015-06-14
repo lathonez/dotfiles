@@ -1,0 +1,6 @@
+# anything special we need to make the mac work
+source ~/utils/bash/core
+# wherewolf specific
+source ~/wherewolf/bash/core
+# ls switches are different
+alias ls="ls -G"
