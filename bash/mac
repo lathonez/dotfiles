@@ -4,5 +4,6 @@ source ~/utils/bash/core
 source ~/wherewolf/bash/core
 # ls switches are different
 alias ls="ls -G"
+alias diffmerge="/Applications/DiffMerge.app/Contents/MacOS/DiffMerge"
 # add mysql to PATH
 export PATH=$PATH:/usr/local/mysql/bin:/usr/local/mysql/support-files
