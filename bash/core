@@ -1,0 +1,145 @@
+# ~/.bashrc: executed by bash(1) for non-login shells.
+# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
+# for examples
+
+setup_servers ()
+{
+	if [ ${HOSTNAME} == "x220" ]; then
+		SERVER="home"
+		ALIAS="x220"
+	elif [ ${HOSTNAME} == "Stephens-Air" ]; then
+		SERVER="dev"
+		ALIAS="air"
+	else
+		# probably on a dev server
+		SERVER="dev"
+		ALIAS="dev"
+	fi
+}
+
+setup_system ()
+{
+	# If not running interactively, don't do anything
+	[ -z "$PS1" ] && return
+
+	# don't put duplicate lines in the history. See bash(1) for more options
+	export HISTCONTROL=ignoredups
+	# ... and ignore same sucessive entries.
+	export HISTCONTROL=ignoreboth
+
+	export DISPLAY=:0.0
+
+	# check the window size after each command and, if necessary,
+	# update the values of LINES and COLUMNS.
+	shopt -s checkwinsize
+
+	# make less more friendly for non-text input files, see lesspipe(1)
+	[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+	# set variable identifying the chroot you work in (used in the prompt below)
+	if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
+		debian_chroot=$(cat /etc/debian_chroot)
+	fi
+
+	# If this is an xterm set the title to user@host:dir
+	case "$TERM" in xterm*|rxvt*)
+		PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"'
+		;;
+		*)
+		;;
+	esac
+
+	# enable color support of ls and also add handy aliases
+	if [ "$TERM" != "dumb" ] && [ -x /usr/bin/dircolors ]; then
+		eval "`dircolors -b`"
+	fi
+
+	# enable programmable completion features (you don't need to enable
+	# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+	# sources /etc/bash.bashrc).
+	if [ -f /etc/bash_completion ]; then
+	. /etc/bash_completion
+	fi
+}
+
+setup_colors ()
+{
+	DARK=0
+	LIGHT=1
+
+	TEXT=3
+	BACKGROUND=4
+
+	BLACK=0
+	RED=1
+	GREEN=2
+	YELLOW=3
+	BLUE=4
+	PURPLE=5
+	CYAN=6
+	WHITE=7
+
+	UNDERLINE=4
+
+	ORIGINAL_COLOR=0
+
+	export LIGHTRED="\e[${LIGHT};${TEXT}${RED}m"
+	export DARKRED="\e[${DARK};${TEXT}${RED}m"
+	export LIGHTGREEN="\e[${LIGHT};${TEXT}${GREEN}m"
+	export DARKGREEN="\e[${DARK};${TEXT}${GREEN}m"
+	export LIGHTYELLOW="\e[${LIGHT};${TEXT}${YELLOW}m"
+	export LIGHTBLUE="\e[${LIGHT};${TEXT}${BLUE}m"
+	export DARKBLUE="\e[${DARK};${TEXT}${BLUE}m"
+	export LIGHTPURPLE="\e[${LIGHT};${TEXT}${PURPLE}m"
+	export LIGHTCYAN="\e[${LIGHT};${TEXT}${CYAN}m"
+	export DARKCYAN="\e[${DARK};${TEXT}${CYAN}m"
+
+	export ORIGINAL_COLOR="\e[${ORIGINAL_COLOR}m"
+}
+
+setup_aliases ()
+{
+	# Personal
+	alias grep='grep --color=always'
+	alias tclsh="rlwrap tclsh"
+	alias ls='ls -1 -X --group-directories-first --color=auto'
+	alias ll='ls -lh'
+	alias la='ll -A'
+	alias l='ls -CF'
+	alias x='exit'
+
+	alias ssh='ssh -X'
+	alias vi='vim -X'
+}
+
+bash_prompt_command () {
+
+	# How many characters of the $PWD should be kept
+	local pwdmaxlen=25
+	# Indicate that there has been dir truncation
+	local trunc_symbol=".."
+	local dir=${PWD##*/}
+	pwdmaxlen=$(( ( pwdmaxlen < ${#dir} ) ? ${#dir} : pwdmaxlen ))
+	NEW_PWD=${PWD/#$HOME/\~}
+	local pwdoffset=$(( ${#NEW_PWD} - pwdmaxlen ))
+	if [ ${pwdoffset} -gt "0" ]
+	then
+		NEW_PWD=${NEW_PWD:$pwdoffset:$pwdmaxlen}
+		NEW_PWD=${trunc_symbol}/${NEW_PWD#*/}
+		PWD=${NEW_PWD}
+    fi
+}
+
+setup_variables ()
+{
+	arch=`uname -m | sed -e 's/i.86/ix86/' -e 's/sun4./sun4/'`
+	export TERM=xterm
+	export PROMPT_COMMAND=bash_prompt_command
+	export PS1='\e[1;34m$ALIAS\e[m:\[\033[m\]\[\033[01;35;1m\]\w\[\033[m\]\[\033[01;33m\]$\[\033[m\] '
+}
+
+setup_servers
+setup_system
+setup_colors
+setup_variables
+setup_aliases
