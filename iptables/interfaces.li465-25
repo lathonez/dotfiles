@@ -8,8 +8,4 @@ iface lo inet loopback
 # The primary network interface
 auto eth0
 iface eth0 inet dhcp
-<<<<<<< HEAD
-  pre-up iptables-restore < /etc/iptables.rules
-=======
 pre-up iptables-restore < /etc/iptables.rules
->>>>>>> c8d3988fade082a5a6e12929385ce9f31c4a1299

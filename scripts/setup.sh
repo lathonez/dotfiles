@@ -5,11 +5,7 @@
 #
 
 # alphabetical list of apps to install
-<<<<<<< HEAD
-apps="docker.io feh git gnome-panel google-chrome-stable pidgin python python-pip scrot tcl rxvt-unicode vim vlc xmonad"
-=======
 apps="docker.io feh git gnome-panel google-chrome-stable python python-pip scrot tcl rxvt-unicode vim vlc xmonad"
->>>>>>> c8d3988fade082a5a6e12929385ce9f31c4a1299
 
 # shouldn't be run as root else all the links will be owned by root!
 if [ `whoami` = "root" ]; then
@@ -21,19 +17,11 @@ dpkg -s google-chrome-stable 2&> /dev/null
 chrome_installed=$?
 
 # add chrome to sources
-<<<<<<< HEAD
-if [ $chrome_installed -eq 1 ]; then
-	echo "Adding chrome to sources.."
-	wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-	sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
-fi
-=======
 #if [ $chrome_installed -eq 1 ]; then
 #	echo "Adding chrome to sources.."
 #	wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 #	sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
 #fi
->>>>>>> c8d3988fade082a5a6e12929385ce9f31c4a1299
 
 echo "Updating system.."
 #sudo apt-get -y update
@@ -62,12 +50,5 @@ rm -f ~/.Xdefaults        && ln -s ~/utils/xmonad/Xdefaults  ~/.Xdefaults
 rm -f ~/.xmonad/xmonad.hs && ln -s ~/utils/xmonad/xmonad.hs  ~/.xmonad/xmonad.hs
 rm -f ~/.xmonad/xmobarrc  && ln -s ~/utils/xmonad/xmobarrc   ~/.xmonad/xmobarrc
 
-<<<<<<< HEAD
-# set urxvt as default terminal
-# set the terminal shortcut (ctrl,shift,return) in "system settings"
-gsettings set org.gnome.desktop.default-applications.terminal exec 'urxvt'
-
-=======
->>>>>>> c8d3988fade082a5a6e12929385ce9f31c4a1299
 # recompile xomand
 xmonad --recompile

@@ -1,0 +1,13 @@
+Host d wherewolf-dev wherewolfdev
+Hostname    dev.wherewolf.co.nz
+User       stephen
+
+Host        p b wherewolf-prod wherewolfprod
+Hostname    builds.wherewolf.co.nz
+
+Host        w api wherewolf-worker
+Hostname    worker0001.wherewolf.co.nz
+
+Host davonez
+Hostname 176.58.107.25
+User shazleto

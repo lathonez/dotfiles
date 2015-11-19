@@ -7,7 +7,7 @@ setup_servers ()
 	if [ ${HOSTNAME} == "x220" ]; then
 		SERVER="home"
 		ALIAS="x220"
-	elif [ ${HOSTNAME} == "Stephens-Air" ] || [ ${HOSTNAME} == "Stephens-Air.lan" ]; then
+	elif [ ${HOSTNAME} == "Stephens-Air" ] || [ ${HOSTNAME} == "Stephens-Air.lan" ] || [ ${HOSTNAME} == "Stephens-MacBook-Air.local" ]  ; then
 		SERVER="dev"
 		ALIAS="air"
 	else

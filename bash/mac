@@ -1,11 +1,11 @@
 # anything special we need to make the mac work
 source ~/utils/bash/core
 # wherewolf specific
-source ~/stephen-utils/bash/core
+source ~/Code/helperscripts/bash/core
 # ls switches are different
 alias ls="ls -G"
 alias diffmerge="/Applications/DiffMerge.app/Contents/MacOS/DiffMerge"
 # add mysql to PATH
 export PATH=$PATH:/usr/local/mysql/bin:/usr/local/mysql/support-files
 # put helper scripts on path
-export PATH=$PATH:/Users/stephen/code/helperscripts
+export PATH=$PATH:/Users/stephen/code/helperscripts:/Users/stephen/code/mysql-clone-row:/Users/stephen/code/Espresso/bin
