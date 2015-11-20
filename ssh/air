@@ -1,12 +1,14 @@
 Host d wherewolf-dev wherewolfdev
 Hostname    dev.wherewolf.co.nz
-User       stephen
+User        stephen
 
 Host        p b wherewolf-prod wherewolfprod
 Hostname    builds.wherewolf.co.nz
+User        stephen
 
 Host        w api wherewolf-worker
 Hostname    worker0001.wherewolf.co.nz
+User        stephen
 
 Host davonez
 Hostname 176.58.107.25
