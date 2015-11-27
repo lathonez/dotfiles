@@ -62,41 +62,6 @@ setup_system ()
 	fi
 }
 
-setup_colors ()
-{
-	DARK=0
-	LIGHT=1
-
-	TEXT=3
-	BACKGROUND=4
-
-	BLACK=0
-	RED=1
-	GREEN=2
-	YELLOW=3
-	BLUE=4
-	PURPLE=5
-	CYAN=6
-	WHITE=7
-
-	UNDERLINE=4
-
-	ORIGINAL_COLOR=0
-
-	export LIGHTRED="\e[${LIGHT};${TEXT}${RED}m"
-	export DARKRED="\e[${DARK};${TEXT}${RED}m"
-	export LIGHTGREEN="\e[${LIGHT};${TEXT}${GREEN}m"
-	export DARKGREEN="\e[${DARK};${TEXT}${GREEN}m"
-	export LIGHTYELLOW="\e[${LIGHT};${TEXT}${YELLOW}m"
-	export LIGHTBLUE="\e[${LIGHT};${TEXT}${BLUE}m"
-	export DARKBLUE="\e[${DARK};${TEXT}${BLUE}m"
-	export LIGHTPURPLE="\e[${LIGHT};${TEXT}${PURPLE}m"
-	export LIGHTCYAN="\e[${LIGHT};${TEXT}${CYAN}m"
-	export DARKCYAN="\e[${DARK};${TEXT}${CYAN}m"
-
-	export ORIGINAL_COLOR="\e[${ORIGINAL_COLOR}m"
-}
-
 setup_aliases ()
 {
 	# Personal
@@ -130,16 +95,20 @@ bash_prompt_command () {
     fi
 }
 
+## get current git branch
+parse_git_branch() {
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/' | sed -e 's/wherewolf-//' | sed -e 's/(master)//'
+}
+
 setup_variables ()
 {
 	arch=`uname -m | sed -e 's/i.86/ix86/' -e 's/sun4./sun4/'`
 	export TERM=xterm
 	export PROMPT_COMMAND=bash_prompt_command
-	export PS1='\e[1;34m$ALIAS\e[m:\[\033[m\]\[\033[01;35;1m\]\w\[\033[m\]\[\033[01;33m\]$\[\033[m\] '
+	export PS1='\e[0;34m$ALIAS\e[m:\[\033[m\]\[\033[01;35;1m\]\w\[\033[m\e[0;32m`parse_git_branch`\e[m\]\[\033[01;33m\]$\[\033[m\] '
 }
 
 setup_servers
 setup_system
-setup_colors
 setup_variables
 setup_aliases
