@@ -4,3 +4,4 @@ source ~/utils/bash/core
 source ~/code/helperscripts/bash/core
 # put helper scripts on path
 export PATH=$PATH:~/code/helperscripts:~/code/mysql-clone-row:~/code/Espresso/bin
+export WW_CODE_DIR=~/code
