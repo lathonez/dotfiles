@@ -1,0 +1,9 @@
+[user]
+	email = shazleto@gmail.com
+	name = Stephen Hazleton
+[push]
+	default = simple
+[merge]
+	tool = mymeld
+[mergetool "mymeld"]
+	cmd = meld "$LOCAL" "$MERGED" "$REMOTE"
