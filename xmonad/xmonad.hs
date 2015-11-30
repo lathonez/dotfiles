@@ -27,5 +27,5 @@ screenKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList
 	[
 		-- screenshotter
-		((modm, xK_y), spawn "sleep 0.2; scrot -s '/space/screens/screenshot-%Y%m%d%H%M%S-$wx$h.png' -e 'feh $f'")
+		((modm, xK_y), spawn "sleep 0.2; scrot -s '/home/lathonez/screens/screenshot-%Y%m%d%H%M%S-$wx$h.png' -e 'feh $f'")
 	]
