@@ -1,5 +1,5 @@
 urxvt*saveLines:               10000
-urxvt*font:                   xft:DejaVu Sans Mono:pixelsize=9
+urxvt*font:                    xft:DejaVu Sans Mono:pixelsize=9
 urxvt*scrollstyle:             plain
 urxvt*scrollBar_right:         true
 urxvt*scrollTtyKeypress:       true
