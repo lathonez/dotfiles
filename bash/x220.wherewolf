@@ -5,3 +5,11 @@ source ~/code/helperscripts/bash/core
 # put helper scripts on path
 export PATH=$PATH:~/code/helperscripts:~/code/mysql-clone-row:~/code/Espresso/bin
 export WW_CODE_DIR=~/code
+# add android sdk to path
+export PATH=$PATH:/home/lathonez/android-sdk-linux/tools
+export PATH=$PATH:/home/lathonez/android-sdk-linux/platform-tools
+export PATH=$PATH:/home/lathonez/android-sdk-linux/build-tools/23.0.2
+export ANDROID_HOME=/home/lathonez/android-sdk-linux
+
+# added by travis gem
+[ -f /home/lathonez/.travis/travis.sh ] && source /home/lathonez/.travis/travis.sh
