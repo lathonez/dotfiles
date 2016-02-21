@@ -5,5 +5,7 @@
 	default = simple
 [merge]
 	tool = mymeld
+[mergetool]
+	prompt = false
 [mergetool "mymeld"]
 	cmd = meld "$LOCAL" "$MERGED" "$REMOTE"
