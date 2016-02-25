@@ -1,10 +1,10 @@
 # anything special we need for the x220 with wherewolf
 source ~/utils/bash/core
 # wherewolf specific
-source ~/code/helperscripts/bash/core
+source ~/code/wherewolf/helperscripts/bash/core
 # put helper scripts on path
-export PATH=$PATH:~/code/helperscripts:~/code/mysql-clone-row:~/code/Espresso/bin
-export WW_CODE_DIR=~/code
+export WW_CODE_DIR=~/code/wherewolf
+export PATH=$PATH:${WW_CODE_DIR}/helperscripts:~/code/mysql-clone-row:${WW_CODE_DIR}/Espresso/bin
 # add android sdk to path
 export PATH=$PATH:/home/lathonez/android-sdk-linux/tools
 export PATH=$PATH:/home/lathonez/android-sdk-linux/platform-tools
@@ -13,3 +13,5 @@ export ANDROID_HOME=/home/lathonez/android-sdk-linux
 
 # added by travis gem
 [ -f /home/lathonez/.travis/travis.sh ] && source /home/lathonez/.travis/travis.sh
+
+alias top="htop"
