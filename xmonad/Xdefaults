@@ -1,7 +1,9 @@
 urxvt*saveLines:               10000
 urxvt*font:                    xft:DejaVu Sans Mono:pixelsize=9
 urxvt*scrollstyle:             plain
-urxvt*scrollBar_right:         true
+urxvt*scrollBar_right:         false
+urxvt*scrollBar_left:          false
+urxvt*scrollBar:               false
 urxvt*scrollTtyKeypress:       true
 urxvt*foreground:              white
 urxvt*background:              black
@@ -13,7 +15,7 @@ urxvt*color12:  #FF5500
 
 !urxvt*shading:                 100
 !urxvt*fading:                  30
-!urxvt*scrollBar:               true
+!urxvt*scrollBar:               false
 !urxvt*borderLess:              true
 !urxvt*externalBorder:          0
 !urxvt*internalBorder:          2
