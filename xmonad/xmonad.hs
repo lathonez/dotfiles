@@ -1,6 +1,10 @@
 import XMonad
 import XMonad.Config.Gnome
 import XMonad.Actions.PhysicalScreens
+import XMonad.ManageHook
+import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.ManageHelpers
+import XMonad.Layout.NoBorders
 import qualified Data.Map as M
 
 main = xmonad $ gnomeConfig
@@ -10,6 +14,8 @@ main = xmonad $ gnomeConfig
 		, normalBorderColor  = "#cccccc"
 		, focusedBorderColor = "#cd8b00"
         , keys               = screenKeys <+> myKeys <+> keys gnomeConfig
+        , manageHook         = manageDocks <+> (isFullscreen --> doFullFloat) <+> manageHook gnomeConfig
+        , layoutHook = smartBorders . avoidStruts $ layoutHook defaultConfig
 	}
 
 -- cant figure out the syntax to combine this with anything else
