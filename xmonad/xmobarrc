@@ -4,7 +4,7 @@ Config {
 	font = "xft:Ubuntu-8"
   	, bgColor = "#000"
  	, fgColor = "grey"
-	, position = TopW L 90
+	, position = TopW L 95
 
 	, border = NoBorder
 	, lowerOnStart = True
@@ -17,36 +17,11 @@ Config {
 		Run MultiCpu[
 			"-a", "l"
 			, "-w", "4"
-			, "-t", "<fc=#8888FF>CPU0:</fc> <total0> <fc=#555555>|</fc> <fc=#8888FF>CPU1:</fc> <total1>"
+			, "-t", "cpu:<total>%"
 			, "-L", "50"
 			, "-H", "75"
-			, "-l", "green"
 			, "-n", "yellow"
 			, "-h", "red"
-		] 10
-
-        -- Gather and format memory usage information
-		, Run Memory [
-			"-a", "l"
-			, "-w", "4"
-			, "-t", "<fc=#8888FF>MEM:</fc> <usedratio>"
-			, "-L", "50"
-			, "-H", "75"
-			, "-l", "green"
-			, "-n", "yellow"
-			, "-h", "red"
-		] 10
-
-		-- wifi
-		, Run Wireless "wlan0" [
-			"-a", "l"
-			, "-w", "10"
-			, "-t", "<fc=#8888FF>WLAN:</fc> <essid> <quality>"
-			, "-L", "50"
-			, "-H", "75"
-			, "-l", "red"
-			, "-n", "yellow"
-			, "-h", "green"
 		] 10
 
         -- Date formatting
@@ -58,13 +33,26 @@ Config {
 		, Run Battery [
 			"-a", "l"
 			, "-w", "4"
-			, "-t", "<fc=#8888FF>BAT:</fc> <left> <acstatus>"
+			, "-t", "<acstatus>"
 			, "-L", "25"
 			, "-H", "50"
 			, "-l", "red"
 			, "-n", "yellow"
-			, "-h", "green"
+            , "--", "-i", "bat: full", "-O", "bat: AC~<left>%", "-o", "bat: <left>%~<timeleft>"
 		] 10
+
+		-- tx <> rx
+		, Run DynNetwork [
+			"-t", "rx: <rx> kb/s"
+			, "-L", "50"
+			, "-H", "75"
+			, "-n", "yellow"
+			, "-h", "red"
+		] 10
+
+        -- Gather and format memory usage information
+        -- xmobar memory plugin has a bug in 0.19 where
+		, Run Com "/home/lathonez/utils/xmonad/get_mem.sh" [] "mymem" 10
 
         -- The core temp plugin doesn't work for some reason
 		, Run Com "/home/lathonez/utils/xmonad/get_temp.sh" [] "mytemp" 10
@@ -81,5 +69,5 @@ Config {
 
 	, sepChar = "%"
 	, alignSep = "}{"
-	, template = "%StdinReader% }{ %multicpu% <fc=#555555>|</fc> %memory% <fc=#555555>|</fc> %battery% <fc=#555555>|</fc> %mytemp% <fc=#555555>|</fc> %myvolume% <fc=#555555>|</fc> %date%       "
+	, template = "%StdinReader% }{ %multicpu% %mytemp% <fc=#555555>|</fc> mem: %mymem% <fc=#555555>|</fc> %dynnetwork% <fc=#555555>|</fc> %battery% <fc=#555555>|</fc> vol: %myvolume% <fc=#555555>|</fc> %date%       "
 	}

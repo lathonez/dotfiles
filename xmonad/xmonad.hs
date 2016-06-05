@@ -6,6 +6,7 @@ import XMonad.Hooks.ManageHelpers
 import XMonad.Layout.NoBorders
 import XMonad.ManageHook
 import XMonad.Util.Run
+import qualified XMonad.StackSet as W
 import qualified Data.Map as M
 
 -- cant figure out the syntax to combine this with anything else
@@ -24,6 +25,12 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList
 	[
 		-- screenshotter
 		((modm, xK_y), spawn "sleep 0.2; scrot -s '/home/lathonez/screens/screenshot-%Y%m%d%H%M%S-$wx$h.png' -e 'feh $f'")
+		-- screenlocker
+		, ((modm .|. XMonad.controlMask, xK_l), spawn "slock")
+		-- volume keys
+      	, ((0, 0x1008FF11), spawn "amixer set Master 2-")
+      	, ((0, 0x1008FF13), spawn "amixer set Master 2+")
+      	, ((0, 0x1008FF12), spawn "amixer set Master toggle")
 	]
 
 {-
@@ -44,9 +51,18 @@ myVisibleWSRight = ")"
 myUrgentWSLeft   = "{" -- wrap urgent workspace with these
 myUrgentWSRight  = "}"
 
-myManagementHooks :: [ManageHook]
-myManagementHooks = [
-  ]
+myWorkspaces =
+	[
+	"1:Chrome"
+	, "2:Serv"
+	, "3:Subl"
+	, "4:Pers"
+	, "5:Term"
+	, "6:"
+	, "7:Meld"
+	, "8:Chat"
+	, "9:"
+	]
 
 main = do
 	xmproc <- spawnPipe "xmobar"
@@ -56,8 +72,14 @@ main = do
 		, terminal           = "urxvt"
 		, normalBorderColor  = "#cccccc"
 		, focusedBorderColor = "#cd8b00"
+		, workspaces         = myWorkspaces
 		, keys               = screenKeys <+> myKeys <+> keys defaultConfig
-		, manageHook         = manageDocks <+> (isFullscreen --> doFullFloat) <+> manageHook defaultConfig
+		, manageHook         = manageDocks <+> composeAll [
+			(isFullscreen                 --> doFullFloat) <+> manageHook defaultConfig
+			, className =? "Sublime_text" --> doF (W.shift "3:Subl")
+			, className =? "Meld"         --> doF (W.shift "7:Meld")
+			, appName =?   "crx_knipolnnllmklapflnccelgolnpehhpl" --> doF (W.shift "8:Chat")
+		]
 		, layoutHook = smartBorders . avoidStruts $ layoutHook defaultConfig
 		, logHook = dynamicLogWithPP $ xmobarPP {
 			ppOutput  = hPutStrLn    xmproc
