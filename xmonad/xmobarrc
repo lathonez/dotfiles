@@ -1,25 +1,85 @@
-Config { font = "-misc-fixed-*-*-*-*-12-*-*-*-*-*-*-*"
-       , bgColor = "black"
-       , fgColor = "grey"
-	   , border = NoBorder
-	   , borderColor = "red"
-       , position = TopSize L 100 16
-       , lowerOnStart = True
-       , commands = [ Run Weather "EGLL" ["-t","<station>: <tempC>C","-L","18","-H","25","--normal","green","--high","red","--low","lightblue"] 36000
-                    , Run Network "eth0" ["-L","0","-H","32","--normal","green","--high","red"] 10
-                    , Run Network "wlan0" ["-L","0","-H","32","--normal","green","--high","red"] 10
-                    , Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
-                    , Run Memory ["-t","Mem: <usedratio>%"] 10
-                    , Run Swap [] 10
-                    , Run Com "uname" ["-s","-r"] "" 36000
-					, Run Com "/home/rconstab/bin/wireless.sh" [] "wifi" 30
-					, Run Com "/home/rconstab/bin/batt.sh" [] "batt" 30
-					, Run Com "/home/rconstab/bin/temp.sh" [] "temp" 30
-                    , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
-					, Run CoreTemp ["-t","\<core0\>C","-L","40","-H","60","-l","lightblue","-n","gray90","-h","red"] 50
-                    ]
-       , sepChar = "%"
-       , alignSep = "}{"
-       , template = "%cpu% %temp% | %memory% * %swap% | %wifi% | %batt%}{ %EGLL% | <fc=#00ff00>%date%</fc>"
-       }
+-- xmobar configuration file
 
+Config {
+	font = "xft:Ubuntu-8"
+  	, bgColor = "#000"
+ 	, fgColor = "grey"
+	, position = TopW L 90
+
+	, border = NoBorder
+	, lowerOnStart = True
+
+    -- list of commands which gather information about your system for
+    -- presentation in the bar.
+    commands = [
+        -- Gather and format CPU usage information.
+        -- If it's above 50%, we consider it high usage and make it red.
+		Run MultiCpu[
+			"-a", "l"
+			, "-w", "4"
+			, "-t", "<fc=#8888FF>CPU0:</fc> <total0> <fc=#555555>|</fc> <fc=#8888FF>CPU1:</fc> <total1>"
+			, "-L", "50"
+			, "-H", "75"
+			, "-l", "green"
+			, "-n", "yellow"
+			, "-h", "red"
+		] 10
+
+        -- Gather and format memory usage information
+		, Run Memory [
+			"-a", "l"
+			, "-w", "4"
+			, "-t", "<fc=#8888FF>MEM:</fc> <usedratio>"
+			, "-L", "50"
+			, "-H", "75"
+			, "-l", "green"
+			, "-n", "yellow"
+			, "-h", "red"
+		] 10
+
+		-- wifi
+		, Run Wireless "wlan0" [
+			"-a", "l"
+			, "-w", "10"
+			, "-t", "<fc=#8888FF>WLAN:</fc> <essid> <quality>"
+			, "-L", "50"
+			, "-H", "75"
+			, "-l", "red"
+			, "-n", "yellow"
+			, "-h", "green"
+		] 10
+
+        -- Date formatting
+        , Run Date "%a %b %_d %l:%M:%S %P" "date" 10
+
+        -- Battery information. This is likely to require some customization
+        -- based upon your specific hardware. Or, for a desktop you may want
+        -- to just remove this section entirely.
+		, Run Battery [
+			"-a", "l"
+			, "-w", "4"
+			, "-t", "<fc=#8888FF>BAT:</fc> <left> <acstatus>"
+			, "-L", "25"
+			, "-H", "50"
+			, "-l", "red"
+			, "-n", "yellow"
+			, "-h", "green"
+		] 10
+
+        -- The core temp plugin doesn't work for some reason
+		, Run Com "/home/lathonez/utils/xmonad/get_temp.sh" [] "mytemp" 10
+
+        -- To get volume information, we run a custom bash script.
+        -- This is because the built-in volume support in xmobar is disabled
+        -- in Debian and derivatives like Ubuntu.
+        , Run Com "/home/lathonez/utils/xmonad/get_volume.sh" [] "myvolume" 10
+
+        -- This line tells xmobar to read input from stdin. That's how we
+        -- get the information that xmonad is sending it for display.
+        , Run StdinReader
+	],
+
+	, sepChar = "%"
+	, alignSep = "}{"
+	, template = "%StdinReader% }{ %multicpu% <fc=#555555>|</fc> %memory% <fc=#555555>|</fc> %battery% <fc=#555555>|</fc> %mytemp% <fc=#555555>|</fc> %myvolume% <fc=#555555>|</fc> %date%       "
+	}

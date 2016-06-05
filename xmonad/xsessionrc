@@ -1,10 +1,12 @@
 #!/bin/bash
 
-# for some reason this is required since ubuntu 14.04. Feh needs to be installed
 # set (and redraw) background image with Feh
 feh --bg-scale ~/utils/wallpaper/current &
 
-# custom applets so we dont need the stupid indicator thing
-# dbus-launch nm-applet &
-# dbus-launch gnome-sound-applet &
-# dbus-launch xfce4-power-manager &
+# start trayer
+trayer --edge top --align right --SetDockType true --SetPartialStrut true  --expand true --width 11 --transparent true --tint 0x000000 --alpha 0 --height 17 &
+
+# network manager applet
+if [ -x /usr/bin/nm-applet ] ; then
+   nm-applet --sm-disable &
+fi

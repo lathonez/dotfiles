@@ -1,22 +1,12 @@
 import XMonad
-import XMonad.Config.Gnome
 import XMonad.Actions.PhysicalScreens
-import XMonad.ManageHook
+import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Layout.NoBorders
+import XMonad.ManageHook
+import XMonad.Util.Run
 import qualified Data.Map as M
-
-main = xmonad $ gnomeConfig
-	{
-		borderWidth          = 1
-		, terminal           = "urxvt"
-		, normalBorderColor  = "#cccccc"
-		, focusedBorderColor = "#cd8b00"
-        , keys               = screenKeys <+> myKeys <+> keys gnomeConfig
-        , manageHook         = manageDocks <+> (isFullscreen --> doFullFloat) <+> manageHook gnomeConfig
-        , layoutHook = smartBorders . avoidStruts $ layoutHook defaultConfig
-	}
 
 -- cant figure out the syntax to combine this with anything else
 screenKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList
@@ -35,3 +25,48 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList
 		-- screenshotter
 		((modm, xK_y), spawn "sleep 0.2; scrot -s '/home/lathonez/screens/screenshot-%Y%m%d%H%M%S-$wx$h.png' -e 'feh $f'")
 	]
+
+{-
+  -- Xmobar configuration variables. These settings control the appearance
+  -- of text which xmonad is sending to xmobar via the DynamicLog hook.
+  --
+-}
+
+myTitleColor     = "#eeeeee" -- color of window title
+myTitleLength    = 80 -- truncate window title to this length
+myCurrentWSColor = "#e6744c" -- color of active workspace
+myVisibleWSColor = "#c185a7" -- color of inactive workspace
+myUrgentWSColor  = "#cc0000" -- color of workspace with 'urgent' window
+myCurrentWSLeft  = "[" -- wrap active workspace with these
+myCurrentWSRight = "]"
+myVisibleWSLeft  = "(" -- wrap inactive workspace with these
+myVisibleWSRight = ")"
+myUrgentWSLeft   = "{" -- wrap urgent workspace with these
+myUrgentWSRight  = "}"
+
+myManagementHooks :: [ManageHook]
+myManagementHooks = [
+  ]
+
+main = do
+	xmproc <- spawnPipe "xmobar"
+
+	xmonad $ defaultConfig {
+		borderWidth          = 1
+		, terminal           = "urxvt"
+		, normalBorderColor  = "#cccccc"
+		, focusedBorderColor = "#cd8b00"
+		, keys               = screenKeys <+> myKeys <+> keys defaultConfig
+		, manageHook         = manageDocks <+> (isFullscreen --> doFullFloat) <+> manageHook defaultConfig
+		, layoutHook = smartBorders . avoidStruts $ layoutHook defaultConfig
+		, logHook = dynamicLogWithPP $ xmobarPP {
+			ppOutput  = hPutStrLn    xmproc
+			, ppTitle   = xmobarColor  myTitleColor "" . shorten myTitleLength
+			, ppCurrent = xmobarColor  myCurrentWSColor ""
+			. wrap myCurrentWSLeft myCurrentWSRight
+			, ppVisible = xmobarColor  myVisibleWSColor ""
+			. wrap myVisibleWSLeft myVisibleWSRight
+			, ppUrgent  = xmobarColor  myUrgentWSColor ""
+			. wrap myUrgentWSLeft  myUrgentWSRight
+		}
+	}
