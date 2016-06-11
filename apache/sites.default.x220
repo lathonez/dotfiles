@@ -50,9 +50,6 @@
 
 	SSLOptions +StrictRequire
 
-	SSLCertificateFile    /home/lathonez/shaz_utils/apache/keys/tatty.crt
-	SSLCertificateKeyFile /home/lathonez/shaz_utils/apache/keys/tatty.key
-
 	<Directory />
 		Options FollowSymLinks
 		AllowOverride None

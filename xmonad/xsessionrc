@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # set (and redraw) background image with Feh
-feh --bg-scale ~/utils/wallpaper/current &
+feh --bg-scale ~/dotfiles/wallpaper/current &
 
 # start trayer
 trayer --edge top --align right --SetDockType true --SetPartialStrut true  --expand true --width 6 --transparent true --tint 0x000000 --alpha 0 --height 17 &

@@ -30,7 +30,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList
 		-- volume keys
       	, ((0, 0x1008FF11), spawn "amixer set Master 2-")
       	, ((0, 0x1008FF13), spawn "amixer set Master 2+")
-      	, ((0, 0x1008FF12), spawn "/home/lathonez/utils/xmonad/mute.sh")
+      	, ((0, 0x1008FF12), spawn "/home/lathonez/dotfiles/xmonad/mute.sh")
 	]
 
 {-

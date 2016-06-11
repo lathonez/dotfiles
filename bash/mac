@@ -1,5 +1,5 @@
 # anything special we need to make the mac work
-source ~/utils/bash/core
+source ~/dotfiles/bash/core
 # wherewolf specific
 source ~/Code/helperscripts/bash/core
 # ls switches are different
