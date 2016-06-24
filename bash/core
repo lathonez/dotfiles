@@ -72,7 +72,7 @@ setup_aliases ()
 	alias la='ll -A'
 	alias l='ls -CF'
 	alias x='exit'
-
+	alias sd='sudo shutdown -P 0'
 	alias ssh='ssh -X'
 	alias vi='vim -X'
 }
