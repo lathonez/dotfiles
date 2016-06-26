@@ -10,6 +10,19 @@ URxvt.urlLauncher:      /usr/bin/google-chrome-stable
 URxvt.matcher.button:   1
 URxvt.matcher.rend.0: Uline Bold fg5
 
+urxvt*saveLines:                   10000
+urxvt*font:                               xft:DejaVu Sans Mono:pixelsize=9
+urxvt*scrollstyle:                    plain
+urxvt*scrollBar_right:           false
+urxvt*scrollBar_left:               false
+urxvt*scrollBar:                       false
+urxvt*scrollTtyKeypress:      true
+urxvt*foreground:                  white
+urxvt*background:                black
+urxvt*termName:                   urxvt
+#urxvt*color4:                          #FF5500
+urxvt*color12:                          #FF5500
+
 ! tabs
 !URxvt.perl-ext-common:  default,tabbed,matcher
 ! tab colours

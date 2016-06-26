@@ -1,0 +1,37 @@
+#!/bin/sh
+
+userresources=$HOME/.Xresources
+sysresources=/etc/X11/xinit/.Xresources
+
+# merge in defaults and keymaps
+
+if [ -f $sysresources ]; then
+    xrdb -merge $sysresources
+fi
+
+if [ -f "$userresources" ]; then
+    xrdb -merge "$userresources"
+
+fi
+
+# set (and redraw) background image with Feh
+feh --bg-scale ~/dotfiles/wallpaper/current &
+
+# start trayer
+trayer --edge top --align right --SetDockType true --SetPartialStrut true  --expand true --width 3 --transparent true --tint 0x000000 --alpha 0 --height 18 &
+
+# network manager applet
+if [ -x /usr/bin/nm-applet ] ; then
+   nm-applet --sm-disable &
+fi
+
+# lock the screen after 10 minutes
+xautolock -time 10 -locker slock &
+
+# set default cursor to left arrow head
+xsetroot -cursor_name left_ptr &
+
+# set keyboard map
+setxkbmap gb &
+
+exec xmonad

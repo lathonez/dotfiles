@@ -18,7 +18,7 @@ str1=${str#Simple*[}
 v1=${str1%%]*]}
 il=`expr index "$str1" [`
 o="off"
-mutel=''
+icon='<fn=1></fn>'
 if [ ${str1:$il:3} == $o ]; then mutel='M'; fi
 s=${str1:0:1}
 str2=${str1#${str1:0:1}*[}
@@ -26,7 +26,7 @@ str1=$str2
 str2=${str1#${str1:0:1}*[}
 ir=`expr index "$str2" [`
 muter=''
-if [ ${str2:0:3} = $o ]; then muter='[M]'; fi
+if [ ${str2:0:3} = $o ]; then icon='<fn=1></fn>'; fi
 v2=${str2%\]}
-v=${v1}\ $muter
+v=${icon}\ ${v1}
 echo $v

@@ -13,4 +13,4 @@ if [ $temp -gt $high ]; then
 	rtn="<fc=#FF0000>${temp}</fc>"
 fi
 
-echo ${rtn}°C
+echo ${rtn}°

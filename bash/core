@@ -75,6 +75,9 @@ setup_aliases ()
 	alias sd='sudo shutdown -P 0'
 	alias ssh='ssh -X'
 	alias vi='vim -X'
+	alias subl='subl3'
+	alias dockkill="docker ps -a | grep -v CONTAINER | awk '{print \$1}' | xargs docker kill"
+	alias dockrm="docker ps -a | grep -v CONTAINER | awk '{print \$1}' | xargs docker rm"
 }
 
 bash_prompt_command () {
@@ -104,8 +107,8 @@ setup_variables ()
 {
 	arch=`uname -m | sed -e 's/i.86/ix86/' -e 's/sun4./sun4/'`
 	export TERM=xterm
-	export PROMPT_COMMAND=bash_prompt_command
-	export PS1='\e[0;34m$ALIAS\e[m:\[\033[m\]\[\033[01;35;1m\]\w\[\033[m\e[0;32m`parse_git_branch`\e[m\]\[\033[01;33m\]$\[\033[m\] '
+	# export PROMPT_COMMAND=bash_prompt_command
+	export PS1='\e[0;34mx220\e[m:\[\033[m\]\[\033[01;35;1m\]\w\[\033[01;33m\]$\[\033[m\] '
 }
 
 setup_servers
