@@ -53,15 +53,15 @@ Config {
 
         -- Gather and format memory usage information
         -- xmobar memory plugin has a bug in 0.19 where
-		, Run Com "/home/lathonez/dotfiles/xmonad/get_mem.sh" [] "mymem" 10
+		, Run Com "/home/lathonez/code/dotfiles/xmobar/scripts/get_mem.sh" [] "mymem" 10
 
         -- The core temp plugin doesn't work for some reason
-		, Run Com "/home/lathonez/dotfiles/xmonad/get_temp.sh" [] "mytemp" 10
+		, Run Com "/home/lathonez/code/dotfiles/xmobar/scripts/get_temp.sh" [] "mytemp" 10
 
         -- To get volume information, we run a custom bash script.
         -- This is because the built-in volume support in xmobar is disabled
         -- in Debian and derivatives like Ubuntu.
-        , Run Com "/home/lathonez/dotfiles/xmonad/get_volume.sh" [] "myvolume" 10
+        , Run Com "/home/lathonez/code/dotfiles/xmobar/scripts/get_volume.sh" [] "myvolume" 10
 
         -- This line tells xmobar to read input from stdin. That's how we
         -- get the information that xmonad is sending it for display.
