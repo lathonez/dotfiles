@@ -1,0 +1,17 @@
+{
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"Pretty JSON",
+		"SideBarEnhancements",
+		"SublimeLinter",
+		"SublimeLinter-contrib-jslint",
+		"SublimeLinter-contrib-tslint",
+		"SublimeLinter-jscs",
+		"SublimeLinter-pylint",
+		"TypeScript"
+	]
+}
