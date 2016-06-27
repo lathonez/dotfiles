@@ -15,7 +15,7 @@ if [ -f "$userresources" ]; then
 fi
 
 # set (and redraw) background image with Feh
-feh --bg-scale ~/dotfiles/wallpaper/current &
+feh --bg-scale ~/code/dotfiles/wallpaper/current &
 
 # start trayer
 trayer --edge top --align right --SetDockType true --SetPartialStrut true  --expand true --width 3 --transparent true --tint 0x000000 --alpha 0 --height 18 &
