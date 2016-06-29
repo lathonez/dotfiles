@@ -5,13 +5,15 @@
 	],
 	"installed_packages":
 	[
+		"Package Control",
 		"Pretty JSON",
 		"SideBarEnhancements",
 		"SublimeLinter",
-		"SublimeLinter-contrib-jslint",
 		"SublimeLinter-contrib-tslint",
 		"SublimeLinter-jscs",
+		"SublimeLinter-jshint",
 		"SublimeLinter-pylint",
+		"TrailingSpaces",
 		"TypeScript"
 	]
 }

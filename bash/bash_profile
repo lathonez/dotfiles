@@ -1,0 +1,2 @@
+# .bash_profile should export path, programs expect it is done here (ST3 linters)
+export PATH=$PATH
