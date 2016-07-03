@@ -34,4 +34,8 @@ xsetroot -cursor_name left_ptr &
 # set keyboard map
 setxkbmap gb &
 
+pidgin &
+
+/usr/lib/notify-osd/notify-osd &
+
 exec xmonad
