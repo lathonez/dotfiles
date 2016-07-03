@@ -79,6 +79,7 @@ main = do
             (isFullscreen                 --> doFullFloat) <+> manageHook def
             , className =? "Subl3"        --> doF (W.shift "3:Subl")
             , className =? "Meld"         --> doF (W.shift "7:Meld")
+            , className =? "Pidgin"       --> doF (W.shift "8:Chat")
             , appName =?   "crx_knipolnnllmklapflnccelgolnpehhpl" --> doF (W.shift "8:Chat")
         ]
         , layoutHook = smartBorders . avoidStruts $ layoutHook def
