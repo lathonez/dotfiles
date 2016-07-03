@@ -52,6 +52,7 @@ setup_system ()
 	# enable color support of ls and also add handy aliases
 	if [ "$TERM" != "dumb" ] && [ -x /usr/bin/dircolors ]; then
 		eval "`dircolors -b`"
+		export TERM=xterm-256color
 	fi
 
 	# enable programmable completion features (you don't need to enable
@@ -106,9 +107,9 @@ parse_git_branch() {
 setup_variables ()
 {
 	arch=`uname -m | sed -e 's/i.86/ix86/' -e 's/sun4./sun4/'`
-	export TERM=xterm
 	export PROMPT_COMMAND=bash_prompt_command
-	export PS1='\e[0;34mx220\e[m:\[\033[m\]\[\033[01;35;1m\]\w\[\033[m\e[0;32m`parse_git_branch`\e[m\]\[\033[01;33m\]$\[\033[m\] '
+
+	export PS1='\[$(tput bold)\]\[$(tput setaf 20)\]\h\[$(tput setaf 7)\]:\[$(tput setaf 5)\]\w\[$(tput setaf 22)\]`parse_git_branch`\[$(tput setaf 3)\]$ \[$(tput sgr0)\]'
 }
 
 setup_servers
