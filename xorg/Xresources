@@ -20,5 +20,5 @@ urxvt*scrollTtyKeypress: true
 urxvt*foreground:        white
 urxvt*background:        black
 urxvt*termName:          urxvt
-! urxvt*color12:           #FF5500
+urxvt*color12:           #FF5500
 

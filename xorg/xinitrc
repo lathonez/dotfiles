@@ -38,4 +38,6 @@ pidgin &
 
 /usr/lib/notify-osd/notify-osd &
 
+redshift-gtk &
+
 exec xmonad
