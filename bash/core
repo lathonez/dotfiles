@@ -77,8 +77,6 @@ setup_aliases ()
 	alias ssh='ssh -X'
 	alias vi='vim -X'
 	alias subl='subl3'
-	alias dockkill="docker ps -a | grep -v CONTAINER | awk '{print \$1}' | xargs docker kill"
-	alias dockrm="docker ps -a | grep -v CONTAINER | awk '{print \$1}' | xargs docker rm"
 }
 
 bash_prompt_command () {
