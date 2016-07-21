@@ -25,6 +25,9 @@ if [ -x /usr/bin/nm-applet ] ; then
    nm-applet --sm-disable &
 fi
 
+# enable horizontal scroll on the touchpad
+xinput set-prop 11 281 1 1 1
+
 # lock the screen after 10 minutes
 xautolock -time 10 -locker slock &
 
