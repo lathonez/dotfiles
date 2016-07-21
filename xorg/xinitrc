@@ -37,6 +37,9 @@ xsetroot -cursor_name left_ptr &
 # set keyboard map
 setxkbmap gb &
 
+# GTK theming
+export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
+
 pidgin &
 
 /usr/lib/notify-osd/notify-osd &
