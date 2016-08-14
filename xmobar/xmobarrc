@@ -1,62 +1,62 @@
 -- xmobar configuration file
 
 Config {
-  	font = "xft:Source Code Pro:size=8:antialias=true"
-  	, additionalFonts = ["xft:FontAwesome-8"]
-	, iconRoot = "dotfiles/xmobar/icons"
-	, position = TopW L 98
-	, border = NoBorder
-	, lowerOnStart = True
+      font = "xft:Source Code Pro:size=8:antialias=true"
+      , additionalFonts = ["xft:FontAwesome-8"]
+    , iconRoot = "dotfiles/xmobar/icons"
+    , position = TopW L 98
+    , border = NoBorder
+    , lowerOnStart = True
 
     -- list of commands which gather information about your system for
     -- presentation in the bar.
     commands = [
         -- Gather and format CPU usage information.
         -- If it's above 50%, we consider it high usage and make it red.
-		Run MultiCpu[
-			"-a", "l"
-			, "-w", "2"
-			, "-t", "<fn=1></fn><total>%"
-			, "-L", "10"
-			, "-H", "75"
-			, "-n", "yellow"
-			, "-h", "red"
-		] 10
+        Run MultiCpu[
+            "-a", "l"
+            , "-w", "2"
+            , "-t", "<fn=1></fn><total>%"
+            , "-L", "10"
+            , "-H", "75"
+            , "-n", "yellow"
+            , "-h", "red"
+        ] 10
 
         -- Date formatting
         , Run Date "%a %b %_d %l:%M:%S %P" "date" 10
 
-		, Run Battery [
-			"-t", "<acstatus>", "--"
-			, "-i", "<fn=1></fn>"
-			, "-O", "<fn=1></fn><left>"                      
-			, "-o", "<fn=1></fn><left>%~<timeleft>" 
-		] 10
+        , Run BatteryP ["BAT0"] [
+            "-t", "<acstatus>", "--"
+            , "-i", "<fn=1></fn>"
+            , "-O", "<fn=1></fn><left>%"
+            , "-o", "<fn=1></fn><left>%~<timeleft>"
+        ] 10
 
-		, Run DynNetwork [
-			"--template" , "<fn=1></fn><rx>kB/s"
-			, "-w"      , "4"
-			, "--Low"      , "100000"       -- units: kB/s
-			, "--High"     , "1000000"       -- units: kB/s
-			, "--normal"      , "yellow"
-			, "--high"     , "red"
-		] 10
+        , Run DynNetwork [
+            "--template" , "<fn=1></fn><rx>kB/s"
+            , "-w"      , "4"
+            , "--Low"      , "100000"       -- units: kB/s
+            , "--High"     , "1000000"       -- units: kB/s
+            , "--normal"      , "yellow"
+            , "--high"     , "red"
+        ] 10
 
-		, Run Wireless "wlp3s0" [
-			"-a", "l"
-			, "-t", "<essid> <quality><fn=1></fn>"
-			, "-L", "50"
-			, "-H", "75"
-			, "-l", "red"
-			, "-n", "yellow"
-		] 10
+        , Run Wireless "wlp3s0" [
+            "-a", "l"
+            , "-t", "<essid> <quality><fn=1></fn>"
+            , "-L", "50"
+            , "-H", "75"
+            , "-l", "red"
+            , "-n", "yellow"
+        ] 10
 
         -- Gather and format memory usage information
         -- xmobar memory plugin has a bug in 0.19 where
-		, Run Com "/home/lathonez/code/dotfiles/xmobar/scripts/get_mem.sh" [] "mymem" 10
+        , Run Com "/home/lathonez/code/dotfiles/xmobar/scripts/get_mem.sh" [] "mymem" 10
 
         -- The core temp plugin doesn't work for some reason
-		, Run Com "/home/lathonez/code/dotfiles/xmobar/scripts/get_temp.sh" [] "mytemp" 10
+        , Run Com "/home/lathonez/code/dotfiles/xmobar/scripts/get_temp.sh" [] "mytemp" 10
 
         -- To get volume information, we run a custom bash script.
         -- This is because the built-in volume support in xmobar is disabled
@@ -66,9 +66,9 @@ Config {
         -- This line tells xmobar to read input from stdin. That's how we
         -- get the information that xmonad is sending it for display.
         , Run StdinReader
-	]
+    ]
 
-	, sepChar = "%"
-	, alignSep = "}{"
-	, template = "%StdinReader% }{| %multicpu% %mytemp% |<fc=#aaaaaa><icon=mem.xbm/></fc>%mymem% | %dynnetwork% | %wlp3s0wi% | %battery% | %myvolume% | %date%  "
-	}
+    , sepChar = "%"
+    , alignSep = "}{"
+    , template = "%StdinReader% }{| %multicpu% %mytemp% |<fc=#aaaaaa><icon=mem.xbm/></fc>%mymem% | %dynnetwork% | %wlp3s0wi% | %battery% | %myvolume% | %date%  "
+    }
