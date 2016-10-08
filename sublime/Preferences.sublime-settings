@@ -8,11 +8,12 @@
 		"CVS",
 		"node_modules"
 	],
-	"font_size": 8,
+	"font_size": 9,
 	"hot_exit": false,
 	"ignored_packages":
 	[
 		"Vintage"
 	],
-	"remember_open_files": false
+	"remember_open_files": false,
+	"typescript_tsdk": "/usr/local/lib/node_modules/typescript/lib"
 }
