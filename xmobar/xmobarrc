@@ -4,7 +4,7 @@ Config {
       font = "xft:Source Code Pro:size=8:antialias=true"
       , additionalFonts = ["xft:FontAwesome-8"]
     , iconRoot = "dotfiles/xmobar/icons"
-    , position = TopW L 98
+    , position = TopW L 97
     , border = NoBorder
     , lowerOnStart = True
 

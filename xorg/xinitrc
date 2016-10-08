@@ -18,7 +18,7 @@ fi
 feh --bg-scale ~/code/dotfiles/wallpaper/current &
 
 # start trayer
-trayer --edge top --align right --SetDockType true --SetPartialStrut true  --expand true --width 3 --transparent true --tint 0x000000 --alpha 0 --height 18 &
+trayer --edge top --align left --margin 1316 --SetDockType true --SetPartialStrut true --width 50 --widthtype pixel --transparent true --tint 0x000000 --alpha 0 --height 18 &
 
 # network manager applet
 if [ -x /usr/bin/nm-applet ] ; then
