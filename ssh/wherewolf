@@ -7,7 +7,7 @@ Hostname    builds.wherewolf.co.nz
 User        stephen
 
 Host        w api wherewolf-worker
-Hostname    ec2-54-179-167-101.ap-southeast-1.compute.amazonaws.com
+Hostname    ec2-52-221-242-189.ap-southeast-1.compute.amazonaws.com
 User        stephen
 
 Host davonez
