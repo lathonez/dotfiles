@@ -9,3 +9,5 @@
 	prompt = false
 [mergetool "mymeld"]
 	cmd = meld "$LOCAL" "$MERGED" "$REMOTE"
+[core]
+	editor = /usr/bin/vim
