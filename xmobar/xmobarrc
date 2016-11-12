@@ -7,7 +7,7 @@ Config {
     , position = TopW L 97
     , border = NoBorder
     , lowerOnStart = True
-
+    , allDesktops = True
     -- list of commands which gather information about your system for
     -- presentation in the bar.
     commands = [
