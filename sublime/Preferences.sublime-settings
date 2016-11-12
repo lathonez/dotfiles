@@ -8,7 +8,7 @@
 		"CVS",
 		"node_modules"
 	],
-	"font_size": 9,
+	"font_size": 8,
 	"hot_exit": false,
 	"ignored_packages":
 	[
