@@ -11,7 +11,6 @@ fi
 
 if [ -f "$userresources" ]; then
     xrdb -merge "$userresources"
-
 fi
 
 # set (and redraw) background image with Feh
@@ -19,11 +18,6 @@ feh --bg-scale ~/code/dotfiles/wallpaper/current &
 
 # start trayer
 trayer --edge top --align left --margin 1316 --SetDockType true --SetPartialStrut true --width 50 --widthtype pixel --transparent true --tint 0x000000 --alpha 0 --height 18 &
-
-# network manager applet
-if [ -x /usr/bin/nm-applet ] ; then
-   nm-applet --sm-disable &
-fi
 
 # enable horizontal scroll on the touchpad
 xinput set-prop 11 281 1 1 1
@@ -39,8 +33,6 @@ setxkbmap gb &
 
 # GTK theming
 export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
-
-pidgin &
 
 /usr/lib/notify-osd/notify-osd &
 
