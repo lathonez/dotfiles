@@ -4,7 +4,7 @@
 
 setup_servers ()
 {
-	if [ ${HOSTNAME} == "x220" ]; then
+	if [ ${HOSTNAME} == "x220" ] || [ ${HOSTNAME} == "xps" ]; then
 		SERVER="home"
 		ALIAS="x220"
 	elif [ ${HOSTNAME} == "Stephens-Air" ] || [ ${HOSTNAME} == "Stephens-Air.lan" ] || [ ${HOSTNAME} == "Stephens-MacBook-Air.local" ]  ; then
@@ -26,8 +26,6 @@ setup_system ()
 	export HISTCONTROL=ignoredups
 	# ... and ignore same sucessive entries.
 	export HISTCONTROL=ignoreboth
-
-	export DISPLAY=:0.0
 
 	# check the window size after each command and, if necessary,
 	# update the values of LINES and COLUMNS.
@@ -61,6 +59,15 @@ setup_system ()
 	if [ -f /etc/bash_completion ]; then
 	. /etc/bash_completion
 	fi
+
+	# globally install npm packages without root
+	NPM_PACKAGES="${HOME}/.npm-packages"
+
+	PATH="$NPM_PACKAGES/bin:$PATH"
+
+	# Unset manpath so we can inherit from /etc/manpath via the `manpath` command
+	unset MANPATH # delete if you already modified MANPATH elsewhere in your config
+	export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
 }
 
 setup_aliases ()
@@ -76,7 +83,6 @@ setup_aliases ()
 	alias sd='shutdown -P 0'
 	alias ssh='ssh -X'
 	alias vi='vim -X'
-	alias subl='subl3'
 }
 
 bash_prompt_command () {
@@ -107,7 +113,7 @@ setup_variables ()
 	arch=`uname -m | sed -e 's/i.86/ix86/' -e 's/sun4./sun4/'`
 	export PROMPT_COMMAND=bash_prompt_command
 
-	export PS1='\[$(tput bold)\]\[$(tput setaf 20)\]\h\[$(tput setaf 7)\]:\[$(tput setaf 5)\]\w\[$(tput setaf 22)\]`parse_git_branch`\[$(tput setaf 3)\]$ \[$(tput sgr0)\]'
+	export PS1='\[$(tput bold)\]\[$(tput setaf 19)\]\h\[$(tput setaf 7)\]:\[$(tput setaf 5)\]\w\[$(tput setaf 22)\]`parse_git_branch`\[$(tput setaf 3)\]$ \[$(tput sgr0)\]'
 }
 
 setup_servers
