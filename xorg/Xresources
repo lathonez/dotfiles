@@ -11,7 +11,7 @@ URxvt.matcher.button:    1
 URxvt.matcher.rend.0:    Uline Bold fg5
 
 urxvt*saveLines:         10000
-urxvt*font:              xft:DejaVu Sans Mono:pixelsize=12
+urxvt*font:              xft:DejaVu Sans Mono:pixelsize=10
 urxvt*scrollstyle:       plain
 urxvt*scrollBar_right:   false
 urxvt*scrollBar_left:    false

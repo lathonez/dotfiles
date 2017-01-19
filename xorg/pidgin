@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# to be placed in /etc/NetworkManager/dispatcher.d to start pidgin when we have dhcp
+
+IF=$1
+STATUS=$2
+
+if [ $IF != "wlp58s0" ]; then
+    # no one cares
+    exit
+fi
+
+case "$2" in
+    up)
+        logger -s "Starting pidgin as wifi is up"
+        export DISPLAY=:0.0
+        su lathonez -c /usr/bin/pidgin
+    ;;
+    *)
+    ;;
+esac
