@@ -10,7 +10,7 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 !+c::WinClose A
 
 ; run the shell
-^+Enter::Run PowerShell
+^+Enter::Run "C:\users\lathonez\cmder\Cmder.exe"
 
 ; start screenshotter
 !y::Run, "C:\Windows\system32\SnippingTool.exe"

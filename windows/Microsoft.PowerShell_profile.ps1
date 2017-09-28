@@ -12,13 +12,22 @@ function Sublime([string]$arg1) {
 }
 
 function Meld([string]$arg1, [string]$arg2) {
-	C:\Program` Files` `(x86`)\Meld\Meld.exe $arg1 $arg2
+	git difftool --dir-diff
 }
 
-Import-Module posh-git
+function Branch([string]$arg1) {
+	C:\Users\lathonez\code\wherewolf\helperscripts\branch.ps1 $arg1
+}
+
+function Esp() {
+	$allArgs = $PsBoundParameters.Values + $args
+	node C:\Users\lathonez\code\wherewolf\Espresso\bin\espresso.js $allArgs
+}
 
 Set-Location ~/code
 Set-Alias dc Docker-Connect
 Set-Alias dr Docker-Run
 Set-Alias subl Sublime
-Set-Alias dave Meld
+Set-Alias espresso Esp
+
+Import-Module Posh-Git
