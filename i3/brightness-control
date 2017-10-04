@@ -1,0 +1,28 @@
+#!/bin/bash
+# brightness_control.sh
+
+bright=$(xrandr --verbose | grep rightness | awk '{ print $2 }')
+DISP_NAME=$(xrandr | grep " connected primary" | awk '{print $1}')
+INCR=0.05
+
+case $1 in
+	+)bright=$(echo "scale=2; $bright + $INCR" | bc);;
+	-)bright=$(echo "scale=2; $bright - $INCR" | bc);;
+	*)echo "usage $0 +/-" && exit ;;
+esac
+
+too_high=`echo "$bright > 1" | bc -l`
+too_low=`echo "$bright < 0.4" | bc -l`
+
+if [ $too_high -eq 1 ]; then
+	bright=1
+fi
+
+if [ $too_low -eq 1 ]; then
+	bright=0.4
+fi
+
+xrandr --output "$DISP_NAME" --brightness "$bright"   # See xrandr manpage.
+
+echo "Current brightness = $bright"
+exit

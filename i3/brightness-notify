@@ -1,0 +1,11 @@
+#!/bin/bash
+
+PCT=$(xrandr --verbose | grep rightness | awk '{ print $2 }' | sed 's/0.//g')
+
+if [ $PCT = "1.0" ]; then
+	PCT=100
+fi
+
+# Send the notification with the icon:
+notify-send `echo Brightness: ${PCT}% ` \
+        -t 100 -i ~/code/dotfiles/i3/icons/brightness-icon.png -h string:x-canonical-private-synchronous:brightness

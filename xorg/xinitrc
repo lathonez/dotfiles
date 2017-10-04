@@ -16,26 +16,8 @@ fi
 # set (and redraw) background image with Feh
 feh --bg-scale ~/code/dotfiles/wallpaper/current &
 
-# start trayer
-trayer --edge top --align left --margin 1316 --SetDockType true --SetPartialStrut true --width 50 --widthtype pixel --transparent true --tint 0x000000 --alpha 0 --height 18 &
-
-# enable horizontal scroll on the touchpad
-xinput set-prop 11 281 1 1 1
-
 # lock the screen after 10 minutes
-xautolock -time 10 -locker slock &
-
-# set default cursor to left arrow head
-xsetroot -cursor_name left_ptr &
+xautolock -time 10 -locker i3lock &
 
 # set keyboard map
 setxkbmap gb &
-
-# GTK theming
-export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
-
-/usr/lib/notify-osd/notify-osd &
-
-redshift-gtk &
-
-exec xmonad

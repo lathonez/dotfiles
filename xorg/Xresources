@@ -19,6 +19,16 @@ urxvt*scrollBar:         false
 urxvt*scrollTtyKeypress: true
 urxvt*foreground:        white
 urxvt*background:        black
-urxvt*termName:          urxvt
+urxvt*termName:          xterm-256color
 urxvt*color12:           #FF5500
 
+URxvt.keysym.Home: \033[1~
+URxvt.keysym.End: \033[4~
+
+Xft.autohint: 0
+Xft.antialias: 1
+Xft.hinting: true
+Xft.hintstyle: hintslight
+Xft.dpi: 96
+Xft.rgba: rgb
+Xft.lcdfilter: lcddefault

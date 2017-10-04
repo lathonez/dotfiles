@@ -1,0 +1,46 @@
+// vim:ts=4:sw=4:et
+{
+    "border": "pixel",
+    "current_border_width": 1,
+    "floating": "auto_off",
+    "geometry": {
+       "height": 538,
+       "width": 1855,
+       "x": 0,
+       "y": 0
+    },
+    "name": "TEAM",
+    "percent": 0.84,
+    "swallows": [
+       {
+          "class": "^Pidgin$",
+          "instance": "^Pidgin$",
+          "window_role": "^conversation$"
+       }
+    ],
+    "type": "con"
+}
+
+{
+    "border": "pixel",
+    "current_border_width": 1,
+    "floating": "auto_off",
+    "geometry": {
+       "height": 1056,
+       "width": 1855,
+       "x": 65,
+       "y": 24
+    },
+    "name": "Buddy List",
+    "percent": 0.16,
+    "swallows": [
+       {
+          "class": "^Pidgin$",
+          "instance": "^Pidgin$",
+          "title": "^Buddy\\ List$",
+          "window_role": "^buddy_list$"
+       }
+    ],
+    "type": "con"
+}
+
