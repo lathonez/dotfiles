@@ -201,17 +201,26 @@ bindsym $mod+y exec "sleep 0.2; scrot -s '/home/lathonez/screens/screenshot-%Y%m
 #
 
 # set wallpaper
-exec feh --bg-scale ~/code/dotfiles/wallpaper/current &
+exec feh --bg-scale ~/code/dotfiles/wallpaper/current
 
 # lock the screen after 10 minutes
-exec xautolock -time 10 -locker i3lock &
+exec xautolock -time 10 -locker i3lock
 
 # start network manager applet, network-manager is started in restart-nm.sh
 exec ~/code/dotfiles/scripts/restart-nm.sh
-exec nm-applet
+# nm-applet keeps dying
+exec immortal nm-applet
+
+# flux
+exec fluxgui
+
+#
+# Workspaces
+#
 
 # assign classes to workspaces
 assign [class="jetbrains-webstorm"] → 3 code
+assign [class="Sublime_text"] → 6 misc
 assign [class="Meld"] → 7 meld
 assign [class="Pidgin"] → 8 chat
 

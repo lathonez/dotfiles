@@ -14,7 +14,7 @@ general {
 
 order += "apt_updates"
 order += "sysdata"
-order += "diskdata"
+# order += "diskdata"
 order += "online_status"
 order += "netdata"
 order += "battery_level"
@@ -49,7 +49,7 @@ diskdata {
 
 netdata {
 	nic = "wlp58s0"
-	format = "{down}k  {up}k                                                                                                                                                                     "
+	format = "{down}k  {up}k                                                                                                                                                                                  "
 }
 
 online_status {
@@ -59,6 +59,7 @@ online_status {
 }
 
 sysdata {
+	cache_timeout = 1
 	format = "[\?color=cpu  {cpu_usage}%] [\?color=mem  {mem_used}gb]"
 }
 
