@@ -13,3 +13,24 @@ User        stephen
 Host davonez
 Hostname 176.58.107.25
 User shazleto
+
+Host backend
+Hostname localhost
+Port 2023
+User wherewolf
+UserKnownHostsFile /dev/null
+StrictHostKeyChecking no
+
+Host espresso
+Hostname localhost
+Port 2024
+User wherewolf
+UserKnownHostsFile /dev/null
+StrictHostKeyChecking no
+
+Host frontend
+Hostname localhost
+Port 2025
+User wherewolf
+UserKnownHostsFile /dev/null
+StrictHostKeyChecking no
