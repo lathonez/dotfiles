@@ -9,10 +9,10 @@
 		"Pretty JSON",
 		"SideBarEnhancements",
 		"SublimeLinter",
-		"SublimeLinter-contrib-tslint",
 		"SublimeLinter-jscs",
 		"SublimeLinter-jshint",
 		"SublimeLinter-pylint",
+		"SublimeLinter-tslint",
 		"TrailingSpaces",
 		"TypeScript"
 	]

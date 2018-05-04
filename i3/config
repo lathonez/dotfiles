@@ -30,7 +30,7 @@ font pango:monospace 8
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec urxvt
+bindsym $mod+t exec urxvt
 
 # no title bars
 new_window 1pixel
@@ -46,7 +46,7 @@ bindsym $mod+d exec dmenu_run
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-bindsym $mod+j focus left
+bindsym $mod+g focus left
 bindsym $mod+k focus down
 bindsym $mod+l focus up
 bindsym $mod+semicolon focus right
@@ -58,7 +58,7 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
+bindsym $mod+Shift+g move left
 bindsym $mod+Shift+k move down
 bindsym $mod+Shift+l move up
 bindsym $mod+Shift+semicolon move right
@@ -103,7 +103,7 @@ bindsym $mod+5 workspace 5 term
 bindsym $mod+6 workspace 6 misc
 bindsym $mod+7 workspace 7 meld
 bindsym $mod+8 workspace 8 chat
-bindsym $mod+9 workspace 9
+bindsym $mod+9 workspace 9 vnc
 bindsym $mod+0 workspace 10
 
 # move focused container to workspace
@@ -115,7 +115,7 @@ bindsym $mod+Shift+5 move container to workspace 5 term
 bindsym $mod+Shift+6 move container to workspace 6 misc
 bindsym $mod+Shift+7 move container to workspace 7 meld
 bindsym $mod+Shift+8 move container to workspace 8 chat
-bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+9 move container to workspace 9 vnc
 bindsym $mod+Shift+0 move container to workspace 10
 
 # reload the configuration file
@@ -223,6 +223,7 @@ assign [class="jetbrains-webstorm"] → 3 code
 assign [class="Sublime_text"] → 6 misc
 assign [class="Meld"] → 7 meld
 assign [class="Pidgin"] → 8 chat
+assign [class="realvnc-vncviewer"] → 9 vnc
 
 # need to source xresources here to run urxvt
 exec xrdb ~/.Xresources

@@ -31,11 +31,12 @@ battery_level {
 	color_bad = "#FF0000"
 	color_charging = "#FCE94F"
 	color_degraded = "#FFA500"
-	hide_seconds = "true"
-	hide_when_full = "true"
+	hide_seconds = true
 	format = "{icon}{percent}% {time_remaining}"
-	notification_low_level = "true"
+	notification_low_level = true
+	measurement_mode = "acpi"
 	threshold_degraded = 20
+	cache_timeout 1
 }
 
 clock {
@@ -48,11 +49,13 @@ diskdata {
 }
 
 netdata {
+	cache_timeout = 1
 	nic = "wlp58s0"
 	format = "{down}k  {up}k                                                                                                                                                                                  "
 }
 
 online_status {
+	cache_timeout = 1
 	color_on = "#FFFFFF"
 	icon_on = ""
 	icon_off = ""
@@ -60,6 +63,7 @@ online_status {
 
 sysdata {
 	cache_timeout = 1
+	thresholds= "[(0, “good”), (75, “degraded”), (85, “bad”)]"
 	format = "[\?color=cpu  {cpu_usage}%] [\?color=mem  {mem_used}gb]"
 }
 
