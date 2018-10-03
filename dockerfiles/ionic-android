@@ -45,6 +45,7 @@ RUN wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip &&
 
 # Install SDK
 RUN yes | ${ANDROID_HOME}/tools/bin/sdkmanager "platforms;android-26" && \
+    yes | ${ANDROID_HOME}/tools/bin/sdkmanager "build-tools;26.0.3" && \
     yes | ${ANDROID_HOME}/tools/bin/sdkmanager --update
 
 # Install Gradle
