@@ -1,6 +1,3 @@
-# TODO
-# - backup config
-
 docker run -d \
     --name homeassistant \
     --privileged \
@@ -19,8 +16,7 @@ docker run \
     -e PLEX_CLAIM="claim-xh1tyAfknWvgz8hc9f2J" \
     -v /home/lathonez/plex/config:/config \
     -v /tmp:/transcode \
-    -v /media/lathonez/TV/TV:/data/TV \
-    -v /media/lathonez/Films/Films:/data/Films \
+    -v /media/lathonez:/data \
     --restart unless-stopped \
     plexinc/pms-docker
 
@@ -33,11 +29,9 @@ docker run -d \
     -e NZBGET_PASS=PassiveFoxWater `#optional` \
     -p 6789:6789 \
     -v /home/lathonez/nzbget/config:/config \
-    -v /media/lathonez/TV/nzb:/downloads \
+    -v /media/lathonez:/data \
     --restart unless-stopped \
     lscr.io/linuxserver/nzbget:latest
-
-
 
 docker run -d \
     --name=sonarr \
@@ -46,8 +40,7 @@ docker run -d \
     -e TZ=Europe/London \
     -p 8989:8989 \
     -v /home/lathonez/sonarr/config:/config \
-    -v /media/lathonez/TV/TV:/tv `#optional` \
-    -v /media/lathonez/TV/nzb:/downloads `#optional` \
+    -v /media/lathonez:/data `#optional` \
     --restart unless-stopped \
     lscr.io/linuxserver/sonarr:latest
 
@@ -58,8 +51,7 @@ docker run -d \
     -e TZ=Europe/LondonC \
     -p 7878:7878 \
     -v /home/lathonez/radarr/config:/config \
-    -v /media/lathonez/Films/Films:/movies `#optional` \
-    -v /media/lathonez/TV/nzb:/downloads `#optional` \
+    -v /media/lathonez:/data `#optional` \
     --restart unless-stopped \
     lscr.io/linuxserver/radarr:latest
 
@@ -74,6 +66,7 @@ docker run -d \
     -p 6881:6881/udp \
     -p 58846:58846 `#optional` \
     -v /home/lathonez/deluge/config:/config \
-    -v /media/lathonez/TV/deluge:/downloads \
+    -v /media/lathonez:/data \
     --restart unless-stopped \
     lscr.io/linuxserver/deluge:latest
+
