@@ -1,3 +1,8 @@
+# Steps to update (e.g.)
+# sudo docker rm -f sonarr
+# sudo docker rmi lscr.io/linuxserver/sonarr:latest
+# run the command below again
+
 docker run -d \
     --name homeassistant \
     --privileged \
