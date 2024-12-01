@@ -75,3 +75,18 @@ docker run -d \
     --restart unless-stopped \
     lscr.io/linuxserver/deluge:latest
 
+docker run -d \
+    --name=motioneye \
+    -e TZ=Etc/UTC \
+    -e TZ=Europe/London \
+    -p 8765:8765 \
+    -p 8081:8081 \
+    -p 8082:8082 \
+    -p 8083:8083 \
+    -p 8084:8084 \
+    --hostname=motioneye \
+    --restart unless-stopped \
+    -v /home/lathonez/motioneye:/etc/motioneye \
+    -v /home/lathonez/motioneye-recordings:/var/lib/motioneye \
+    --detach=true \
+    ccrisan/motioneye:master-amd64
