@@ -10,6 +10,7 @@ docker run -d \
     -v /home/lathonez/HomeAssistant/config:/config  \
     -v /run/dbus:/run/dbus:ro \
     --network=host \
+    --device /dev/ttyUSB0:/dev/ttyUSB0 \
     --restart=unless-stopped \
     ghcr.io/home-assistant/home-assistant:stable
 
