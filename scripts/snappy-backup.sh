@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # intended to run as root..
-SNAPPY_BACKUP_PASSWORD=SETME
+SNAPPY_BACKUP_PASSWORD=INf7VIgnrEfWP1x
 
 # Configuration
 DATE=$(date +"%Y%m%d") # Format the date as YYYYMMDD
@@ -12,7 +12,7 @@ GIT_REPO_DIR="/home/lathonez/dotfiles"
 ARCHIVE_PATH="$DEST_DIR/$ARCHIVE_NAME"
 
 # Directories to be included in the backup
-DIRECTORIES=("HomeAssistant" "nzbget" "sonarr" "radarr" "deluge")
+DIRECTORIES=("HomeAssistant" "nzbget" "sonarr" "radarr" "deluge" "omada")
 
 # Create password-protected tar: password stored in Snappy HP Chromebook 14 Laptop secure noter
 tar --verbose -czf - -C "$PARENT_DIR" "${DIRECTORIES[@]}" | openssl enc -aes-256-cbc -e -pbkdf2 -out "$ARCHIVE_NAME" -k "$SNAPPY_BACKUP_PASSWORD"

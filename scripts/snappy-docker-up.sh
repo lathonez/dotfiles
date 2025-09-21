@@ -91,3 +91,14 @@ docker run -d \
     -v /home/lathonez/motioneye-recordings:/var/lib/motioneye \
     --detach=true \
     ccrisan/motioneye:master-amd64
+
+docker run -d \
+    --name omada-controller \
+    --stop-timeout 60 \
+    --restart unless-stopped \
+    --ulimit nofile=4096:8192 \
+    --net host \
+    -e TZ=Etc/UTC \
+    -v /home/lathonez/omada/data:/opt/tplink/EAPController/data \
+    -v /home/lathonez/omada/logs:/opt/tplink/EAPController/logs \
+    mbentley/omada-controller:5.15
